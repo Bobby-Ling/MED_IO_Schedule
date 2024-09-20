@@ -22,6 +22,12 @@ class HeadInfo(Structure):
         ("status", c_int)
     ]
 
+    def __init__(self, wrap: int = 0, lpos: int = 0, status: int = 0):
+        super().__init__()
+        self.wrap = wrap
+        self.lpos = lpos
+        self.status = status
+
 class IOUint(Structure):
     _fields_ = [
         ("id", c_uint32),
@@ -30,11 +36,23 @@ class IOUint(Structure):
         ("endLpos", c_uint32)
     ]
 
+    def __init__(self, id: int = 0, wrap: int = 0, startLpos: int = 0, endLpos: int = 0):
+        super().__init__()
+        self.id = id
+        self.wrap = wrap
+        self.startLpos = startLpos
+        self.endLpos = endLpos
+
 class IOVector(Structure):
     _fields_ = [
         ("len", c_uint32),
         ("ioArray", POINTER(IOUint))
     ]
+
+    def __init__(self, len: int = 0, ioArray: POINTER(IOUint) = None):
+        super().__init__()
+        self.len = len
+        self.ioArray = ioArray
 
 class InputParam(Structure):
     _fields_ = [
@@ -42,22 +60,45 @@ class InputParam(Structure):
         ("ioVec", IOVector)
     ]
 
+    def __init__(self, headInfo: HeadInfo = None, ioVec: IOVector = None):
+        super().__init__()
+        self.headInfo = headInfo or HeadInfo()
+        self.ioVec = ioVec or IOVector()
+
 class OutputParam(Structure):
     _fields_ = [
         ("len", c_uint32),
         ("sequence", POINTER(c_uint32))
     ]
 
+    def __init__(self, len: int = 0, sequence: POINTER(c_uint32) = None):
+        super().__init__()
+        self.len = len
+        self.sequence = sequence
+
 class TapeBeltSegWearInfo(Structure):
     _fields_ = [
         ("segWear", c_uint16 * MAX_LPOS)
     ]
+
+    def __init__(self, segWear=None):
+        super().__init__()
+        if segWear is not None:
+            self.segWear = segWear
+        else:
+            self.segWear = (c_uint16 * MAX_LPOS)()
 
 class AccessTime(Structure):
     _fields_ = [
         ("addressDuration", c_uint32),
         ("readDuration", c_uint32)
     ]
+
+    def __init__(self, addressDuration: int = 0, readDuration: int = 0):
+        super().__init__()
+        self.addressDuration = addressDuration
+        self.readDuration = readDuration
+
 
 # 定义C函数的参数和返回类型
 
