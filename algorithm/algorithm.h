@@ -8,6 +8,7 @@
 extern "C" {
 #endif
 
+double calculateCost(const HeadInfo *current, const HeadInfo *end);
 int32_t AlgorithmRun(const InputParam *input, OutputParam *output);
 
 #ifdef __cplusplus
