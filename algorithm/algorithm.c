@@ -3,7 +3,7 @@
 #include <limits.h>
 #include "algorithm.h"
 
-#define MAX_IO_REQUESTS 10000
+#define MAX_IO_REQUESTS MAX_IO_NUM
 #define WEIGHT_SEEK 1         //寻道时间
 #define WEIGHT_ABRASION 0     //带体磨损
 #define WEIGHT_MOTOR 0        //电机磨损
@@ -19,11 +19,10 @@ typedef struct {
  * @param  io                 io列表
  * @return double             返回加权后的代价
  */
-static double calculateCost(const HeadInfo *current, const IOUint *io) {
-    HeadInfo end = {io->wrap, io->endLpos, HEAD_RW};
-    double seekTime = SeekTimeCalculate(current, &end);
-    double beltWear = BeltWearTimes(current, &end, NULL);
-    double motorWear = MotorWearTimes(current, &end);
+static double calculateCost(const HeadInfo *current, const HeadInfo *end) {
+    double seekTime = SeekTimeCalculate(current, end);
+    double beltWear = BeltWearTimes(current, end, NULL);
+    double motorWear = MotorWearTimes(current, end);
 
     return WEIGHT_SEEK * seekTime + WEIGHT_ABRASION * beltWear + WEIGHT_MOTOR * motorWear;
 }
@@ -69,13 +68,15 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output)
     }
     output->len=input->ioVec.len;
 
-    for(u_int32_t i=0;i<output->len;i++){
+    for(uint32_t i=0;i<output->len;i++){
         double minCost=__DBL_MAX__;
         int32_t nextIndex=-1;
         // Find the next request with minimum cost
         for (uint32_t j = 0; j < input->ioVec.len; j++) {
             if (!requests[j].visited) {
-                double cost = calculateCost(&currentHead, &input->ioVec.ioArray[j]);
+                IOUint *end_io = &input->ioVec.ioArray[j];
+                HeadInfo end = {end_io->wrap, end_io->endLpos, HEAD_RW};
+                double cost = calculateCost(&currentHead, &end);
                 if (cost < minCost) {
                     minCost = cost;
                     nextIndex = j;
@@ -83,8 +84,8 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output)
             }
         }
         if (nextIndex == -1) {
-        // This should not happen if the input is valid
-        return RETURN_ERROR;
+            // This should not happen if the input is valid
+            return RETURN_ERROR;
         }
         // Add the selected request to the output sequence
         output->sequence[i] = requests[nextIndex].id;
