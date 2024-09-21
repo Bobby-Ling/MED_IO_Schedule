@@ -2,6 +2,7 @@
 #include "../public.h"
 #include "algorithm.h"
 #include <stdio.h>
+#include <stdlib.h>
 #include <limits.h>
 
 
@@ -50,6 +51,26 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to,const Context *ctx)
 }
 
 /**
+ * @brief
+ * @param input
+ * @param matrix_2d
+ */
+void getDistMatrix(const InputParam *input, int *matrix_2d)
+{
+    const int IO_NUM = input->ioVec.len;
+    const int MAT_SIZE = IO_NUM+2;
+    const Context ctx = {.input = input};
+
+    for (size_t i = 0; i < MAT_SIZE; i++)
+    {
+        for (size_t j = 0; j < MAT_SIZE; j++)
+        {
+            *(matrix_2d + i * MAT_SIZE + j) = getNodeDist(i, j, &ctx);
+        }
+    }
+}
+
+/**
  * @brief  算法接口
  * @param  input            输入参数
  * @param  output           输出参数
@@ -60,14 +81,27 @@ int32_t IOScheduleAlgorithmDp(const InputParam *input, OutputParam *output)
     output->len=input->ioVec.len;
 
     const Context ctx = {.input = input};
-    return TspDp(input->ioVec.len, output->sequence, getNodeDist, &ctx);
+    // return TspDp(input->ioVec.len, output->sequence, getNodeDist, &ctx);
+    const int MAT_SIZE = input->ioVec.len+2;
+    int *matrix_2d = calloc(MAT_SIZE * MAT_SIZE, sizeof(int));
+    getDistMatrix(input, (int *)matrix_2d);
+    for (size_t i = 0; i < MAT_SIZE; i++)
+    {
+        for (size_t j = 0; j < MAT_SIZE; j++)
+        {
+            printf("%6d ", *(matrix_2d + i * MAT_SIZE + j));
+        }
+        printf("\n");
+    }
+
+    return RETURN_ERROR;
 }
 
 /**
  * @brief               TSP 动态规划解法，使用状态压缩，获取路径
- * @param num_nodes     结点数目
+ * @param num_nodes     结点数目(10, 10000)
  * @param path          返回的路径列表(调用者分配)
- * @param getNodeDist   接口函数 getNodeDist(A, B), 返回 A 到 B 的距离
+ * @param getNodeDist   接口函数 getNodeDist(A, B, ctx), 返回 A 到 B 的距离
  * @return              最短距离
  */
 uint32_t TspDp(uint32_t num_nodes, uint32_t * path, uint32_t (getNodeDist)(uint32_t idx_from, uint32_t idx_to, const Context *ctx), const Context *ctx)
@@ -123,7 +157,7 @@ uint32_t TspDp(uint32_t num_nodes, uint32_t * path, uint32_t (getNodeDist)(uint3
     path[index] = 0;  // 起点
     path[0] = last_node;  // 最后一个访问的节点
 
-    for (uint32_t i = last_node; index > 0; --index) {
+    for (int i = last_node; index > 0; --index) {
         i = prev[mask][i];
         mask ^= (1 << path[index]);  // 去掉已访问的节点
         path[index - 1] = i;  // 记录路径
