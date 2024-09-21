@@ -1,13 +1,6 @@
 #include "algorithm.h"
 
 /**
- * @brief 捕获的局部变量
- */
-typedef struct {
-    const InputParam *input;
-} Context;
-
-/**
  * @brief               TSP 动态规划解法，使用状态压缩，获取路径
  * @param num_nodes     结点数目(10, 10000)
  * @param path          返回的路径列表(调用者分配)
