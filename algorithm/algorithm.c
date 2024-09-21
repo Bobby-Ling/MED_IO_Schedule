@@ -122,9 +122,21 @@ void getDistMatrix(const InputParam *input, int *matrix_2d)
  */
 int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output)
 {
-    // return IOScheduleAlgorithmGreedy(input, output);
-    // return IOScheduleAlgorithmDp(input, output);
-    return IOScheduleAlgorithmLKH(input, output);
+    // e.g. $ METHOD=2 ./project_hw -f ../dataset/case_5.txt
+    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "2");
+    switch (METHOD)
+    {
+    case 0:
+        return IOScheduleAlgorithmGreedy(input, output);
+        break;
+    case 1:
+        return IOScheduleAlgorithmDp(input, output);
+        break;
+    case 2:
+    default:
+        return IOScheduleAlgorithmLKH(input, output);
+        break;
+    }
 }
 
 /**
