@@ -1,3 +1,3 @@
 #include "algorithm.h"
 
-int32_t IOScheduleAlgorithmLKHWrapper(const InputParam *input, OutputParam *output);
+int32_t IOScheduleAlgorithmLKH(const InputParam *input, OutputParam *output);

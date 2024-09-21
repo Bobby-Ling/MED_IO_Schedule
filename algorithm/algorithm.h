@@ -18,7 +18,7 @@ typedef struct {
     const InputParam *input;
 } Context;
 
-uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to,const Context *ctx);
+uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx);
 void getDistMatrix(const InputParam *input, int *matrix_2d);
 
 
