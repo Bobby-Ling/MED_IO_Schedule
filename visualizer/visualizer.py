@@ -3,7 +3,7 @@ import os
 
 from dataset_parser import parse_case
 from generate_tracing_json import sln_json_to_profiling_json
-
+from webui import start_server
 
 script_path = os.path.abspath(__file__)
 current_working_directory = os.getcwd()
@@ -20,8 +20,8 @@ profiling_json_file = sys.argv[3]
 
 sln_json = parse_case(dataset_file, result_file)
 profiling_json = sln_json_to_profiling_json(sln_json)
-print(profiling_json)
+# print(profiling_json)
 with open(profiling_json_file, "w") as profiling_file:
     profiling_file.write(profiling_json)
 
-
+# start_server()

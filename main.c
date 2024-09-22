@@ -334,11 +334,11 @@ int main(int argc, char *argv[])
     }
     fprintf(resultFile, "]");
     fflush(resultFile);
-    sprintf(cmd, "cp %s.result result.txt", file);
+    sprintf(cmd, "cp %s.result result.txt; cp ../visualizer/tracing.html .", file);
     system(cmd);
 
     // 生成可视化json
-    sprintf(cmd, "python3 ../visualizer/visualizer.py %s result.txt profiling.json > ../visualizer/profiling.json", file);
+    sprintf(cmd, "python3 ../visualizer/visualizer.py %s result.txt ../visualizer/profiling.json", file);
     system(cmd);
 
     free(inputParam->ioVec.ioArray);
