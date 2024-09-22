@@ -2,7 +2,7 @@ import ctypes
 from ctypes import *
 
 # 加载共享库
-# ctypes.RTLD_GLOBAL 在加载 main.so 时, 可以访问之前加载的其他库中的符号
+# ctypes.RTLD_GLOBAL 在加载 libproject_hw_dl.so 时, 可以访问之前加载的其他库中的符号
 lib = ctypes.CDLL('./libseek_model.so', mode=ctypes.RTLD_GLOBAL)
 
 # 最大wrap
@@ -53,7 +53,7 @@ class IOVector(Structure):
     def __init__(self, len: int = 0, ioArray: POINTER(IOUint) = None):
         super().__init__()
         self.len = len
-        self.ioArray = ioArray
+        self.ioArray:list[IOUint] = ioArray or (IOUint * len)()
 
 class InputParam(Structure):
     _fields_ = [
@@ -63,8 +63,8 @@ class InputParam(Structure):
 
     def __init__(self, headInfo: HeadInfo = None, ioVec: IOVector = None):
         super().__init__()
-        self.headInfo = headInfo or HeadInfo()
-        self.ioVec = ioVec or IOVector()
+        self.headInfo:HeadInfo = headInfo or HeadInfo()
+        self.ioVec:IOVector = ioVec or IOVector()
 
 class OutputParam(Structure):
     _fields_ = [
@@ -72,10 +72,11 @@ class OutputParam(Structure):
         ("sequence", POINTER(c_uint32))
     ]
 
+    # 不带参数则分配空间
     def __init__(self, len: int = 0, sequence: POINTER(c_uint32) = None):
         super().__init__()
         self.len = len
-        self.sequence = sequence
+        self.sequence = sequence or (c_uint32 * len)()
 
 class TapeBeltSegWearInfo(Structure):
     _fields_ = [
@@ -202,15 +203,27 @@ def get_dist_matrix(input_param: InputParam, matrix_2d: ctypes.Array) -> None:
 # os.chir("")
 
 # 使用示例
-if __name__ == "__main__":
+def address_duration(dataset_file:str, path:list[int]):
     head_info = HeadInfo()
     io_vector = IOVector()
 
-    result = parse_file("../dataset/case_1.txt", head_info, io_vector)
-
+    result = parse_file(dataset_file, head_info, io_vector)
+    input_param = InputParam(head_info, io_vector)
     if result == 0:
-        print(f"File parsed successfully. HeadInfo: wrap={head_info.wrap}, lpos={head_info.lpos}, status={head_info.status}")
+        print(f"HeadInfo: wrap={head_info.wrap}, lpos={head_info.lpos}, status={head_info.status}")
         print(f"IOVector length: {io_vector.len}")
-        print(f"IOVector[0].id : {io_vector.ioArray[0].id}")
+        # for i in range(io_vector.len):
+            # print(f"IOVector: {io_vector.ioArray[i].id} {io_vector.ioArray[i].wrap} {io_vector.ioArray[i].startLpos} {io_vector.ioArray[i].endLpos}")
     else:
         print("Error parsing file.")
+
+    output_param = OutputParam(input_param.ioVec.len)
+    for i, id in enumerate(path):
+        output_param.sequence[i] = id
+
+    access_time = AccessTime()
+    total_access_time(input_param, output_param, access_time)
+    print(f"addressDuration: {access_time.addressDuration}")
+
+# e.g.
+# judgaddress_duratione("./dataset/case_5.txt", [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
