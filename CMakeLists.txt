@@ -32,6 +32,9 @@ include_directories(${HEADER_DIRS})
 add_executable(project_hw  ${SOURCES})
 target_link_libraries(project_hw PRIVATE ${PROJECT_SOURCE_DIR}/lib/libseek_model.so)
 
+add_library(project_hw_dl SHARED ${SOURCES})
+# target_link_libraries(project_hw PRIVATE ${PROJECT_SOURCE_DIR}/lib/libseek_model.so)
+
 # 添加编译选项和宏定义
 target_compile_options(project_hw PRIVATE -g -std=c99)
 target_compile_definitions(project_hw PRIVATE _GNU_SOURCE)
