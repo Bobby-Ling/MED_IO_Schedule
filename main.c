@@ -319,11 +319,27 @@ int main(int argc, char *argv[])
     /* 保存指标数据到文件 */
     SaveKeyMetricsToFile("./metrics.txt", &metrics);
 
-    // printf("\n\nOutput sequence: [");
-    // for (uint32_t i = 0; i < output->len; i++) {
-    //     printf("%u, ", output->sequence[i]);
-    // }
-    // printf("]\n\n\n");
+    // 保存结果列表list[int]至文件, 同时cp一份至result.txt(都在当前目录)
+    char resultFileName[256] = {0};
+    char cmd[512] = {0};
+    sprintf(resultFileName, "%s.result", file);
+    FILE *resultFile = fopen(resultFileName, "w");
+    fprintf(resultFile, "[");
+    for (size_t i = 0; i < output->len; i++)
+    {
+        fprintf(resultFile, "%d", output->sequence[i]);
+        if (i != output->len-1) {
+            fprintf(resultFile, ", ");
+        }
+    }
+    fprintf(resultFile, "]");
+    fflush(resultFile);
+    sprintf(cmd, "cp %s.result result.txt", file);
+    system(cmd);
+
+    // 生成可视化json
+    sprintf(cmd, "python3 ../visualizer/visualizer.py %s result.txt profiling.json > ../visualizer/profiling.json", file);
+    system(cmd);
 
     free(inputParam->ioVec.ioArray);
     free(inputParam);
