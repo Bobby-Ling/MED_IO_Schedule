@@ -58,7 +58,7 @@ def cal_total_distance(routine: np.ndarray):
             # 起始点-routine-结束点, 如[4, 2, 3, 0, 1, 5]
             num_points, = routine.shape
             routine = np.concatenate([[num_points], routine, [num_points+1]])
-            # 每次计算总代价会加入 起始点-中间点 和 中间点-结束点 的信息纳入
+            # 每次计算总代价会加入 起始点-中间点 的信息纳入
             return sum([distance_matrix[routine[i], routine[i + 1]] for i in range(routine.shape[0]-1)])
         case 3:
             # TSP开环+指定起始点(这是我们需要的)

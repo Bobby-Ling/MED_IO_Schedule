@@ -1,16 +1,17 @@
+# %%
 import ctypes
 from ctypes import *
-
-from igraph import Point
-from numpy import double
+import os
+from pathlib import Path
 
 # 对libseek_model.so的包装
 
 # %%
-
+# 修正相对路径
+file_dir = Path(__file__).parent
 # 加载共享库
 # ctypes.RTLD_GLOBAL 在加载 libproject_hw_dl.so 时, 可以访问之前加载的其他库中的符号
-lib = ctypes.CDLL('./libseek_model.so', mode=ctypes.RTLD_GLOBAL)
+lib = ctypes.CDLL(file_dir / 'libseek_model.so', mode=ctypes.RTLD_GLOBAL)
 
 # %%
 # 最大wrap
@@ -74,6 +75,18 @@ class InputParam(Structure):
         self.headInfo:HeadInfo = headInfo or HeadInfo()
         self.ioVec:IOVector = ioVec or IOVector()
 
+    # 从样例文件初始化
+    def from_case_file(self, case_file:str):
+        result = parse_file(case_file, self.headInfo, self.ioVec)
+        if result !=0:
+            raise "parse error"
+
+    # 打印信息
+    def print_info(self):
+        print(f"HeadInfo: wrap={self.headInfo.wrap}, lpos={self.headInfo.lpos}, status={self.headInfo.status}")
+        print(f"IOVector length: {self.ioVec.len}")
+        for i in range(self.ioVec.len):
+            print(f"IOVector: {self.ioVec.ioArray[i].id} {self.ioVec.ioArray[i].wrap} {self.ioVec.ioArray[i].startLpos} {self.ioVec.ioArray[i].endLpos}")
 class OutputParam(Structure):
     _fields_ = [
         ("len", c_uint32),
@@ -85,6 +98,14 @@ class OutputParam(Structure):
         super().__init__()
         self.len = len
         self.sequence = sequence or (c_uint32 * len)()
+
+    # 从list初始化
+    def from_list(self, path_list: list[int]):
+        if len(path_list) == self.len:
+            for i, id in enumerate(path_list):
+                self.sequence[i] = id
+        else:
+            raise f"length error: {self.len} != len({path_list})"
 
 class TapeBeltSegWearInfo(Structure):
     _fields_ = [
@@ -160,7 +181,7 @@ def total_motor_wear_times(input_param: InputParam, output_param: OutputParam) -
 
 # 对其余函数的包装
 
-lib_main = ctypes.CDLL('./libproject_hw_dl.so')
+lib_main = ctypes.CDLL(file_dir / 'libproject_hw_dl.so')
 
 # C结构体
 class Context(Structure):
@@ -175,21 +196,19 @@ class Context(Structure):
         self.input = pointer(input_param)
 
 # int parseFile(const char *filename, HeadInfo *headInfo, IOVector *ioVector);
-lib_main.parseFile.argtypes = [c_char_p, POINTER(HeadInfo), Point(IOVector)]
+lib_main.parseFile.argtypes = [c_char_p, POINTER(HeadInfo), POINTER(IOVector)]
 lib_main.parseFile.restype = c_uint32
 def parse_file(filename: str, head_info: HeadInfo, io_vector: IOVector) -> int:
     """调用 C 库中的 parseFile 函数，并传入文件名、HeadInfo 和 IOVector"""
     filename_bytes = filename.encode('utf-8')  # 将文件名转换为字节字符串
-    result = lib_main.parseFile(c_char_p(filename_bytes), byref(head_info), byref(io_vector))
-    return result
+    return lib_main.parseFile(c_char_p(filename_bytes), byref(head_info), byref(io_vector))
 
 # uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx);
 lib_main.getNodeDist.argtypes = [c_uint32, c_uint32, POINTER(Context)]
 lib_main.getNodeDist.restype = c_uint32
 def get_node_dist(idx_from: int, idx_to: int, ctx: Context) -> int:
     """调用 C 库中的 getNodeDist 函数"""
-    result = lib_main.getNodeDist(c_uint32(idx_from), c_uint32(idx_to), byref(ctx))
-    return result
+    return lib_main.getNodeDist(c_uint32(idx_from), c_uint32(idx_to), byref(ctx))
 
 # void getDistMatrix(const InputParam *input, int *matrix_2d);
 lib_main.getDistMatrix.argtypes = [POINTER(InputParam), POINTER(c_int)]
@@ -201,10 +220,9 @@ def get_dist_matrix(input_param: InputParam, matrix_2d: ctypes.Array) -> None:
 # double calculateCost(const HeadInfo *current, const HeadInfo *end);
 lib_main.calculateCost.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
 lib_main.calculateCost.restype = c_double
-def calculate_cost(current: HeadInfo, end: HeadInfo) -> double:
+def calculate_cost(current: HeadInfo, end: HeadInfo) -> float:
     """调用 C 库中的 calculateCost 函数"""
-    result = lib_main.calculateCost(byref(current), byref(end))
-    return result
+    return lib_main.calculateCost(byref(current), byref(end))
 
 # %%
 
@@ -215,17 +233,11 @@ def address_duration(dataset_file:str, path:list[int]):
 
     result = parse_file(dataset_file, head_info, io_vector)
     input_param = InputParam(head_info, io_vector)
-    if result == 0:
-        print(f"HeadInfo: wrap={head_info.wrap}, lpos={head_info.lpos}, status={head_info.status}")
-        print(f"IOVector length: {io_vector.len}")
-        # for i in range(io_vector.len):
-            # print(f"IOVector: {io_vector.ioArray[i].id} {io_vector.ioArray[i].wrap} {io_vector.ioArray[i].startLpos} {io_vector.ioArray[i].endLpos}")
-    else:
-        print("Error parsing file.")
+    input_param.from_case_file(dataset_file)
+    input_param.print_info()
 
     output_param = OutputParam(input_param.ioVec.len)
-    for i, id in enumerate(path):
-        output_param.sequence[i] = id
+    output_param.from_list(path)
 
     access_time = AccessTime()
     total_access_time(input_param, output_param, access_time)
@@ -234,6 +246,6 @@ def address_duration(dataset_file:str, path:list[int]):
 # %%
 
 # e.g.
-address_duration("../dataset/case_5.txt", [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
+address_duration(str(file_dir / "../dataset/case_5.txt"), [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
 
 # %%
