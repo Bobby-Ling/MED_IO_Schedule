@@ -79,7 +79,7 @@ class InputParam(Structure):
     def from_case_file(self, case_file:str):
         result = parse_file(case_file, self.headInfo, self.ioVec)
         if result !=0:
-            raise "parse error"
+            raise Exception("parse error")
 
     # 打印信息
     def print_info(self):
@@ -105,7 +105,7 @@ class OutputParam(Structure):
             for i, id in enumerate(path_list):
                 self.sequence[i] = id
         else:
-            raise f"length error: {self.len} != len({path_list})"
+            raise Exception(f"length error: {self.len} != len({path_list})")
 
 class TapeBeltSegWearInfo(Structure):
     _fields_ = [
