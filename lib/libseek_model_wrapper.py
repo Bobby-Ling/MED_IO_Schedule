@@ -213,9 +213,17 @@ def get_node_dist(idx_from: int, idx_to: int, ctx: Context) -> int:
 # void getDistMatrix(const InputParam *input, int *matrix_2d);
 lib_main.getDistMatrix.argtypes = [POINTER(InputParam), POINTER(c_int)]
 lib_main.getDistMatrix.restype = None  # void 函数无返回值
-def get_dist_matrix(input_param: InputParam, matrix_2d: ctypes.Array) -> None:
+def get_dist_matrix(input_param: InputParam) -> list:
     """调用 C 库中的 getDistMatrix 函数"""
-    lib_main.getDistMatrix(byref(input_param), matrix_2d)
+    rows = input_param.ioVec.len + 2
+    cols = rows
+    # 创建一个 (rows * cols) 大小的 ctypes 一维数组来存放二维矩阵
+    matrix_1d = (c_int * (rows * cols))()
+    # 调用 C 函数，传递 input_param 和 matrix_1d 数组
+    lib_main.getDistMatrix(byref(input_param), matrix_1d)
+    # 将一维数组转换为二维列表
+    matrix_2d = [[matrix_1d[i * cols + j] for j in range(cols)] for i in range(rows)]
+    return matrix_2d
 
 # double calculateCost(const HeadInfo *current, const HeadInfo *end);
 lib_main.calculateCost.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
@@ -234,18 +242,25 @@ def address_duration(dataset_file:str, path:list[int]):
     result = parse_file(dataset_file, head_info, io_vector)
     input_param = InputParam(head_info, io_vector)
     input_param.from_case_file(dataset_file)
-    input_param.print_info()
+    # input_param.print_info()
 
     output_param = OutputParam(input_param.ioVec.len)
     output_param.from_list(path)
 
     access_time = AccessTime()
     total_access_time(input_param, output_param, access_time)
-    print(f"addressDuration: {access_time.addressDuration}")
+    # print(f"addressDuration: {access_time.addressDuration}")
+
+    return access_time.addressDuration
 
 # %%
 
 # e.g.
-address_duration(str(file_dir / "../dataset/case_5.txt"), [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
+# address_duration(str(file_dir / "../dataset/case_5.txt"), [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
+
+# %%
+# input_param = InputParam()
+# input_param.from_case_file(str(file_dir / "../dataset/case_5.txt"))
+# dist_matrix = get_dist_matrix(input_param)
 
 # %%
