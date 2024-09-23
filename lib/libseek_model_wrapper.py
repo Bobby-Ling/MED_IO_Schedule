@@ -1,10 +1,18 @@
 import ctypes
 from ctypes import *
 
+from igraph import Point
+from numpy import double
+
+# 对libseek_model.so的包装
+
+# %%
+
 # 加载共享库
 # ctypes.RTLD_GLOBAL 在加载 libproject_hw_dl.so 时, 可以访问之前加载的其他库中的符号
 lib = ctypes.CDLL('./libseek_model.so', mode=ctypes.RTLD_GLOBAL)
 
+# %%
 # 最大wrap
 MAX_WRAP = 280
 # 最大LPOS
@@ -101,106 +109,104 @@ class AccessTime(Structure):
         self.addressDuration = addressDuration
         self.readDuration = readDuration
 
-
-# 定义C函数的参数和返回类型
-
+# uint32_t SeekTimeCalculate(const HeadInfo *start, const HeadInfo *target);
 lib.SeekTimeCalculate.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
 lib.SeekTimeCalculate.restype = c_uint32
-
-lib.BeltWearTimes.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo), POINTER(TapeBeltSegWearInfo)]
-lib.BeltWearTimes.restype = c_uint32
-
-lib.MotorWearTimes.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
-lib.MotorWearTimes.restype = c_uint32
-
-lib.ReadTimeCalculate.argtypes = [c_uint32]
-lib.ReadTimeCalculate.restype = c_uint32
-
-lib.TotalAccessTime.argtypes = [POINTER(InputParam), POINTER(OutputParam), POINTER(AccessTime)]
-lib.TotalAccessTime.restype = None
-
-lib.TotalTapeBeltWearTimes.argtypes = [POINTER(InputParam), POINTER(OutputParam), POINTER(TapeBeltSegWearInfo)]
-lib.TotalTapeBeltWearTimes.restype = c_uint32
-
-lib.TotalMotorWearTimes.argtypes = [POINTER(InputParam), POINTER(OutputParam)]
-lib.TotalMotorWearTimes.restype = c_uint32
-
-# 使用类型注解添加函数封装
-
-import os
-from typing import Union
-
 def seek_time_calculate(start: HeadInfo, target: HeadInfo) -> int:
     """计算寻址时间, 单位毫秒"""
     return lib.SeekTimeCalculate(byref(start), byref(target))
 
+# uint32_t BeltWearTimes(const HeadInfo *start, const HeadInfo *target, TapeBeltSegWearInfo *segWearInfo);
+lib.BeltWearTimes.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo), POINTER(TapeBeltSegWearInfo)]
+lib.BeltWearTimes.restype = c_uint32
 def belt_wear_times(start: HeadInfo, target: HeadInfo, seg_wear_info: TapeBeltSegWearInfo) -> int:
     """计算带体磨损次数"""
     return lib.BeltWearTimes(byref(start), byref(target), byref(seg_wear_info))
 
+# uint32_t MotorWearTimes(const HeadInfo *start, const HeadInfo *target);
+lib.MotorWearTimes.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
+lib.MotorWearTimes.restype = c_uint32
 def motor_wear_times(start: HeadInfo, target: HeadInfo) -> int:
     """计算电机磨损次数"""
     return lib.MotorWearTimes(byref(start), byref(target))
 
+# uint32_t ReadTimeCalculate(uint32_t lposRange);
+lib.ReadTimeCalculate.argtypes = [c_uint32]
+lib.ReadTimeCalculate.restype = c_uint32
 def read_time_calculate(lpos_range: int) -> int:
     """计算读IO数据的时间, 单位毫秒"""
     return lib.ReadTimeCalculate(lpos_range)
 
+# void TotalAccessTime(const InputParam *input, const OutputParam *output, AccessTime *accessTime);
+lib.TotalAccessTime.argtypes = [POINTER(InputParam), POINTER(OutputParam), POINTER(AccessTime)]
+lib.TotalAccessTime.restype = None
 def total_access_time(input_param: InputParam, output_param: OutputParam, access_time: AccessTime) -> None:
     """计算批量IO的总访问时间(寻址时间 + 读IO时间)"""
     lib.TotalAccessTime(byref(input_param), byref(output_param), byref(access_time))
 
+# uint32_t TotalTapeBeltWearTimes(const InputParam *input, const OutputParam *output, TapeBeltSegWearInfo *segWearInfo);
+lib.TotalTapeBeltWearTimes.argtypes = [POINTER(InputParam), POINTER(OutputParam), POINTER(TapeBeltSegWearInfo)]
+lib.TotalTapeBeltWearTimes.restype = c_uint32
 def total_tape_belt_wear_times(input_param: InputParam, output_param: OutputParam, seg_wear_info: TapeBeltSegWearInfo) -> int:
     """统计带体磨损次数"""
     return lib.TotalTapeBeltWearTimes(byref(input_param), byref(output_param), byref(seg_wear_info))
 
+# uint32_t TotalMotorWearTimes(const InputParam *input, const OutputParam *output);
+lib.TotalMotorWearTimes.argtypes = [POINTER(InputParam), POINTER(OutputParam)]
+lib.TotalMotorWearTimes.restype = c_uint32
 def total_motor_wear_times(input_param: InputParam, output_param: OutputParam) -> int:
     """统计电机磨损次数"""
     return lib.TotalMotorWearTimes(byref(input_param), byref(output_param))
 
+# 对其余函数的包装
+
 lib_main = ctypes.CDLL('./libproject_hw_dl.so')
 
-# 定义包装函数
-def parse_file(filename: str, head_info: HeadInfo, io_vector: IOVector) -> int:
-    """调用 C 库中的 parseFile 函数，并传入文件名、HeadInfo 和 IOVector"""
-    filename_bytes = filename.encode('utf-8')  # 将文件名转换为字节字符串
-    result = lib_main.parseFile(c_char_p(filename_bytes), byref(head_info), byref(io_vector))
-    return result
-
-# 定义Context结构体
+# C结构体
 class Context(Structure):
     _fields_ = [
         ("input", POINTER(InputParam))  # 定义结构体字段
     ]
 
     def __init__(self, input_param: InputParam):
-        # 调用父类的初始化方法
         super().__init__()
 
         # 将传入的 InputParam 实例的指针赋值给 input 字段
         self.input = pointer(input_param)
 
-# 设置getNodeDist函数参数类型和返回类型
+# int parseFile(const char *filename, HeadInfo *headInfo, IOVector *ioVector);
+lib_main.parseFile.argtypes = [c_char_p, POINTER(HeadInfo), Point(IOVector)]
+lib_main.parseFile.restype = c_uint32
+def parse_file(filename: str, head_info: HeadInfo, io_vector: IOVector) -> int:
+    """调用 C 库中的 parseFile 函数，并传入文件名、HeadInfo 和 IOVector"""
+    filename_bytes = filename.encode('utf-8')  # 将文件名转换为字节字符串
+    result = lib_main.parseFile(c_char_p(filename_bytes), byref(head_info), byref(io_vector))
+    return result
+
+# uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx);
 lib_main.getNodeDist.argtypes = [c_uint32, c_uint32, POINTER(Context)]
 lib_main.getNodeDist.restype = c_uint32
-
-# 包装getNodeDist函数
 def get_node_dist(idx_from: int, idx_to: int, ctx: Context) -> int:
     """调用 C 库中的 getNodeDist 函数"""
     result = lib_main.getNodeDist(c_uint32(idx_from), c_uint32(idx_to), byref(ctx))
     return result
 
-# 设置getDistMatrix函数参数类型和返回类型
+# void getDistMatrix(const InputParam *input, int *matrix_2d);
 lib_main.getDistMatrix.argtypes = [POINTER(InputParam), POINTER(c_int)]
 lib_main.getDistMatrix.restype = None  # void 函数无返回值
-
-# 包装getDistMatrix函数
 def get_dist_matrix(input_param: InputParam, matrix_2d: ctypes.Array) -> None:
     """调用 C 库中的 getDistMatrix 函数"""
     lib_main.getDistMatrix(byref(input_param), matrix_2d)
 
+# double calculateCost(const HeadInfo *current, const HeadInfo *end);
+lib_main.calculateCost.argtypes = [POINTER(HeadInfo), POINTER(HeadInfo)]
+lib_main.calculateCost.restype = c_double
+def calculate_cost(current: HeadInfo, end: HeadInfo) -> double:
+    """调用 C 库中的 calculateCost 函数"""
+    result = lib_main.calculateCost(byref(current), byref(end))
+    return result
 
-# os.chir("")
+# %%
 
 # 使用示例
 def address_duration(dataset_file:str, path:list[int]):
@@ -225,5 +231,9 @@ def address_duration(dataset_file:str, path:list[int]):
     total_access_time(input_param, output_param, access_time)
     print(f"addressDuration: {access_time.addressDuration}")
 
+# %%
+
 # e.g.
 address_duration("../dataset/case_5.txt", [72, 60, 80, 37, 36, 44, 23, 66, 64, 10, 12, 33, 35, 70, 2, 68, 14, 30, 15, 79, 56, 5, 6, 38, 40, 55, 17, 8, 52, 58, 13, 41, 59, 82, 21, 51, 69, 71, 49, 62, 26, 39, 89, 54, 20, 73, 34, 27, 32, 83, 86, 67, 63, 90, 57, 75, 53, 88, 11, 25, 85, 87, 45, 31, 1, 61, 19, 46, 9, 76, 7, 22, 3, 77, 78, 81, 43, 74, 84, 47, 50, 48, 29, 24, 16, 18, 28, 65, 4, 42])
+
+# %%
