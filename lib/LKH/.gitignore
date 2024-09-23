@@ -1,3 +1,5 @@
+*.o
+*Zone.Identifier
 /LKH.result
 /io.atsp.template
 /metrics.txt
