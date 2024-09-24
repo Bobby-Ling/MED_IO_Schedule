@@ -1,0 +1,4 @@
+matplotlib==3.6.3
+numpy==1.23.5
+scipy==1.14.1
+sko==0.5.7
