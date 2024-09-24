@@ -1,15 +1,16 @@
+# %%
+from pathlib import Path
 import sys
 import os
 
+# %%
 from dataset_parser import parse_case
 from generate_tracing_json import sln_json_to_profiling_json
 from webui import start_server
 
-script_path = os.path.abspath(__file__)
-current_working_directory = os.getcwd()
-relative_path = os.path.relpath(script_path, current_working_directory)
-relative_path_prefix = os.path.dirname(relative_path)
+file_dir = Path(__file__).parent
 
+# %%
 if len(sys.argv) != 4:
     print("usage: python visualizer.py case_1.txt result.txt profiling.json")
     exit(-1)
@@ -24,4 +25,5 @@ profiling_json = sln_json_to_profiling_json(sln_json)
 with open(profiling_json_file, "w") as profiling_file:
     profiling_file.write(profiling_json)
 
+# %%
 # start_server()
