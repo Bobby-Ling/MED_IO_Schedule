@@ -48,9 +48,9 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx)
     // START_IDX -> START_IDX     0         2.
     // START_IDX ->   END_IDX     INF       3.1
     // START_IDX ->    IO_IDX     Dist      3.2
-    //   END_IDX -> START_IDX     INF       1.
-    //   END_IDX ->   END_IDX     INF       1.
-    //   END_IDX ->    IO_IDX     INF       1.
+    //   END_IDX -> START_IDX     0         1.1
+    //   END_IDX ->   END_IDX     INF       1.2
+    //   END_IDX ->    IO_IDX     INF       1.2
     //    IO_IDX -> START_IDX     INF       4.1
     //    IO_IDX ->   END_IDX     0         4.2
     //    IO_IDX ->    IO_IDX     Dist/0    4.3/2.
@@ -58,8 +58,14 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx)
     IOUint *to_io = NULL;
 
     if (idx_from == END_IDX) {
-        // 1. END_IDX不允许出
-        return INT_MAX;
+        // 1. END_IDX
+        if (idx_to = START_IDX) {
+            // 1.1 END_IDX只允许到START_IDX
+            return 0;
+        } else {
+            // 1.2 END_IDX一般不允许出
+            return INT_MAX;
+        }
     } else if (idx_from == idx_to){
         // 2. 相等
         return 0;
