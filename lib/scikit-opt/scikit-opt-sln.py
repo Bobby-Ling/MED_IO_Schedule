@@ -16,17 +16,8 @@ import libseek_model_wrapper as lsm
 
 # %%
 num_points = 20
+np.random.seed(0)
 points_coordinate = np.random.rand(num_points, 2)  # generate coordinate of points
-
-# %%
-cache_file_name = "cached_points.txt"
-if not os.path.exists(cache_file_name):
-    with open(cache_file_name, "w") as cache_file:
-        cache_file.write(points_coordinate.tolist())
-
-# %%
-with open(cache_file_name, "r") as cache_file:
-    points_coordinate = np.array(eval(cache_file.read()))
 
 # %%
 start_point = [[0,0]]
@@ -58,14 +49,15 @@ def cal_total_distance(routine: np.ndarray):
             # 起始点-routine-结束点, 如[4, 2, 3, 0, 1, 5]
             num_points, = routine.shape
             routine = np.concatenate([[num_points], routine, [num_points+1]])
-            # 每次计算总代价会加入 起始点-中间点 的信息纳入
+            # 每次计算总代价会加入 起始点-中间点 和 中间点-结束点 的信息纳入
             return sum([distance_matrix[routine[i], routine[i + 1]] for i in range(routine.shape[0]-1)])
+
         case 3:
             # TSP开环+指定起始点(这是我们需要的)
             # 起始点-routine, 如[4, 2, 3, 0, 1]
             num_points, = routine.shape
             routine = np.concatenate([[num_points], routine])
-            # 每次计算总代价会加入 起始点-中间点 和 中间点-结束点 的信息纳入
+            # 每次计算总代价会加入 起始点-中间点 的信息纳入
             return sum([distance_matrix[routine[i], routine[i + 1]] for i in range(routine.shape[0]-1)])
 
 # %%

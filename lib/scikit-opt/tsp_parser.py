@@ -33,8 +33,8 @@ def read_tsp_file(filename: str) -> list:
 
 # %%
 if __name__ == '__main__':
-    from pathlib import Path
     import numpy as np
+    from pathlib import Path
     file_dir = Path(__file__).parent
     points_coordinate = np.array(read_tsp_file(str(file_dir / '../ALL_tsp/u159.tsp')))
 

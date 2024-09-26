@@ -76,6 +76,7 @@ def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count:int = 
 
 # %%
 if __name__ == '__main__':
-    # %%
     # 命令行运行时执行, import导入时不执行
-    generate_tape_io_sequence(filename=file_dir / './case_6.txt')
+    generate_tape_io_sequence(filename=file_dir / './case_7.txt')
+
+# %%
