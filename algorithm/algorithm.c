@@ -64,7 +64,8 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx)
             return 0;
         } else {
             // 1.2 END_IDX一般不允许出
-            return INT_MAX;
+            // return INT_MAX;
+            return 0;
         }
     } else if (idx_from == idx_to){
         // 2. 相等
@@ -73,7 +74,8 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx)
         // 3. START_IDX只允许出
         if (idx_to == END_IDX) {
             // 3.1 START_IDX不能到END_IDX
-            return INT_MAX;
+            // return INT_MAX;
+            return 0;
         } else {
             // 3.2 此时idx_to在为IO_IDX
             HeadInfo from = input->headInfo;
@@ -85,7 +87,8 @@ uint32_t getNodeDist(uint32_t idx_from, uint32_t idx_to, const Context *ctx)
         // 4. IO_IDX
         if (idx_to == START_IDX) {
             // 4.1 START_IDX不允许入
-            return INT_MAX;
+            // return INT_MAX;
+            return 0;
         } else if (idx_to == END_IDX) {
             // 4.2 任意IO点到虚拟点距离为0
             return 0;
