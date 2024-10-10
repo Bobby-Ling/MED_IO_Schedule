@@ -186,7 +186,7 @@
  * Number of groups in a TSP-D.
  * Default: 0
  *
- * GVRP_SETS : <integer> 
+ * GVRP_SETS : <integer>
  * The number of sets in the GVRP_SET_SECTION.
  * Default: 0
  *
@@ -793,6 +793,7 @@ void ReadProblem()
         }
     }
     if (SubsequentMoveType == 0) {
+        // BM k-opt move; k==5
         SubsequentMoveType = MoveType;
         SubsequentMoveTypeSpecial = MoveTypeSpecial;
     }
@@ -1031,10 +1032,10 @@ static void Read_CAPACITY()
 }
 
 static void Read_CTSP_SET_SECTION()
-{   
+{
     Node *N;
     int Id, n, *ColorUsed;
-    
+
     N = FirstNode;
     do {
         N->Color = 0;
@@ -1050,11 +1051,11 @@ static void Read_CTSP_SET_SECTION()
             if (fscanf(ProblemFile, "%d", &n) != 1)
                 eprintf("CTSP_SET_SECTION: Missing -1");
             if (n == -1)
-                break; 
+                break;
              if (n < 1 || n > DimensionSaved)
                  eprintf("CTSP_SET_SECTION: Node %d outside range", n);
              N = &NodeSet[n];
-             if (N->Color != 0 && N->Color != Id) 
+             if (N->Color != 0 && N->Color != Id)
                  eprintf("CTSP_SET_SECTION: Node %d occurs in two sets", n);
              if (N == Depot)
                  eprintf("CTSP_SET_SECTION: Depot %d occurs in set %d", n, Id);
@@ -2310,22 +2311,22 @@ static void Read_SERVICE_TIME_SECTION()
 
 /*
  The ReadTour function reads a tour from a file.
- 
+
  The format is as follows:
- 
+
  OPTIMUM = <real>
  Known optimal tour length. A run will be terminated as soon as a tour
  length less than or equal to optimum is achieved.
  Default: MINUS_INFINITY.
- 
+
  TOUR_SECTION :
  A tour is specified in this section. The tour is given by a list of integers
  giving the sequence in which the nodes are visited in the tour. The tour is
  terminated by a -1.
- 
+
  EOF
  Terminates the input data. The entry is optional.
- 
+
  Other keywords in TSPLIB format may be included in the file, but they are
  ignored.
  */

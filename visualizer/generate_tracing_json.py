@@ -1,3 +1,4 @@
+# %%
 from dataset_parser import parse_case
 import json
 
@@ -143,7 +144,21 @@ def sln_json_to_profiling_json(sln_json: str):
 
     return profiling_json
 
+# %%
+if __name__ == '__main__':
+    from pathlib import Path
+    file_dir = Path(__file__).parent
 
+    from dataset_parser import parse_case
+    from generate_tracing_json import sln_json_to_profiling_json
 
+    dataset_file = file_dir / '../dataset/case_1.txt'
+    result_file = str(dataset_file) + '.result'
+    profiling_json_file = 'profiling.json'
 
+    sln_json = parse_case(dataset_file, result_file)
+    profiling_json = sln_json_to_profiling_json(sln_json)
+    with open(profiling_json_file, "w") as profiling_file:
+        profiling_file.write(profiling_json)
 
+# %%

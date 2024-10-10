@@ -9,6 +9,7 @@ extern "C" {
 #endif
 
 double calculateCost(const HeadInfo *current, const HeadInfo *end);
+int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int METHOD);
 int32_t AlgorithmRun(const InputParam *input, OutputParam *output);
 
 /**

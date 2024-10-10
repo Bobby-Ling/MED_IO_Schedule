@@ -29,6 +29,7 @@
  *  The sequence of chosen nodes constitutes the initial tour.
  */
 
+// BM
 void ChooseInitialTour()
 {
     Node *N, *NextN, *FirstAlternative, *Last;
@@ -66,6 +67,7 @@ void ChooseInitialTour()
                 InitialTourAlgorithm == SOP_ALG ?
                 SOP_InitialTour() :
                 InitialTourAlgorithm == TSPDL_ALG ?
+                // BM
                 TSPDL_InitialTour() : GreedyTour();
             if (MaxTrials == 0) {
                 BetterCost = Cost;

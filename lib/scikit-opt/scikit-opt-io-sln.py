@@ -18,10 +18,23 @@ import libseek_model_wrapper as lsm
 
 # %%
 # 本文件用来快速验证算法效果, 可以使用libseek_model_wrapper中封装好的C函数
-dataset_file = str(file_dir / "../../dataset/case_5.txt")
+dataset_file = str(file_dir / "../../dataset/case_6.txt")
 input_param = lsm.InputParam()
 input_param.from_case_file(dataset_file)
 
+# %%
+num_points = input_param.ioVec.len
+distance_matrix = np.array(lsm.get_dist_matrix(input_param))
+mat_size = distance_matrix.shape[0]
+
+# %%
+io_mat = distance_matrix[:num_points, :num_points]
+diff_mat = io_mat - io_mat.T
+all_mat = io_mat + io_mat.T
+# rate表示io距离数据a->b与b-a的差别, 即这个矩阵有多"不对称"
+rate = np.abs(np.where((all_mat != 0) * (diff_mat !=0) , diff_mat / all_mat, 0))
+# plt.imshow(rate, cmap='viridis', aspect='auto')
+# plt.show()
 # %%
 # 执行algorithm.c的算法
 import os
@@ -32,6 +45,8 @@ def execCmd(cmd):
     r.close()
     return text
 
+from gen_init_tour import save_initial_tour
+
 os.chdir(file_dir / '../../build/')
 print('贪心算法:')
 result_greedy = execCmd(f'METHOD=0 ./project_hw -f ../dataset/{Path(dataset_file).name}')
@@ -40,6 +55,7 @@ addr_dur_regex = r'\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*'
 print(f"贪心算法 addressDuration: {re.findall(addr_dur_regex, result_greedy)} ms")
 with open(dataset_file + '.result') as result_file:
     result_greedy_path = eval(result_file.read())
+    save_initial_tour((np.array(np.concatenate([[num_points+1],result_greedy_path,[num_points+2]]))).tolist(), file_dir / '../LKH/io.init.tour')
 print('LKH算法:')
 result_LKH = execCmd(f'METHOD=2 ./project_hw -f ../dataset/{Path(dataset_file).name}')
 # print(result_LKH)
@@ -48,10 +64,10 @@ with open(dataset_file + '.result') as result_file:
     result_LKH_path = eval(result_file.read())
 os.chdir(file_dir)
 
-# %%%
-num_points = input_param.ioVec.len
-distance_matrix = np.array(lsm.get_dist_matrix(input_param))
-mat_size = distance_matrix.shape[0]
+# %%
+from read_result import read_tour_file
+LKH_path, _ = read_tour_file(file_dir / '../LKH/LKH.result')
+lsm.address_duration(dataset_file, LKH_path)
 
 # %%
 def cal_total_distance(routine: np.ndarray):

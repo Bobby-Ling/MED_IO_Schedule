@@ -3,6 +3,7 @@ import ctypes
 from ctypes import *
 import os
 from pathlib import Path
+import numpy as np
 
 # 对libseek_model.so的包装
 
@@ -106,6 +107,9 @@ class OutputParam(Structure):
                 self.sequence[i] = id
         else:
             raise Exception(f"length error: {self.len} != len({path_list})")
+
+    def to_list(self) -> list[int]:
+        return [self.sequence[i] for i in range(self.len)]
 
 class TapeBeltSegWearInfo(Structure):
     _fields_ = [
@@ -232,26 +236,191 @@ def calculate_cost(current: HeadInfo, end: HeadInfo) -> float:
     """调用 C 库中的 calculateCost 函数"""
     return lib_main.calculateCost(byref(current), byref(end))
 
+# int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int METHOD);
+lib_main.IOScheduleAlgorithm.argtypes = [POINTER(InputParam), POINTER(OutputParam), c_int]
+lib_main.IOScheduleAlgorithm.restype = c_int
+def io_schedule_algorithm(input_param: InputParam, output_param: OutputParam, method: int) -> int:
+    """调用 C 库中的 IOScheduleAlgorithm 函数"""
+    return lib_main.IOScheduleAlgorithm(byref(input_param), byref(output_param), method)
+
 # %%
+import os
+def execCmd(cmd):
+    r = os.popen(cmd)
+    text = r.read()
+    r.close()
+    return text
 
-# 使用示例
+# %%
+import numpy as np
+import matplotlib.pyplot as plt
+from typing import Optional, Union
+from enum import Enum
+import re
+from textwrap import dedent
+
+
+# IO调度问题对象
+class IO_Schedule:
+    file_dir = Path(__file__).parent
+
+    def __init__(self, dataset_file: str) -> None:
+        self.dataset_file = dataset_file
+        self.input_param = InputParam()
+        self.input_param.from_case_file(dataset_file)
+        self.io_coordinates = self.__get_io_coordinates()
+        self.dist_matrix = np.array(get_dist_matrix(self.input_param))
+        self.output_param = OutputParam(self.input_param.ioVec.len)
+        self.path: np.ndarray = None
+        pass
+
+    def __get_io_coordinates(self):
+        """获取磁头和io的坐标(lpos, wrap)
+
+        Returns:
+            _type_: ndarray(n, 2)
+        """
+        input_param = self.input_param
+        X = [input_param.ioVec.ioArray[i].startLpos for i in range(input_param.ioVec.len)]
+        Y = [input_param.ioVec.ioArray[i].wrap for i in range(input_param.ioVec.len)]
+        X = np.concatenate([[input_param.headInfo.lpos], X])
+        Y = np.concatenate([[input_param.headInfo.wrap], Y])
+
+        io_coordinates = np.concatenate([X[:, np.newaxis], Y[:, np.newaxis]], axis=1)
+        return io_coordinates
+
+    def get_io_coordinates(self):
+        """获取磁头和io的坐标(lpos, wrap)
+
+        Returns:
+            _type_: ndarray(n, 2)
+        """
+        return self.io_coordinates
+
+    def get_dist_matrix(self):
+        """获取距离矩阵
+
+        Returns:
+            _type_: ndarray(n, n)
+        """
+        return self.dist_matrix
+
+    class METHOD(Enum):
+        Greedy = 0
+        LKH = 2
+
+    def run(self, method: METHOD):
+        """运行指定算法, 并更新self.path
+
+        Args:
+            method (METHOD): 方法enum
+
+        Returns:
+            _type_: path列表
+        """
+        io_schedule_algorithm(self.input_param, self.output_param, method.value)
+        self.path = np.array(self.output_param.to_list())
+        return self.path
+
+    def execute(self, method: METHOD):
+        """命令行运行指定算法, 并更新self.path
+
+        Args:
+            method (METHOD): 方法enum
+
+        Returns:
+            _type_: path列表
+        """
+        os.chdir(file_dir / '../build/')
+        print(f'{method.name}:')
+        result_str = execCmd(f'METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}')
+        addr_dur_regex = r'\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*'
+        addr_dur = int(re.findall(addr_dur_regex, result_str))
+        print(f"{method.name} addressDuration: {addr_dur} ms")
+        with open(self.dataset_file + '.result') as result_file:
+            self.path = np.asarray(eval(result_file.read()))
+        os.chdir(file_dir)
+        return self.path, addr_dur, result_str
+
+    def run_LKH(self, matrix: Union[np.ndarray, list[list[int]]], type = 'ATSP'):
+        # %%
+        par_file_name = 'par.tmp.o'
+        prob_file_name = 'prob.tmp.o'
+        result_file_name = 'result.tmp.o'
+        matrix_str = '\n'.join([' '.join(map(str, line)) for line in matrix])
+        par_file_tmpl = dedent(f'''
+            SPECIAL
+            PROBLEM_FILE = {prob_file_name}
+            MTSP_OBJECTIVE = MINSUM
+            TRACE_LEVEL = 1
+            MAX_CANDIDATES = 6
+            MAX_TRIALS = 10000
+            RUNS = 1
+            OUTPUT_TOUR_FILE = {result_file_name}
+            INITIAL_TOUR_ALGORITHM = GREEDY
+            '''
+        )
+        prob_file_tmpl = dedent(f'''
+            NAME : Temp
+            TYPE : {type}
+            DIMENSION : {len(matrix)}
+            VEHICLES : 1
+            EDGE_WEIGHT_TYPE: EXPLICIT
+            EDGE_WEIGHT_FORMAT: FULL_MATRIX
+            EDGE_WEIGHT_SECTION
+            {matrix_str}
+            '''
+        )
+        os.chdir(file_dir / './LKH/')
+        with open(par_file_name, 'w') as par_file, open(prob_file_name, 'w') as prob_file:
+            par_file.write(par_file_tmpl)
+            prob_file.write(prob_file_tmpl)
+        result_str = execCmd(f'LKH {prob_file_name}')
+        os.chdir(file_dir)
+        # %%
+
+
+    def address_duration(self, path: Optional[Union[list[int], np.ndarray]]):
+        """使用官方库获取寻址时间
+
+        Args:
+            path (Optional[list[int]], optional): 路径列表, 1-indexed
+
+        Returns:
+            _type_: 寻址时间, 单位ms
+        """
+        path = path or self.path
+        self.output_param.from_list(path)
+
+        access_time = AccessTime()
+        total_access_time(self.input_param, self.output_param, access_time)
+        return access_time.addressDuration
+
+    def plot_path(self, path: Optional[Union[list[int], np.ndarray]]):
+        path = path or self.path
+        io_coordinates = self.io_coordinates
+        # 倒置wrap轴
+        plt.gca().invert_yaxis()
+        # 添加索引标签
+        for idx, point in enumerate(path):
+            plt.text(io_coordinates[point, 0], io_coordinates[point, 1], str(idx), fontsize=10, ha='right')
+        for i in range(len(path) - 1):
+            random_color = np.random.rand(3,)
+            color = 'red' if i == 0 else 'blue'
+            plt.annotate('',
+                        xy=io_coordinates[path[i + 1]],
+                        xytext=io_coordinates[path[i]],
+                        arrowprops=dict(arrowstyle='->', color=color))
+        plt.plot(io_coordinates[path, 0], io_coordinates[path, 1],  'o-')
+        plt.show()
+
+
+def get_io_coordinates(dataset_file: str):
+    IO_Schedule(dataset_file).get_io_coordinates()
+
 def address_duration(dataset_file:str, path:list[int]):
-    head_info = HeadInfo()
-    io_vector = IOVector()
+    return IO_Schedule(dataset_file).address_duration(path)
 
-    result = parse_file(dataset_file, head_info, io_vector)
-    input_param = InputParam(head_info, io_vector)
-    input_param.from_case_file(dataset_file)
-    # input_param.print_info()
-
-    output_param = OutputParam(input_param.ioVec.len)
-    output_param.from_list(path)
-
-    access_time = AccessTime()
-    total_access_time(input_param, output_param, access_time)
-    # print(f"addressDuration: {access_time.addressDuration}")
-
-    return access_time.addressDuration
 
 # %%
 

@@ -127,12 +127,11 @@ void getDistMatrix(const InputParam *input, int *matrix_2d)
  * @brief  算法接口
  * @param  input            输入参数
  * @param  output           输出参数
+ * @param  METHOD           算法选择
  * @return int32_t          返回成功或者失败，RETURN_OK 或 RETURN_ERROR
  */
-int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output)
+int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int METHOD)
 {
-    // e.g. $ METHOD=2 ./project_hw -f ../dataset/case_5.txt
-    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "2");
     switch (METHOD)
     {
     case 0:
@@ -158,7 +157,9 @@ int32_t AlgorithmRun(const InputParam *input, OutputParam *output)
 {
     int32_t ret;
 
-    ret = IOScheduleAlgorithm(input, output);
+    // e.g. $ METHOD=2 ./project_hw -f ../dataset/case_5.txt
+    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "2");
+    ret = IOScheduleAlgorithm(input, output, METHOD);
 
     return RETURN_OK;
 }
