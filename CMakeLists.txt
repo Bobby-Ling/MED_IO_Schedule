@@ -1,6 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(project_hw)
+project(project_hw LANGUAGES CXX C)
+
+set (CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17")  #设置c++的编译选项
+set (CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=c99")  #设置c的编译选项
 
 set(CMAKE_C_STANDARD 99)
 
@@ -17,6 +20,7 @@ set(HEADER_DIRS
 set(SOURCES
     ${PROJECT_SOURCE_DIR}/main.c
     ${ALG_DIR}/algorithm.c
+    ${ALG_DIR}/greedy.cpp
 )
 
 # 查找 ALG_DIR 目录下的所有 .c 文件并添加到 SOURCES 列表
@@ -36,5 +40,5 @@ add_library(project_hw_dl SHARED ${SOURCES})
 # target_link_libraries(project_hw PRIVATE ${PROJECT_SOURCE_DIR}/lib/libseek_model.so)
 
 # 添加编译选项和宏定义
-target_compile_options(project_hw PRIVATE -g -std=c99)
+target_compile_options(project_hw PRIVATE -g )
 target_compile_definitions(project_hw PRIVATE _GNU_SOURCE)
