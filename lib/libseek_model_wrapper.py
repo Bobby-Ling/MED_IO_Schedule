@@ -1,4 +1,5 @@
 # %%
+import time
 import ctypes
 from ctypes import *
 import os
@@ -331,19 +332,26 @@ class IO_Schedule:
         Returns:
             _type_: path列表
         """
-        os.chdir(file_dir / '../build/')
-        print(f'{method.name}:')
-        result_str = execCmd(f'METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}')
-        addr_dur_regex = r'\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*'
-        addr_dur = int(re.findall(addr_dur_regex, result_str))
+        start = time.time()
+
+        os.chdir(file_dir / "../build/")
+        print(f"{method.name}:")
+        result_str = execCmd(
+            f"METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}"
+        )
+        addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
+        addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
         print(f"{method.name} addressDuration: {addr_dur} ms")
-        with open(self.dataset_file + '.result') as result_file:
+        with open(self.dataset_file + ".result") as result_file:
             self.path = np.asarray(eval(result_file.read()))
         os.chdir(file_dir)
+
+        end = time.time()
+        print(f"run time: {end - start:.2f}s")
+
         return self.path, addr_dur, result_str
 
     def run_LKH(self, matrix: Union[np.ndarray, list[list[int]]], type = 'ATSP'):
-        # %%
         par_file_name = 'par.tmp.o'
         prob_file_name = 'prob.tmp.o'
         result_file_name = 'result.tmp.o'
@@ -377,7 +385,6 @@ class IO_Schedule:
             prob_file.write(prob_file_tmpl)
         result_str = execCmd(f'LKH {prob_file_name}')
         os.chdir(file_dir)
-        # %%
 
 
     def address_duration(self, path: Optional[Union[list[int], np.ndarray]]):
@@ -432,4 +439,10 @@ def address_duration(dataset_file:str, path:list[int]):
 # input_param.from_case_file(str(file_dir / "../dataset/case_5.txt"))
 # dist_matrix = get_dist_matrix(input_param)
 
+# %%
+
+test = IO_Schedule(f'{file_dir}/../dataset/case_10.txt')
+test.execute(method=IO_Schedule.METHOD.Greedy)
+test.address_duration(path=None)
+test.plot_path(path=None)
 # %%
