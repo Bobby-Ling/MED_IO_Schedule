@@ -1,0 +1,363 @@
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_7.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_7.txt
+head info : [98,289888,1]
+
+io count = 10000
+
+
+
+Key Metrics:
+                    ioCount:                                                     10000
+                    algorithmRunningDuration:                9.515 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      735675952 (ms)
+                    readDuration:                                                2003369915 (ms)
+                    tapeBeltWear:                                                3977816656
+                    tapeMotorWear:                                               31470
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_6.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_6.txt
+head info : [86,483806,0]
+
+io count = 4271
+
+
+
+Key Metrics:
+                    ioCount:                                                     4271
+                    algorithmRunningDuration:                4.888 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      300262712 (ms)
+                    readDuration:                                                849447556 (ms)
+                    tapeBeltWear:                                                1638469814
+                    tapeMotorWear:                                               13917
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_5.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_5.txt
+head info : [8,1001,1]
+
+io count = 90
+
+
+
+Key Metrics:
+                    ioCount:                                                     90
+                    algorithmRunningDuration:                0.066 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      1432147 (ms)
+                    readDuration:                                                71972 (ms)
+                    tapeBeltWear:                                                1773224
+                    tapeMotorWear:                                               192
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_4.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_4.txt
+head info : [8,1001,0]
+
+io count = 50
+
+
+
+Key Metrics:
+                    ioCount:                                                     50
+                    algorithmRunningDuration:                0.036 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      742345 (ms)
+                    readDuration:                                                50413 (ms)
+                    tapeBeltWear:                                                1013967
+                    tapeMotorWear:                                               85
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_3.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_3.txt
+head info : [5,1000,0]
+
+io count = 13
+
+
+
+Key Metrics:
+                    ioCount:                                                     13
+                    algorithmRunningDuration:                0.020 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      369748 (ms)
+                    readDuration:                                                12253 (ms)
+                    tapeBeltWear:                                                770796
+                    tapeMotorWear:                                               31
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_2.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_2.txt
+head info : [5,1000,0]
+
+io count = 10
+
+
+
+Key Metrics:
+                    ioCount:                                                     10
+                    algorithmRunningDuration:                0.019 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      304643 (ms)
+                    readDuration:                                                6060 (ms)
+                    tapeBeltWear:                                                691325
+                    tapeMotorWear:                                               19
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_1.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_1.txt
+head info : [8,1000,0]
+
+io count = 15
+
+
+
+Key Metrics:
+                    ioCount:                                                     15
+                    algorithmRunningDuration:                0.017 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      354295 (ms)
+                    readDuration:                                                9090 (ms)
+                    tapeBeltWear:                                                746675
+                    tapeMotorWear:                                               27
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ make
+Consolidate compiler generated dependencies of target project_hw
+[  8%] Building CXX object CMakeFiles/project_hw.dir/algorithm/greedy.cpp.o
+[ 16%] Linking CXX executable project_hw
+[ 50%] Built target project_hw
+Consolidate compiler generated dependencies of target project_hw_dl
+[ 58%] Building CXX object CMakeFiles/project_hw_dl.dir/algorithm/greedy.cpp.o
+[ 66%] Linking CXX shared library libproject_hw_dl.so
+[100%] Built target project_hw_dl
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_7.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_7.txt
+head info : [98,289888,1]
+
+io count = 10000
+
+
+
+Key Metrics:
+                    ioCount:                                                     10000
+                    algorithmRunningDuration:                1953.470 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      691553427 (ms)
+                    readDuration:                                                2003369915 (ms)
+                    tapeBeltWear:                                                3741409338
+                    tapeMotorWear:                                               39898
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_6.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_6.txt
+head info : [86,483806,0]
+
+io count = 4271
+
+
+
+Key Metrics:
+                    ioCount:                                                     4271
+                    algorithmRunningDuration:                372.020 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      293358235 (ms)
+                    readDuration:                                                849447556 (ms)
+                    tapeBeltWear:                                                1585561544
+                    tapeMotorWear:                                               17007
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_5.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_5.txt
+head info : [8,1001,1]
+
+io count = 90
+
+
+
+Key Metrics:
+                    ioCount:                                                     90
+                    algorithmRunningDuration:                0.232 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      1186544 (ms)
+                    readDuration:                                                71972 (ms)
+                    tapeBeltWear:                                                1793509
+                    tapeMotorWear:                                               114
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_4.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_4.txt
+head info : [8,1001,0]
+
+io count = 50
+
+
+
+Key Metrics:
+                    ioCount:                                                     50
+                    algorithmRunningDuration:                0.114 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      716335 (ms)
+                    readDuration:                                                50413 (ms)
+                    tapeBeltWear:                                                1050853
+                    tapeMotorWear:                                               71
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_3.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_3.txt
+head info : [5,1000,0]
+
+io count = 13
+
+
+
+Key Metrics:
+                    ioCount:                                                     13
+                    algorithmRunningDuration:                0.069 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      369748 (ms)
+                    readDuration:                                                12253 (ms)
+                    tapeBeltWear:                                                770796
+                    tapeMotorWear:                                               31
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_2.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_2.txt
+head info : [5,1000,0]
+
+io count = 10
+
+
+
+Key Metrics:
+                    ioCount:                                                     10
+                    algorithmRunningDuration:                0.069 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      304643 (ms)
+                    readDuration:                                                6060 (ms)
+                    tapeBeltWear:                                                691325
+                    tapeMotorWear:                                               19
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯ METHOD=0 ./project_hw -f ../dataset/case_1.txt
+
+
+Welcome to HW project.
+
+The file path is: ../dataset/case_1.txt
+head info : [8,1000,0]
+
+io count = 15
+
+
+
+Key Metrics:
+                    ioCount:                                                     15
+                    algorithmRunningDuration:                0.082 (ms)
+                    memoryUse:                                                   0 (KB)
+                    addressingDuration:                      354295 (ms)
+                    readDuration:                                                9090 (ms)
+                    tapeBeltWear:                                                746675
+                    tapeMotorWear:                                               27
+                    errorIOCount:                                                0
+
+指标写入文件 ./metrics.txt
+
+ ~/Git/Git/MyProjects/MED_IO_Schedule/build   (main)
+❯
