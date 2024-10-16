@@ -309,6 +309,7 @@ class IO_Schedule:
     class METHOD(Enum):
         Greedy = 0
         LKH = 2
+        BASE = 3
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path
