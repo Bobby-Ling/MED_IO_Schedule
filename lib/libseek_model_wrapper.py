@@ -1,4 +1,5 @@
 # %%
+import time
 import ctypes
 from ctypes import *
 import os
@@ -377,6 +378,7 @@ class IO_Schedule:
     class METHOD(Enum):
         Greedy = 0
         LKH = 2
+        BASE = 3
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path
@@ -409,10 +411,24 @@ class IO_Schedule:
         )
         addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
         addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
+        start = time.time()
+
+        os.chdir(file_dir / "../build/")
+        print(f"{method.name}:")
+        result_str = execCmd(
+            f"METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}"
+        )
+        addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
+        addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
         print(f"{method.name} addressDuration: {addr_dur} ms")
+        with open(self.dataset_file + ".result") as result_file:
         with open(self.dataset_file + ".result") as result_file:
             self.path = np.asarray(eval(result_file.read()))
         os.chdir(file_dir)
+
+        end = time.time()
+        print(f"run time: {end - start:.2f}s")
+
 
         end = time.time()
         print(f"run time: {end - start:.2f}s")
@@ -527,4 +543,10 @@ if __name__ == '__main__':
     test1.execute(method=IO_Schedule.METHOD.Greedy)
     test1.address_duration()
     test1.plot_path()
+# %%
+
+test = IO_Schedule(f'{file_dir}/../dataset/case_10.txt')
+test.execute(method=IO_Schedule.METHOD.Greedy)
+test.address_duration(path=None)
+test.plot_path(path=None)
 # %%

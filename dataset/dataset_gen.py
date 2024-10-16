@@ -6,18 +6,28 @@ import random
 file_dir = Path(__file__).parent
 
 # %%
-def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count:int = random.randint(10, 10000), filename = ''):
+def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count=None, io_length=None, io_area=1.0,io_distribution=None, io_edge=None,filename = ''):
     """可以指定io_count等参数, 否则随机
 
     Args:
         max_lpos (int, optional): Defaults to 730994.
         max_wrap (int, optional): Defaults to 280.
-        io_count (int, optional): Defaults to random.randint(10, 10000).
+        io_count (int, optional): io_count (int, optional): Number of I/O requests. If None, randomly chosen from [10, 50, 100, 1000, 2000, 5000, 10000].
+        io_length (int, optional): Fixed length for each I/O. If None, random length between 30 and 1500.
+        io_area (float, optional): Portion of the tape to use (0.0-1.0). Defaults to 1.0.
+        io_distribution (str, optional): Distribution of I/Os. Can be None (random) or 'GAUSS'.
+        io_edge (str, optional): Edge case for I/O direction. Can be None, 'FORWARD', or 'REVERSE'.
         filename (str, optional): Defaults to '' 不为空时写入文件.
 
     Returns:
         _type_: sequence对象
     """
+    # Set io_count if not specified
+    if io_count is None:
+        io_count = random.choice([10, 50, 100, 1000, 2000, 5000, 10000])
+
+    effective_max_lpos = int(max_lpos * io_area)
+
     # 随机生成磁头位置
     head_info = {
         "head": random.randint(0, max_lpos),
@@ -28,18 +38,35 @@ def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count:int = 
 
     io_vector = []
     for i in range(io_count):
-        wrap = random.randint(0, max_wrap - 1)
+        if io_edge == 'FORWARD':
+            wrap = random.randint(0, max_wrap // 2 - 1) * 2  # Even wrap
+        elif io_edge == 'REVERSE':
+            wrap = random.randint(0, max_wrap // 2 - 1) * 2 + 1  # Odd wrap
+        else:
+            wrap = random.randint(0, max_wrap - 1)
 
-        # 根据 wrap 的奇偶性生成 startLpos 和 endLpos
-        if wrap % 2 == 0:  # wrap 为偶数
-            start_lpos = random.randint(0, max_lpos - 1)
-            end_lpos = random.randint(start_lpos + 1, max_lpos)  # 确保 start_lpos < end_lpos
-        else:  # wrap 为奇数
-            start_lpos = random.randint(0, max_lpos - 1)
-            end_lpos = random.randint(0, start_lpos - 1)  # 确保 start_lpos > end_lpos
+        if io_length is None:
+            length = random.randint(30, 1500)
+        else:
+            length = io_length
+
+        if io_distribution == 'GAUSS':
+            mean = effective_max_lpos / 2
+            std_dev = effective_max_lpos / 6
+            start_lpos = int(random.gauss(mean, std_dev))
+            start_lpos = max(0, min(start_lpos, effective_max_lpos - length))
+        else:
+            start_lpos = random.randint(0, effective_max_lpos - length)
+
+        # Determine direction based on wrap
+        if wrap % 2 == 0:  # Even wrap: BOT->EOT
+            end_lpos = start_lpos + length
+        else:  # Odd wrap: EOT->BOT
+            end_lpos = start_lpos
+            start_lpos += length
 
         io = {
-            "io": i + 1,  # I/O 请求的 ID，从 1 开始
+            "io": i + 1,
             "wrap": wrap,
             "startLpos": start_lpos,
             "endLpos": end_lpos
@@ -77,6 +104,6 @@ def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count:int = 
 # %%
 if __name__ == '__main__':
     # 命令行运行时执行, import导入时不执行
-    generate_tape_io_sequence(filename=file_dir / './case_7.txt', io_count=10000)
+    generate_tape_io_sequence(io_area=1.0,io_count=10000,io_length=1000,filename=file_dir / './case_8.txt')
 
 # %%
