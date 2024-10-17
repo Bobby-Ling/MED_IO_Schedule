@@ -6,7 +6,7 @@
 #include "greedy.h"
 #include "LKH.h"
 #include "base.h"
-
+#include "base_SCAN.h"
 #define WEIGHT_SEEK 1         //寻道时间
 #define WEIGHT_ABRASION 0     //带体磨损
 #define WEIGHT_MOTOR 0        //电机磨损
@@ -148,6 +148,9 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
     case 3:
         return IOScheduleAlgorithmBase(input,output);
         break;
+    case 4:
+        return IOScheduleAlgorithmElevator(input,output);
+        break;
     }
     
 }
@@ -163,7 +166,7 @@ int32_t AlgorithmRun(const InputParam *input, OutputParam *output)
     int32_t ret;
 
     // e.g. $ METHOD=2 ./project_hw -f ../dataset/case_5.txt
-    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "3");
+    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "4");
     ret = IOScheduleAlgorithm(input, output, METHOD);
 
     return RETURN_OK;
