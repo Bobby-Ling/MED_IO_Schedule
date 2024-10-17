@@ -423,7 +423,6 @@ class IO_Schedule:
         addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
         print(f"{method.name} addressDuration: {addr_dur} ms")
         with open(self.dataset_file + ".result") as result_file:
-        with open(self.dataset_file + ".result") as result_file:
             self.path = np.asarray(eval(result_file.read()))
         os.chdir(file_dir)
 
