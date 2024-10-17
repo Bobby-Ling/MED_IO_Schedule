@@ -1,5 +1,24 @@
 {
     "files.associations": {
-        "algorithm.h": "c"
+        "*.txt": "plaintext",
+        "*.less": "less",
+        ".gdbinit": "gdb",
+        "*.S": "asm-intel-x86-generic",
+        "*.c": "c",
+        "*.log": "log",
+        "*.sql": "sql",
+        "*.qml": "qml",
+        "CMakeLists.txt": "cmake",
+        "*.int": "python",
+        "*.spec": "python",
+        "*.pth": "python",
+        ".gitconfig": "ini",
+        "*.mod": "go",
+        "*.cpp": "cpp",
+        "*.md": "markdown",
+        "*.vh": "verilog",
+        "algorithm.h": "c",
+        "greedy.h": "c",
+        "greedy1.h": "c"
     }
 }

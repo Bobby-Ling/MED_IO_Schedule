@@ -4,6 +4,7 @@
 #include "algorithm.h"
 #include "dp.h"
 #include "greedy.h"
+#include "greedy1.h"
 #include "LKH.h"
 #include "LKH1.h"
 #include "base.h"
@@ -150,6 +151,9 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
         break;
     case 4:
         return IOScheduleAlgorithmElevator(input, output);
+        break;
+    case 5:
+        return IOScheduleAlgorithmGreedy1(input, output);
         break;
     default:
     }
