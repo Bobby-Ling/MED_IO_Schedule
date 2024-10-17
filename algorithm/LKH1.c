@@ -213,21 +213,21 @@ int32_t IOScheduleAlgorithmLKH1(const InputParam *input, OutputParam *output) {
     }
 
     // 输出 path 数组
-    printf("Tour Path:\n");
-    // 2 5 3 4 1 MAT_SIZE=5, VIRTUAL_POINT_IDX=4
-    for (int i = 0; i < MAT_SIZE; i++) {
-        printf("%d ", path[i]);
-    }
-    printf("\n");
+    // printf("Tour Path:\n");
+    // // 2 5 3 4 1 MAT_SIZE=5, VIRTUAL_POINT_IDX=4
+    // for (int i = 0; i < MAT_SIZE; i++) {
+    //     printf("%d ", path[i]);
+    // }
+    // printf("\n");
 
     rotate_list(path, MAT_SIZE, MAT_SIZE);
 
-    printf("Rotated Tour Path:\n");
+    // printf("Rotated Tour Path:\n");
     // 5 3 4 1 2 MAT_SIZE=5, VIRTUAL_POINT_IDX=4
-    for (int i = 0; i < MAT_SIZE; i++) {
-        printf("%d ", path[i]);
-    }
-    printf("\n");
+    // for (int i = 0; i < MAT_SIZE; i++) {
+    //     printf("%d ", path[i]);
+    // }
+    // printf("\n");
 
     // 输出Output
     output->len = input->ioVec.len;
@@ -240,9 +240,9 @@ int32_t IOScheduleAlgorithmLKH1(const InputParam *input, OutputParam *output) {
         }
     }
 
-    for (size_t i = 0; i < output->len; i++) {
-        printf("%d ", output->sequence[i]);
-    }
+    // for (size_t i = 0; i < output->len; i++) {
+    //     printf("%d ", output->sequence[i]);
+    // }
 
 
     // 释放动态分配的内存并关闭文件

@@ -65,6 +65,9 @@ class IOVector(Structure):
         self.len = len
         self.ioArray: list[IOUint] = ioArray or (IOUint * len)()
 
+    def to_list(self) -> list[int]:
+        return [self.ioArray[i].id for i in range(self.len)]
+
 
 class InputParam(Structure):
     _fields_ = [("headInfo", HeadInfo), ("ioVec", IOVector)]
@@ -307,6 +310,14 @@ def io_schedule_algorithm(
     """调用 C 库中的 IOScheduleAlgorithm 函数"""
     return lib_main.IOScheduleAlgorithm(byref(input_param), byref(output_param), method)
 
+lib_main.getAlgorithmRunningDuration.restype = c_double
+
+
+# double getAlgorithmRunningDuration();
+def get_algorithm_running_duration() -> float:
+    """调用 C 库中的 getAlgorithmRunningDuration 函数获取IOScheduleAlgorithmX运行时间"""
+    return lib_main.getAlgorithmRunningDuration()
+
 
 # %%
 import os
@@ -398,7 +409,7 @@ class IO_Schedule:
         self.path = np.array(self.output_param.to_list())
         return self.path
 
-    def execute(self, method: METHOD):
+    def execute_cmd(self, method: METHOD):
         """命令行运行指定算法, 并更新self.path
 
         Args:
@@ -435,6 +446,25 @@ class IO_Schedule:
         # print(f"run time: {end - start:.2f}s")
 
         return self.path, result_str, addr_dur, algo_dur, mem_use
+
+    def execute_ffi(self, method: METHOD):
+        """使用ffi运行指定算法, 并更新self.path
+
+        Args:
+            method (METHOD): 方法enum
+
+        Returns:
+            _type_: path列表
+        """
+        print(f"{method.name}:")
+        io_schedule_algorithm(self.input_param, self.output_param, method.value)
+        self.path = np.array(self.output_param.to_list())
+        addr_dur = self.address_duration()
+        algo_dur = get_algorithm_running_duration()
+        mem_use = 0.0
+        print(f"addressDuration: {addr_dur} ms")
+        print(f"algorithmRunningDuration: {algo_dur} ms")
+        return self.path, "", addr_dur, algo_dur, mem_use
 
     def run_LKH(self, matrix: Union[np.ndarray, list[list[int]]], type="ATSP"):
         par_file_name = "par.tmp.o"
@@ -543,12 +573,12 @@ def address_duration(dataset_file: str, path: list[int]):
 # %%
 if __name__ == '__main__':
     test1 = IO_Schedule(f"{file_dir}/../dataset/case_4.txt")
-    test1.execute(method=IO_Schedule.METHOD.Greedy)
+    test1.execute_ffi(method=IO_Schedule.METHOD.Greedy)
     test1.address_duration()
     test1.plot_path()
 
     test = IO_Schedule(f"{file_dir}/../dataset/case_8.txt")
-    test.execute(method=IO_Schedule.METHOD.SCAN)
+    test.execute_ffi(method=IO_Schedule.METHOD.SCAN)
     test.address_duration(path=None)
     test.plot_path(path=None)
 

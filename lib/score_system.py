@@ -131,11 +131,12 @@ def run_scoring_system(
     result = Result()
 
     # 调用基线算法，求出基线时延
-    io.execute(method=IO_Schedule.METHOD.SCAN)
+    io.execute_ffi(method=IO_Schedule.METHOD.SCAN)
     address_duration_before=io.address_duration()
 
     # 调用使用的算法
-    path, result_str, addr_dur, run_time, mem_use = io.execute(method)
+    path, result_str, addr_dur, run_time, mem_use = io.execute_ffi(method)
+    print(result_str)
     result.path = path
     result.result_str = result_str
     result.addr_dur = addr_dur
@@ -171,6 +172,7 @@ import numpy as np
 
 # %%
 import matplotlib.pyplot as plt
+import pickle
 from datetime import datetime
 
 
@@ -189,24 +191,35 @@ def visualize_results(
     metrics = [
         "addr_dur",
         "run_time",
-        "mem_use",
+        # "mem_use",   # Uncomment or comment to include/exclude this metric
         "score",
         "algorithm_score",
         "time_bonus",
         "time_penalty",
-        "space_penalty",
-        "error_penalty",
+        # "space_penalty",
+        # "error_penalty",
     ]
 
-    num_metrics = len(metrics)
+    # Only keep the active metrics (those that are not commented out)
+    active_metrics = [metric for metric in metrics]
+
+    num_metrics = len(active_metrics)
     num_methods = len(results)
     x_values = range(len(io_counts))  # Use indices as x-values
 
-    fig, axes = plt.subplots(3, 3, figsize=(20, 20))
+    # Determine the layout of the subplots dynamically based on the number of metrics
+    num_rows = (
+        num_metrics + 2
+    ) // 3  # Ensures the grid is filled efficiently (2-3 columns)
+    fig, axes = plt.subplots(num_rows, 3, figsize=(20, 5 * num_rows))
     fig.suptitle("IO Scheduling Results Comparison", fontsize=16)
 
-    for idx, metric in enumerate(metrics):
-        ax = axes[idx // 3, idx % 3]
+    # If only one row of axes, ensure `axes` is treated as a 1D array
+    axes = axes.flatten() if num_metrics > 1 else [axes]
+
+    # Plot each metric on its own axis
+    for idx, metric in enumerate(active_metrics):
+        ax = axes[idx]
 
         for method, result_dict in results.items():
             # Extract the metric values corresponding to each io_count
@@ -225,17 +238,25 @@ def visualize_results(
         ax.legend()
         ax.grid(True)
 
+    # Remove any empty subplots if not all slots in the grid are filled
+    if num_metrics < num_rows * 3:
+        for empty_ax in axes[num_metrics:]:
+            empty_ax.remove()
+
     plt.tight_layout()
 
+    # Save the figure
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    plt.savefig(f"{file_dir}/../docs/result/pics/result_{timestamp}.png")
-    # with open(
-    # f"{file_dir}/../docs/result/jsons/result_{timestamp}.json", "w"
-    # ) as result_json:
-    # result_json.write(json.dumps(results, default=lambda x: x.name, indent=4))
+    fig_file_name = f"../docs/result/pics/result_{timestamp}.png"
+    plt.savefig(fig_file_name)
+
+    # Save the figure as a pickle file
+    with open(f"{fig_file_name}.pickle", "wb") as f:
+        pickle.dump(fig, f)
+
+    # Optionally display the plot
     if plot:
         plt.show()
-
 
 # %%
 def judge():
@@ -354,17 +375,16 @@ def run_test():
         # METHOD.Greedy1,
         METHOD.Greedy,
         # METHOD.LKH,
-        # METHOD.LKH1,
+        METHOD.LKH1,
         METHOD.LNS,
-        # METHOD.LNS1,
     ]
     # 考虑一般情况，io在前100%，随机分布，长度随机
     io_counts: list[int] = np.concatenate(
         [
-            # np.arange(10, 500, 50),
-            # np.arange(500, 2000, 200),
-            np.arange(2000, 5000, 500),
-            np.arange(5000, 10001, 1000),
+            np.arange(10, 500, 40),
+            np.arange(500, 2000, 100),
+            # np.arange(2000, 5000, 500),
+            # np.arange(5000, 10001, 1000),
         ]
     ).tolist()
     # io_counts: list[int] = [10, 50, 100, 1000, 5000, 10000]

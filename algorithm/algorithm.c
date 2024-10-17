@@ -129,6 +129,11 @@ void getDistMatrix(const InputParam *input, int *matrix_2d)
     }
 }
 
+double algorithmRunningDuration;
+double getAlgorithmRunningDuration() {
+    return algorithmRunningDuration;
+}
+
 /**
  * @brief  算法接口
  * @param  input            输入参数
@@ -144,28 +149,36 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
     switch (METHOD)
     {
     case 0:
-        return IOScheduleAlgorithmGreedy(input, output);
+        printf("IOScheduleAlgorithmGreedy:\n");
+        IOScheduleAlgorithmGreedy(input, output);
         break;
     case 1:
-        return IOScheduleAlgorithmLKH1(input, output);
+        printf("IOScheduleAlgorithmLKH1:\n");
+        IOScheduleAlgorithmLKH1(input, output);
         break;
     case 2:
-        return IOScheduleAlgorithmLKH(input, output);
+        printf("IOScheduleAlgorithmLKH:\n");
+        IOScheduleAlgorithmLKH(input, output);
         break;
     case 3:
-        return IOScheduleAlgorithmBase(input, output);
+        printf("IOScheduleAlgorithmBase:\n");
+        IOScheduleAlgorithmBase(input, output);
         break;
     case 4:
-        return IOScheduleAlgorithmElevator(input, output);
+        printf("IOScheduleAlgorithmElevator:\n");
+        IOScheduleAlgorithmElevator(input, output);
         break;
     case 5:
-        return IOScheduleAlgorithmGreedy1(input, output);
+        printf("IOScheduleAlgorithmGreedy1:\n");
+        IOScheduleAlgorithmGreedy1(input, output);
         break;
     case 6:
-        return IOScheduleAlgorithmLNS(input,output);
+        printf("IOScheduleAlgorithmLNS:\n");
+        IOScheduleAlgorithmLNS(input, output);
         break;
     case 7:
-        return IOScheduleAlgorithmLNS1(input, output);
+        printf("IOScheduleAlgorithmLNS1:\n");
+        IOScheduleAlgorithmLNS1(input, output);
         break;
     default:
     }
@@ -174,7 +187,8 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
     seconds = end.tv_sec - start.tv_sec;
     useconds = end.tv_usec - start.tv_usec;
     /* 总毫秒数 */
-    double algorithmRunningDuration = ((seconds) * 1000000 + useconds) / 1000.0;
+    algorithmRunningDuration = ((seconds) * 1000000 + useconds) / 1000.0;
+    return RETURN_OK;
 }
 
 /**
