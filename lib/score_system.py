@@ -213,13 +213,14 @@ def visualize_results(
 def judge():
     METHOD = IO_Schedule.METHOD
     methods = [
-        METHOD.BASE,
+        # METHOD.BASE,
         # METHOD.SCAN,
         # METHOD.Greedy1,
         METHOD.Greedy,
         # METHOD.LKH,
         # METHOD.LKH1,
         METHOD.LNS,
+        METHOD.LNS1,
     ]
     # 考虑一般情况，io在前100%，随机分布，长度随机
     io_counts = [10, 50, 100, 1000, 5000, 10000]

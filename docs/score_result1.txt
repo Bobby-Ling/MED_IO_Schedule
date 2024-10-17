@@ -1,0 +1,194 @@
+---------------------Greedy 开始--------------------
+-----------------io_counts 数目: [10]--------------
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN addressDuration: 338320 ms
+SCAN algorithmRunningDuration: 0.094 ms
+SCAN memoryUse: 4684.0 KB
+Greedy:
+Greedy addressDuration: 347255 ms
+Greedy algorithmRunningDuration: 0.063 ms
+Greedy memoryUse: 4716.0 KB
+io_count=10, 分数: 110649.37000000002
+-----------------io_counts 数目: [50]--------------
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN addressDuration: 764968 ms
+SCAN algorithmRunningDuration: 0.143 ms
+SCAN memoryUse: 4668.0 KB
+Greedy:
+Greedy addressDuration: 810029 ms
+Greedy algorithmRunningDuration: 0.14 ms
+Greedy memoryUse: 4688.0 KB
+io_count=50, 分数: -250611.4
+-----------------io_counts 数目: [100]--------------
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN addressDuration: 1033448 ms
+SCAN algorithmRunningDuration: 0.295 ms
+SCAN memoryUse: 4688.0 KB
+Greedy:
+Greedy addressDuration: 1161926 ms
+Greedy algorithmRunningDuration: 0.279 ms
+Greedy memoryUse: 4688.0 KB
+io_count=100, 分数: -1084782.79
+-----------------io_counts 数目: [1000]--------------
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN addressDuration: 6805336 ms
+SCAN algorithmRunningDuration: 23.735 ms
+SCAN memoryUse: 5148.0 KB
+Greedy:
+Greedy addressDuration: 6924787 ms
+Greedy algorithmRunningDuration: 22.691 ms
+Greedy memoryUse: 5184.0 KB
+io_count=1000, 分数: -994736.9099999999
+-----------------io_counts 数目: [5000]--------------
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN addressDuration: 63961734 ms
+SCAN algorithmRunningDuration: 616.082 ms
+SCAN memoryUse: 5188.0 KB
+Greedy:
+Greedy addressDuration: 63951282 ms
+Greedy algorithmRunningDuration: 574.308 ms
+Greedy memoryUse: 5188.0 KB
+io_count=5000, 分数: 298776.92
+-----------------io_counts 数目: [10000]--------------
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN addressDuration: 143146591 ms
+SCAN algorithmRunningDuration: 2877.706 ms
+SCAN memoryUse: 5200.0 KB
+Greedy:
+Greedy addressDuration: 143141607 ms
+Greedy algorithmRunningDuration: 2463.524 ms
+Greedy memoryUse: 5168.0 KB
+io_count=10000, 分数: 225204.75999999998
+
+
+----------------------------------------------------
+Greedy 算法总分为-1695500.05
+----------------------------------------------------
+
+
+---------------------LNS 开始--------------------
+-----------------io_counts 数目: [10]--------------
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN addressDuration: 338320 ms
+SCAN algorithmRunningDuration: 0.067 ms
+SCAN memoryUse: 4684.0 KB
+LNS:
+LNS addressDuration: 378882 ms
+LNS algorithmRunningDuration: 0.074 ms
+LNS memoryUse: 4684.0 KB
+io_count=10, 分数: -205620.74
+-----------------io_counts 数目: [50]--------------
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN addressDuration: 764968 ms
+SCAN algorithmRunningDuration: 0.145 ms
+SCAN memoryUse: 4688.0 KB
+LNS:
+LNS addressDuration: 1002606 ms
+LNS algorithmRunningDuration: 0.984 ms
+LNS memoryUse: 4688.0 KB
+io_count=50, 分数: -2176389.84
+-----------------io_counts 数目: [100]--------------
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN addressDuration: 1033448 ms
+SCAN algorithmRunningDuration: 0.32 ms
+SCAN memoryUse: 4680.0 KB
+LNS:
+LNS addressDuration: 1462105 ms
+LNS algorithmRunningDuration: 3.699 ms
+LNS memoryUse: 4684.0 KB
+io_count=100, 分数: -4086606.99
+-----------------io_counts 数目: [1000]--------------
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN addressDuration: 6805336 ms
+SCAN algorithmRunningDuration: 25.758 ms
+SCAN memoryUse: 5184.0 KB
+LNS:
+LNS addressDuration: 5775284 ms
+LNS algorithmRunningDuration: 481.119 ms
+LNS memoryUse: 4684.0 KB
+io_count=1000, 分数: 10495708.81
+-----------------io_counts 数目: [5000]--------------
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN addressDuration: 63961734 ms
+SCAN algorithmRunningDuration: 628.858 ms
+SCAN memoryUse: 5184.0 KB
+LNS:
+LNS addressDuration: 38829743 ms
+LNS algorithmRunningDuration: 28712.022 ms
+LNS memoryUse: 5288.0 KB
+io_count=5000, 分数: 250448707.8
+-----------------io_counts 数目: [10000]--------------
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN addressDuration: 143146591 ms
+SCAN algorithmRunningDuration: 2771.802 ms
+SCAN memoryUse: 5184.0 KB
+LNS:
+LNS addressDuration: 106418753 ms
+LNS algorithmRunningDuration: 204325.845 ms
+LNS memoryUse: 5160.0 KB
+io_count=10000, 分数: 330413211.0
+
+
+----------------------------------------------------
+LNS 算法总分为584889010.04
+----------------------------------------------------

@@ -6,24 +6,27 @@
 #include "../public.h"
 #include "algorithm.h"
 #include "LNS.h"
-#include <math.h>
+
 #define MAX_IO_REQUESTS 10000
-static int INITIAL_SOLUTIONS = 10;
-static int LNS_ITERATIONS = 1000;
-static int SA_INITIAL_TEMP = 1000.0;
-static int SA_COOLING_RATE = 0.995;
-// 使用现有的数据结构
+
+// 动态参数设置
+static int INITIAL_SOLUTIONS;
+static int LNS_ITERATIONS;
+static double SA_INITIAL_TEMP;
+static double SA_COOLING_RATE;
+
 typedef struct {
     uint32_t id;
     bool visited;
 } IORequest;
+
 // 全局变量
 static const InputParam *globalInput;
 static IORequest requests[MAX_IO_REQUESTS];
 static uint32_t sequence[MAX_IO_REQUESTS];
 static uint32_t bestSequence[MAX_IO_REQUESTS];
 static double currentCost;
-static double bestCost = 1.79769313486231570814527423731704357e+308;
+static double bestCost = DBL_MAX;
 
 // 计算总代价
 static double calculateTotalCost(uint32_t *seq, uint32_t len) {
@@ -41,8 +44,8 @@ static double calculateTotalCost(uint32_t *seq, uint32_t len) {
     return totalCost;
 }
 
-// 随机贪心算法
-static void randomGreedy() {
+// 改进的贪心算法
+static void improvedGreedy() {
     HeadInfo currentHead = globalInput->headInfo;
     uint32_t remainingRequests = globalInput->ioVec.len;
     uint32_t currentIndex = 0;
@@ -53,8 +56,8 @@ static void randomGreedy() {
     }
 
     while (remainingRequests > 0) {
-        double minCosts[3] = {DBL_MAX, DBL_MAX, DBL_MAX};
-        int32_t candidates[3] = {-1, -1, -1};
+        double minCost = DBL_MAX;
+        int32_t bestCandidate = -1;
 
         for (uint32_t j = 0; j < globalInput->ioVec.len; j++) {
             if (!requests[j].visited) {
@@ -62,27 +65,16 @@ static void randomGreedy() {
                 HeadInfo end = {end_io->wrap, end_io->endLpos, HEAD_RW};
                 double cost = calculateCost(&currentHead, &end);
 
-                if (cost < minCosts[2]) {
-                    minCosts[2] = cost;
-                    candidates[2] = j;
-                    for (int k = 1; k >= 0; k--) {
-                        if (minCosts[k] > minCosts[k+1]) {
-                            double tempCost = minCosts[k];
-                            minCosts[k] = minCosts[k+1];
-                            minCosts[k+1] = tempCost;
-                            int32_t tempCandidate = candidates[k];
-                            candidates[k] = candidates[k+1];
-                            candidates[k+1] = tempCandidate;
-                        }
-                    }
+                if (cost < minCost) {
+                    minCost = cost;
+                    bestCandidate = j;
                 }
             }
         }
 
-        int32_t chosen = candidates[rand() % (remainingRequests < 3 ? remainingRequests : 3)];
-        sequence[currentIndex++] = chosen;
-        requests[chosen].visited = true;
-        IOUint *chosen_io = &globalInput->ioVec.ioArray[chosen];
+        sequence[currentIndex++] = bestCandidate;
+        requests[bestCandidate].visited = true;
+        IOUint *chosen_io = &globalInput->ioVec.ioArray[bestCandidate];
         currentHead.wrap = chosen_io->wrap;
         currentHead.lpos = chosen_io->endLpos;
         currentHead.status = HEAD_RW;
@@ -92,25 +84,52 @@ static void randomGreedy() {
     currentCost = calculateTotalCost(sequence, globalInput->ioVec.len);
 }
 
-// 大规模邻域搜索（LNS）
-static void largeNeighborhoodSearch() {
+// 2-opt局部搜索
+static void twoOptLocalSearch() {
+    bool improved;
+    do {
+        improved = false;
+        for (uint32_t i = 0; i < globalInput->ioVec.len - 1; i++) {
+            for (uint32_t j = i + 1; j < globalInput->ioVec.len; j++) {
+                uint32_t tempSequence[MAX_IO_REQUESTS];
+                for (uint32_t k = 0; k < globalInput->ioVec.len; k++) {
+                    tempSequence[k] = sequence[k];
+                }
+                // 反转子序列
+                for (uint32_t k = i, l = j; k < l; k++, l--) {
+                    uint32_t temp = tempSequence[k];
+                    tempSequence[k] = tempSequence[l];
+                    tempSequence[l] = temp;
+                }
+                double newCost = calculateTotalCost(tempSequence, globalInput->ioVec.len);
+                if (newCost < currentCost) {
+                    for (uint32_t k = 0; k < globalInput->ioVec.len; k++) {
+                        sequence[k] = tempSequence[k];
+                    }
+                    currentCost = newCost;
+                    improved = true;
+                }
+            }
+        }
+    } while (improved);
+}
+
+// 改进的大规模邻域搜索（LNS）
+static void improvedLargeNeighborhoodSearch() {
     uint32_t tempSequence[MAX_IO_REQUESTS];
-    uint32_t destroySize = globalInput->ioVec.len / 10;  // 破坏规模为总请求数的10%
+    uint32_t destroySize = globalInput->ioVec.len < 100 ? globalInput->ioVec.len / 5 : globalInput->ioVec.len / 10;
 
     for (int iter = 0; iter < LNS_ITERATIONS; iter++) {
-        // 复制当前序列
         for (uint32_t i = 0; i < globalInput->ioVec.len; i++) {
             tempSequence[i] = sequence[i];
         }
 
-        // 随机选择要破坏的子序列
         uint32_t start = rand() % (globalInput->ioVec.len - destroySize);
         uint32_t end = start + destroySize;
 
-        // 使用贪心算法重建子序列
         HeadInfo currentHead = globalInput->headInfo;
         if (start > 0) {
-            IOUint *prev_io = &globalInput->ioVec.ioArray[tempSequence[start-1]];
+            IOUint *prev_io = &globalInput->ioVec.ioArray[tempSequence[start - 1]];
             currentHead.wrap = prev_io->wrap;
             currentHead.lpos = prev_io->endLpos;
             currentHead.status = HEAD_RW;
@@ -131,10 +150,9 @@ static void largeNeighborhoodSearch() {
                 }
             }
 
-            // 将选中的请求插入到最佳位置
             uint32_t chosenRequest = tempSequence[bestPos];
             for (int j = bestPos; j > (int)i; j--) {
-                tempSequence[j] = tempSequence[j-1];
+                tempSequence[j] = tempSequence[j - 1];
             }
             tempSequence[i] = chosenRequest;
 
@@ -146,7 +164,6 @@ static void largeNeighborhoodSearch() {
 
         double newCost = calculateTotalCost(tempSequence, globalInput->ioVec.len);
 
-        // 模拟退火决定是否接受新解
         double temperature = SA_INITIAL_TEMP * pow(SA_COOLING_RATE, iter);
         if (newCost < currentCost ||
             (double)rand() / RAND_MAX < exp((currentCost - newCost) / temperature)) {
@@ -165,18 +182,37 @@ static void largeNeighborhoodSearch() {
     }
 }
 
-int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
-    INITIAL_SOLUTIONS = 10;
-    LNS_ITERATIONS = input->ioVec.len;
-    SA_INITIAL_TEMP = 1000.0;
-    SA_COOLING_RATE = 0.995;
+// 动态参数调整
+static void adjustParameters(uint32_t ioCount) {
+    if (ioCount < 100) {
+        INITIAL_SOLUTIONS = 5;
+        LNS_ITERATIONS = ioCount * 10;
+        SA_INITIAL_TEMP = 100.0;
+        SA_COOLING_RATE = 0.99;
+    }
+    else if (ioCount < 1000) {
+        INITIAL_SOLUTIONS = 10;
+        LNS_ITERATIONS = ioCount * 5;
+        SA_INITIAL_TEMP = 500.0;
+        SA_COOLING_RATE = 0.995;
+    }
+    else {
+        INITIAL_SOLUTIONS = 15;
+        LNS_ITERATIONS = ioCount;
+        SA_INITIAL_TEMP = 1000.0;
+        SA_COOLING_RATE = 0.997;
+    }
+}
 
+int32_t IOScheduleAlgorithmLNS1(const InputParam *input, OutputParam *output) {
     globalInput = input;
     srand(time(NULL));
 
+    adjustParameters(input->ioVec.len);
+
     // 生成多个初始解并选择最好的
     for (int i = 0; i < INITIAL_SOLUTIONS; i++) {
-        randomGreedy();
+        improvedGreedy();
         if (currentCost < bestCost) {
             bestCost = currentCost;
             for (uint32_t j = 0; j < input->ioVec.len; j++) {
@@ -185,12 +221,15 @@ int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
         }
     }
 
-    // 应用大规模邻域搜索
+    // 应用2-opt局部搜索
     for (uint32_t i = 0; i < input->ioVec.len; i++) {
         sequence[i] = bestSequence[i];
     }
     currentCost = bestCost;
-    largeNeighborhoodSearch();
+    twoOptLocalSearch();
+
+    // 应用改进的大规模邻域搜索
+    improvedLargeNeighborhoodSearch();
 
     // 设置输出
     output->len = input->ioVec.len;

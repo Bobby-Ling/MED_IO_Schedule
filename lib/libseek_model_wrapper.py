@@ -382,7 +382,8 @@ class IO_Schedule:
         BASE = 3
         SCAN = 4
         Greedy1 = 5
-        LNS=6
+        LNS = 6
+        LNS1 = 7
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path

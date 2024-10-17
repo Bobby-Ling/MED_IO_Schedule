@@ -10,6 +10,7 @@
 #include "base.h"
 #include "base_SCAN.h"
 #include "LNS.h"
+#include "LNS1.h"
 #define WEIGHT_SEEK 1         //寻道时间
 #define WEIGHT_ABRASION 0     //带体磨损
 #define WEIGHT_MOTOR 0        //电机磨损
@@ -158,6 +159,9 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
         break;
     case 6:
         return IOScheduleAlgorithmLNS(input,output);
+        break;
+    case 7:
+        return IOScheduleAlgorithmLNS1(input, output);
         break;
     default:
     }
