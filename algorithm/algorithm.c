@@ -5,6 +5,7 @@
 #include "dp.h"
 #include "greedy.h"
 #include "LKH.h"
+#include "LKH1.h"
 #include "base.h"
 #include "base_SCAN.h"
 #define WEIGHT_SEEK 1         //寻道时间
@@ -139,20 +140,19 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
         return IOScheduleAlgorithmGreedy(input, output);
         break;
     case 1:
-        return IOScheduleAlgorithmDp(input, output);
+        return IOScheduleAlgorithmLKH1(input, output);
         break;
     case 2:
-    default:
         return IOScheduleAlgorithmLKH(input, output);
         break;
     case 3:
-        return IOScheduleAlgorithmBase(input,output);
+        return IOScheduleAlgorithmBase(input, output);
         break;
     case 4:
-        return IOScheduleAlgorithmElevator(input,output);
+        return IOScheduleAlgorithmElevator(input, output);
         break;
+    default:
     }
-    
 }
 
 /**
