@@ -12,6 +12,10 @@ static int INITIAL_SOLUTIONS = 10;
 static int LNS_ITERATIONS = 1000;
 static int SA_INITIAL_TEMP = 1000.0;
 static int SA_COOLING_RATE = 0.995;
+
+#define min(a, b) ((a) < (b) ? (a) : (b))
+#define max(a, b) ((a) > (b) ? (a) : (b))
+
 // 使用现有的数据结构
 typedef struct {
     uint32_t id;
@@ -167,7 +171,7 @@ static void largeNeighborhoodSearch() {
 
 int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
     INITIAL_SOLUTIONS = 10;
-    LNS_ITERATIONS = input->ioVec.len;
+    LNS_ITERATIONS = (int)(min(input->ioVec.len, 1000) / 10) + 10;
     SA_INITIAL_TEMP = 1000.0;
     SA_COOLING_RATE = 0.995;
 

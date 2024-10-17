@@ -1,4 +1,7 @@
 # %%
+from concurrent.futures import ThreadPoolExecutor, as_completed
+import datetime
+import json
 import sys
 import time
 import psutil
@@ -9,8 +12,7 @@ from pathlib import Path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from dataset.dataset_gen import generate_tape_io_sequence
 
-file_dir = Path(__file__).parent.parent / "dataset"
-
+file_dir = Path(__file__).parent
 
 class Result:
 
@@ -168,8 +170,21 @@ import numpy as np
 
 
 # %%
+import matplotlib.pyplot as plt
+from datetime import datetime
+
+
+class IO_Schedule_METHOD_JSON(json.JSONEncoder):
+    def default(self, obj):  # -> Any | Any:
+        if isinstance(obj, IO_Schedule.METHOD):
+            return obj.name
+        return json.JSONEncoder.default(self, obj)
+
+
 def visualize_results(
-    results: dict[IO_Schedule.METHOD, list[Result]], io_counts: list[int]
+    results: dict[IO_Schedule.METHOD, dict[int, Result]],
+    io_counts: list[int],
+    plot: bool = True,
 ):
     metrics = [
         "addr_dur",
@@ -193,8 +208,13 @@ def visualize_results(
     for idx, metric in enumerate(metrics):
         ax = axes[idx // 3, idx % 3]
 
-        for method, result_list in results.items():
-            values = [getattr(result, metric) for result in result_list]
+        for method, result_dict in results.items():
+            # Extract the metric values corresponding to each io_count
+            values = [
+                getattr(result_dict[io_count], metric)
+                for io_count in io_counts
+                if io_count in result_dict
+            ]
             ax.plot(x_values, values, marker="o", label=method.name)
 
         ax.set_title(f'{metric.replace("_", " ").title()}')
@@ -206,7 +226,15 @@ def visualize_results(
         ax.grid(True)
 
     plt.tight_layout()
-    plt.show()
+
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    plt.savefig(f"{file_dir}/../docs/result/pics/result_{timestamp}.png")
+    # with open(
+    # f"{file_dir}/../docs/result/jsons/result_{timestamp}.json", "w"
+    # ) as result_json:
+    # result_json.write(json.dumps(results, default=lambda x: x.name, indent=4))
+    if plot:
+        plt.show()
 
 
 # %%
@@ -223,36 +251,124 @@ def judge():
         METHOD.LNS1,
     ]
     # 考虑一般情况，io在前100%，随机分布，长度随机
-    io_counts = [10, 50, 100, 1000, 5000, 10000]
+    io_counts: list[int] = [10, 50, 100, 1000, 5000, 10000]
     # io_counts = [10, 50, 100, 1000]
     # io_counts = [10, 50]
     results: dict[IO_Schedule.METHOD, dict[int, Result]] = {}
     for method in methods:
         print(f"---------------------{method.name} 开始--------------------")
         total_score = 0
-        result_list = []
-        for i in range(len(io_counts)):
-            print(f"-----------------io_counts 数目: [{io_counts[i]}]--------------")
+        method_result = {}
+        for i, io_count in enumerate(io_counts):
+            print(f"-----------------io_counts 数目: [{io_count}]--------------")
             data_set_file = file_dir / f"case_test_{i}.txt"
             if not os.path.exists(data_set_file):
                 generate_tape_io_sequence(
                     io_area=1.0,
-                    io_count=io_counts[i],
+                    io_count=io_count,
                     filename=data_set_file,
                 )
             test = IO_Schedule(f"{file_dir}/../dataset/case_test_{i}.txt")
             score, result = run_scoring_system(
-                io=test, io_count=io_counts[i], method=method
+                io=test, io_count=io_count, method=method
             )
-            result_list.append(result)
+            method_result[io_count] = result
             total_score += score
-        results[method] = result_list
+        results[method] = method_result
         # 考虑特殊情况，io为高斯分布，或io全是正向/反向分布
 
         print("\n\n----------------------------------------------------")
         print(f"{method.name} 算法总分为{total_score}")
         print("----------------------------------------------------\n\n")
 
+    visualize_results(results, io_counts)
+
+
+def run_single_io(data_set_file: str, io_count: int, method: IO_Schedule.METHOD):
+    if not os.path.exists(data_set_file):
+        generate_tape_io_sequence(
+            io_area=1.0,
+            io_count=io_count,
+            filename=data_set_file,
+        )
+    test = IO_Schedule(data_set_file)
+    score, result = run_scoring_system(io=test, io_count=io_count, method=method)
+    return io_count, result
+
+
+# %%
+def run_io_in_batch(
+    io_counts: list[int],
+    method: IO_Schedule.METHOD,
+    file_dir: str,
+    max_workers: int = 1,
+    # max_workers: int = os.cpu_count(),
+):
+    """
+    使用线程池并行执行 `run_single_io` 函数。
+    """
+    method_result = {}
+    tasks = []
+
+    with ThreadPoolExecutor(max_workers=max_workers) as executor:
+        # 提交所有任务到线程池
+        for i, io_count in enumerate(io_counts):
+            data_set_file = f"{file_dir}/../dataset/gen/{io_count}.txt"
+            future = executor.submit(run_single_io, data_set_file, io_count, method)
+            tasks.append(future)
+
+        # 收集结果
+        for future in as_completed(tasks):
+            io_count, result = future.result()
+            method_result[io_count] = result
+
+    return method, method_result
+
+
+# %%
+def run_method_in_batch(methods: list[IO_Schedule.METHOD], io_counts: list[int]):
+    results: dict[IO_Schedule.METHOD, dict[int, Result]] = {}
+    tasks = []
+
+    # with ThreadPoolExecutor(max_workers=len(methods)) as executor:
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        # 提交所有任务到线程池
+        for method in methods:
+            future = executor.submit(run_io_in_batch, io_counts, method, file_dir)
+            tasks.append(future)
+
+        # 收集结果
+        for future in as_completed(tasks):
+            method, result_list = future.result()
+            results[method] = result_list
+
+    return results
+
+
+# %%
+def run_test():
+    METHOD = IO_Schedule.METHOD
+    methods = [
+        # METHOD.BASE,
+        METHOD.SCAN,
+        # METHOD.Greedy1,
+        METHOD.Greedy,
+        # METHOD.LKH,
+        # METHOD.LKH1,
+        METHOD.LNS,
+        # METHOD.LNS1,
+    ]
+    # 考虑一般情况，io在前100%，随机分布，长度随机
+    io_counts: list[int] = np.concatenate(
+        [
+            # np.arange(10, 500, 50),
+            # np.arange(500, 2000, 200),
+            np.arange(2000, 5000, 500),
+            np.arange(5000, 10001, 1000),
+        ]
+    ).tolist()
+    # io_counts: list[int] = [10, 50, 100, 1000, 5000, 10000]
+    results = run_method_in_batch(methods, io_counts)
     visualize_results(results, io_counts)
 
 
@@ -286,7 +402,10 @@ def test_scorer():
     result.error_penalty = error_penalty
     return result
 
-
+# %%
 if __name__ == "__main__":
     # test_scorer()
-    judge()
+    # judge()
+    run_test()
+
+# %%

@@ -412,7 +412,7 @@ class IO_Schedule:
         os.chdir(file_dir / "../build/")
         print(f"{method.name}:")
         result_str = execCmd(
-            f"METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}"
+            f"METHOD={method.value} ./project_hw -f {self.dataset_file}"
         )
         addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
         addr_dur = int(re.findall(addr_dur_regex, result_str)[0])

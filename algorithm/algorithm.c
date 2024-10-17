@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <limits.h>
+#include <sys/time.h>
 #include "algorithm.h"
 #include "dp.h"
 #include "greedy.h"
@@ -137,6 +138,9 @@ void getDistMatrix(const InputParam *input, int *matrix_2d)
  */
 int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int METHOD)
 {
+    /* 统计算法运行时间 */
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
     switch (METHOD)
     {
     case 0:
@@ -165,6 +169,12 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
         break;
     default:
     }
+    gettimeofday(&end, NULL);  // 记录结束时间
+    long seconds, useconds;    // 秒数和微秒数
+    seconds = end.tv_sec - start.tv_sec;
+    useconds = end.tv_usec - start.tv_usec;
+    /* 总毫秒数 */
+    double algorithmRunningDuration = ((seconds) * 1000000 + useconds) / 1000.0;
 }
 
 /**

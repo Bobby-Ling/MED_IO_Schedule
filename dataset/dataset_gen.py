@@ -5,8 +5,18 @@ import random
 
 file_dir = Path(__file__).parent
 
+
 # %%
-def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count=None, io_length=None, io_area=1.0,io_distribution=None, io_edge=None,filename = ''):
+def generate_tape_io_sequence(
+    max_lpos=730994,
+    max_wrap=280,
+    io_count=None,
+    io_length=None,
+    io_area=1.0,
+    io_distribution=None,
+    io_edge=None,
+    filename="",
+):
     """可以指定io_count等参数, 否则随机
 
     Args:
@@ -100,6 +110,7 @@ def generate_tape_io_sequence(max_lpos = 730994, max_wrap = 280, io_count=None, 
         print(f'Data saved to {filename}')
 
     return sequence
+
 
 # %%
 if __name__ == '__main__':
