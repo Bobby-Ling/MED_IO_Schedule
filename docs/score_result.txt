@@ -1,0 +1,542 @@
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.08s
+BASE:
+BASE:
+BASE addressDuration: 703940 ms
+run time: 0.07s
+io_count=10, 分数: -3456200
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.06s
+BASE:
+BASE:
+BASE addressDuration: 4343219 ms
+run time: 0.09s
+io_count=50, 分数: -35582510
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.05s
+BASE:
+BASE:
+BASE addressDuration: 7565611 ms
+run time: 0.10s
+io_count=100, 分数: -65121630
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.10s
+BASE:
+BASE:
+BASE addressDuration: 79579673 ms
+run time: 0.51s
+io_count=1000, 分数: -727543370
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.77s
+BASE:
+BASE:
+BASE addressDuration: 392447847 ms
+run time: 2.39s
+io_count=5000, 分数: -3284661130
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.86s
+BASE:
+BASE:
+BASE addressDuration: 804991867 ms
+run time: 4.72s
+io_count=10000, 分数: -6618252760
+
+------------------------------------------
+BASE 算法总分为-10734617600
+------------------------------------------
+
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.05s
+Greedy:
+Greedy:
+Greedy addressDuration: 347255 ms
+run time: 0.04s
+io_count=10, 分数: 110650
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.05s
+Greedy:
+Greedy:
+Greedy addressDuration: 810029 ms
+run time: 0.05s
+io_count=50, 分数: -250610
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.05s
+Greedy:
+Greedy:
+Greedy addressDuration: 1161926 ms
+run time: 0.05s
+io_count=100, 分数: -1084780
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.09s
+Greedy:
+Greedy:
+Greedy addressDuration: 6924787 ms
+run time: 0.10s
+io_count=1000, 分数: -994510
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.74s
+Greedy:
+Greedy:
+Greedy addressDuration: 63951282 ms
+run time: 0.66s
+io_count=5000, 分数: 304520
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.86s
+Greedy:
+Greedy:
+Greedy addressDuration: 143141607 ms
+run time: 2.48s
+io_count=10000, 分数: 249840
+
+
+------------------------------------------
+Greedy 算法总分为-1664890
+------------------------------------------
+
+
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.05s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 334580 ms
+run time: 0.05s
+io_count=10, 分数: 237400
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.04s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 777007 ms
+run time: 0.05s
+io_count=50, 分数: 79610
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.05s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 1162865 ms
+run time: 0.05s
+io_count=100, 分数: -1094170
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.10s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 6904584 ms
+run time: 0.11s
+io_count=1000, 分数: -792480
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.76s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 63980748 ms
+run time: 0.97s
+io_count=5000, 分数: 9860
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.69s
+Greedy1:
+Greedy1:
+Greedy1 addressDuration: 143227215 ms
+run time: 3.79s
+io_count=10000, 分数: -606240
+
+
+------------------------------------------
+Greedy1 算法总分为-2166020
+------------------------------------------
+
+
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.05s
+LKH1:
+LKH1:
+LKH1 addressDuration: 338320 ms
+run time: 0.12s
+io_count=10, 分数: 200000
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.05s
+LKH1:
+LKH1:
+LKH1 addressDuration: 659730 ms
+run time: 0.65s
+io_count=50, 分数: 1252380
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.05s
+LKH1:
+LKH1:
+LKH1 addressDuration: 925248 ms
+run time: 0.07s
+io_count=100, 分数: 1282000
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.09s
+LKH1:
+LKH1:
+LKH1 addressDuration: 6669794 ms
+run time: 1.84s
+io_count=1000, 分数: 1555420
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.74s
+LKH1:
+LKH1:
+LKH1 addressDuration: 63733713 ms
+run time: 99.63s
+io_count=5000, 分数: 2480210
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.81s
+LKH1:
+LKH1:
+LKH1 addressDuration: 133032020 ms
+run time: 563.67s
+io_count=10000, 分数: 101345710
+
+
+------------------------------------------
+LKH1 算法总分为108115720
+------------------------------------------
+
+
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.06s
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.05s
+io_count=10, 分数: 200000
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.05s
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.04s
+io_count=50, 分数: 200000
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.04s
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.04s
+io_count=100, 分数: 200000
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.09s
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.10s
+io_count=1000, 分数: 200000
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.75s
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.72s
+io_count=5000, 分数: 200000
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 3.06s
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.90s
+io_count=10000, 分数: 200000
+
+
+------------------------------------------
+SCAN 算法总分为1200000
+------------------------------------------
+
+
+head info : [49,496804,0]
+
+io count = 10
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 338320 ms
+run time: 0.07s
+LKH:
+LKH:
+LKH addressDuration: 346147 ms
+run time: 0.07s
+io_count=10, 分数: 121730
+head info : [30,338759,1]
+
+io count = 50
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 764968 ms
+run time: 0.05s
+LKH:
+LKH:
+LKH addressDuration: 942837 ms
+run time: 1.00s
+io_count=50, 分数: -1578690
+head info : [60,184555,1]
+
+io count = 100
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 1033448 ms
+run time: 0.05s
+LKH:
+LKH:
+LKH addressDuration: 1173115 ms
+run time: 0.58s
+io_count=100, 分数: -1196670
+head info : [189,487730,0]
+
+io count = 1000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 6805336 ms
+run time: 0.10s
+LKH:
+LKH:
+LKH addressDuration: 6781819 ms
+run time: 3.98s
+io_count=1000, 分数: 435170
+head info : [44,725079,0]
+
+io count = 5000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 63961734 ms
+run time: 0.76s
+LKH:
+LKH:
+LKH addressDuration: 63877661 ms
+run time: 104.32s
+io_count=5000, 分数: 1040730
+head info : [107,458017,0]
+
+io count = 10000
+
+
+SCAN:
+SCAN:
+SCAN addressDuration: 143146591 ms
+run time: 2.94s
+LKH:
+LKH:
+LKH addressDuration: 134709292 ms
+run time: 497.53s
+io_count=10000, 分数: 84572990
+
+
+------------------------------------------
+LKH 算法总分为83395260
+------------------------------------------

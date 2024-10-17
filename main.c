@@ -12,6 +12,7 @@
 #include <sys/resource.h>
 #include <sys/types.h>
 #include <sys/sysinfo.h>
+#include <sys/resource.h>
 
 #define MAX_PATH_LENGTH 256
 
@@ -313,7 +314,9 @@ int main(int argc, char *argv[])
     /* 总毫秒数 */
     metrics.algorithmRunningDuration = ((seconds)*1000000 + useconds) / 1000.0;
     /* 内存占用 */
-    metrics.memoryUse = 0;
+    struct rusage usage;
+    getrusage(RUSAGE_SELF, &usage);
+    metrics.memoryUse = usage.ru_maxrss;
 
     PrintMetrics(&metrics);
     /* 保存指标数据到文件 */

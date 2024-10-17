@@ -113,17 +113,15 @@ def run_scoring_system(
     io.execute(method=IO_Schedule.METHOD.SCAN)
     address_duration_before=io.address_duration()
 
-    memory_before = get_memory_usage_in_MB()
     # 调用使用的算法
-    _, _, _, run_time = io.execute(method)
-    memory_after = get_memory_usage_in_MB()
+    path, result_str, addr_dur, run_time, mem_use = io.execute(method)
     address_duration_after=io.address_duration()
 
     # 设置类scorer中的各变量
     scorer.set_baseline_metrics(read_latency=address_duration_before)
     scorer.set_sorted_metrics(read_latency=address_duration_after)
     scorer.set_request_size=io_count
-    scorer.set_actual_space_used(memory_after-memory_before)
+    scorer.set_actual_space_used(mem_use)
     scorer.set_error_io_requests(0)  # 假设没有错误
     scorer.set_io_sorting_time=run_time
 
@@ -136,27 +134,35 @@ def run_scoring_system(
 if __name__ == "__main__":
     METHOD = IO_Schedule.METHOD
     methods = [
-        METHOD.BASE,
-        METHOD.Greedy,
-        METHOD.Greedy1,
+        # METHOD.SCAN,
+        # METHOD.LKH,
+        # METHOD.BASE,
+        # METHOD.Greedy,
+        # METHOD.Greedy1,
         METHOD.LKH1,
     ]
     for method in methods:
+        print(f"--------------------{method.name} 开始-------------------")
         total_score = 0
         # 考虑一般情况，io在前100%，随机分布，长度随机
         io_counts = [10, 50, 100, 1000, 5000, 10000]
         for i in range(len(io_counts)):
-            generate_tape_io_sequence(
-                io_area=1.0,
-                io_count=io_counts[i],
-                filename=file_dir / f"case_test_{i}.txt",
-            )
+            print(f"----------------io_counts 数目: [{io_counts}]------------")
+            data_set_file = file_dir / f"case_test_{i}.txt"
+            if not os.path.exists(data_set_file):
+                generate_tape_io_sequence(
+                    io_area=1.0,
+                    io_count=io_counts[i],
+                    filename=data_set_file,
+                )
             test = IO_Schedule(f"{file_dir}/../dataset/case_test_{i}.txt")
             score = run_scoring_system(io=test, io_count=io_counts[i], method=method)
             total_score += score
 
         # 考虑特殊情况，io为高斯分布，或io全是正向/反向分布
 
-        print(f"{method.name} 算法总分为{total_score}\n\n")
+        print("\n\n----------------------------------------------------")
+        print(f"{method.name} 算法总分为{total_score}")
+        print("----------------------------------------------------\n\n")
 
 # %%

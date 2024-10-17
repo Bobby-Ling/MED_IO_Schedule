@@ -227,7 +227,7 @@ def total_motor_wear_times(input_param: InputParam, output_param: OutputParam) -
 
 # 对其余函数的包装
 
-lib_main = ctypes.CDLL(file_dir / "libproject_hw_dl.so")
+lib_main = ctypes.CDLL(file_dir / "../build/libproject_hw_dl.so")
 
 
 # C结构体
@@ -403,18 +403,9 @@ class IO_Schedule:
             method (METHOD): 方法enum
 
         Returns:
-            _type_: path列表
+            _type_: self.path, result_str, addr_dur(ms), algo_dur(ms), mem_use(KB)
         """
-        start = time.time()
-
-        os.chdir(file_dir / "../build/")
-        print(f"{method.name}:")
-        result_str = execCmd(
-            f"METHOD={method.value} ./project_hw -f ../dataset/{Path(self.dataset_file).name}"
-        )
-        addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
-        addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
-        start = time.time()
+        # start = time.time()
 
         os.chdir(file_dir / "../build/")
         print(f"{method.name}:")
@@ -424,15 +415,24 @@ class IO_Schedule:
         addr_dur_regex = r"\s*addressingDuration:\s*(\d+)\s*\(ms\)\s*"
         addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
         print(f"{method.name} addressDuration: {addr_dur} ms")
+
+        algo_dur_regex = r"\s*algorithmRunningDuration:\s*(\d+.?\d+)\s*\(ms\)\s*"
+        algo_dur = float(re.findall(algo_dur_regex, result_str)[0])
+        print(f"{method.name} algorithmRunningDuration: {algo_dur} ms")
+
+        mem_use_regex = r"\s*memoryUse:\s*(\d+.?\d+)\s*\(KB\)\s*"
+        mem_use = float(re.findall(mem_use_regex, result_str)[0])
+        print(f"{method.name} memoryUse: {mem_use} KB")
+
         with open(self.dataset_file + ".result") as result_file:
             self.path = np.asarray(eval(result_file.read()))
         os.chdir(file_dir)
 
-        end = time.time()
-        run_time=round((end - start),2)
-        print(f"run time: {end - start:.2f}s")
+        # end = time.time()
+        # run_time=round((end - start),2)
+        # print(f"run time: {end - start:.2f}s")
 
-        return self.path, addr_dur, result_str, run_time
+        return self.path, result_str, addr_dur, algo_dur, mem_use
 
     def run_LKH(self, matrix: Union[np.ndarray, list[list[int]]], type="ATSP"):
         par_file_name = "par.tmp.o"

@@ -19,6 +19,7 @@
         "*.vh": "verilog",
         "algorithm.h": "c",
         "greedy.h": "c",
-        "greedy1.h": "c"
+        "greedy1.h": "c",
+        "resource.h": "c"
     }
 }
