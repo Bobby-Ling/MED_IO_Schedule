@@ -544,8 +544,8 @@ if __name__ == '__main__':
     test1.address_duration()
     test1.plot_path()
 
-test = IO_Schedule(f'{file_dir}/../dataset/case_8.txt')
-test.execute(method=IO_Schedule.METHOD.SCAN)
-test.address_duration(path=None)
-test.plot_path(path=None)
+    test = IO_Schedule(f"{file_dir}/../dataset/case_8.txt")
+    test.execute(method=IO_Schedule.METHOD.SCAN)
+    test.address_duration(path=None)
+    test.plot_path(path=None)
 # %%

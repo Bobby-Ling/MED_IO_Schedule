@@ -1,3 +1,4 @@
+# %%
 import sys
 import time
 import psutil
@@ -101,7 +102,7 @@ def get_memory_usage_in_MB():
 
 def run_scoring_system(is_final_round=False,io:IO_Schedule=None,io_count=0)  :
     scorer = ScoringSystem(is_final_round)
-    
+
     # 调用基线算法，求出基线时延
     io.execute(method=IO_Schedule.METHOD.SCAN)
     address_duration_before=io.address_duration()
@@ -119,23 +120,25 @@ def run_scoring_system(is_final_round=False,io:IO_Schedule=None,io_count=0)  :
     scorer.set_actual_space_used(memory_after-memory_before)
     scorer.set_error_io_requests(0)  # 假设没有错误
     scorer.set_io_sorting_time=run_time
-    
-    
 
     score = scorer.calculate_total_score()
     print(f"io_count={io_count}, 分数: {score}")
     return score
 
 
-total_score=0
-# 考虑一般情况，io在前100%，随机分布，长度随机
-io_counts=[10,50,100,1000,5000,10000]
-for i in range(len(io_counts)):
-    generate_tape_io_sequence(io_area=1.0,io_count=io_counts[i],filename=file_dir / f"case_test_{i}.txt")
-    test=IO_Schedule(f'{file_dir}/../dataset/case_test_{i}.txt')
-    score=run_scoring_system(io=test,io_count=io_counts[i])
-    total_score+=score
+# %%
+if __name__ == "__main__":
+    total_score = 0
+    # 考虑一般情况，io在前100%，随机分布，长度随机
+    io_counts = [10, 50, 100, 1000, 5000, 10000]
+    for i in range(len(io_counts)):
+        generate_tape_io_sequence(
+            io_area=1.0, io_count=io_counts[i], filename=file_dir / f"case_test_{i}.txt"
+        )
+        test = IO_Schedule(f"{file_dir}/../dataset/case_test_{i}.txt")
+        score = run_scoring_system(io=test, io_count=io_counts[i])
+        total_score += score
 
-#考虑特殊情况，io为高斯分布，或io全是正向/反向分布
+    # 考虑特殊情况，io为高斯分布，或io全是正向/反向分布
 
-print(f"本算法总分为{total_score}")
+    print(f"本算法总分为{total_score}")
