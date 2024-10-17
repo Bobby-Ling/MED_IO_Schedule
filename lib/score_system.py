@@ -52,8 +52,6 @@ class ScoringSystem:
         self.time_weight = 1
         self.wear_weight = 0
 
-        self.result = {}
-
     def set_baseline_metrics(self, read_latency, tape_wear=0):
         self.baseline_read_latency = read_latency
         self.baseline_tape_wear = tape_wear
@@ -90,7 +88,7 @@ class ScoringSystem:
         return max(0, (20*1000 - self.io_sorting_time) * 10)
 
     def calculate_time_penalty(self):
-        if self.io_sorting_time > 20*1000:
+        if self.io_sorting_time > 20 * 1000:
             return (self.io_sorting_time - 20*1000) * (self.request_size // 50 + (1 if self.request_size % 50 > 0 else 0))
         return 0
 
@@ -147,10 +145,10 @@ def run_scoring_system(
     # 设置类scorer中的各变量
     scorer.set_baseline_metrics(read_latency=address_duration_before)
     scorer.set_sorted_metrics(read_latency=address_duration_after)
-    scorer.set_request_size=io_count
+    scorer.set_request_size(io_count)
     scorer.set_actual_space_used(mem_use)
     scorer.set_error_io_requests(0)  # 假设没有错误
-    scorer.set_io_sorting_time=run_time
+    scorer.set_io_sorting_time(run_time)
 
     score, algorithm_score, time_bonus, time_penalty, space_penalty, error_penalty = (
         scorer.calculate_total_score()
@@ -165,21 +163,67 @@ def run_scoring_system(
     print(f"io_count={io_count}, 分数: {score}")
     return score, result
 
+import matplotlib.pyplot as plt
+import numpy as np
+
 
 # %%
-if __name__ == "__main__":
+def visualize_results(
+    results: dict[IO_Schedule.METHOD, list[Result]], io_counts: list[int]
+):
+    metrics = [
+        "addr_dur",
+        "run_time",
+        "mem_use",
+        "score",
+        "algorithm_score",
+        "time_bonus",
+        "time_penalty",
+        "space_penalty",
+        "error_penalty",
+    ]
+
+    num_metrics = len(metrics)
+    num_methods = len(results)
+    x_values = range(len(io_counts))  # Use indices as x-values
+
+    fig, axes = plt.subplots(3, 3, figsize=(20, 20))
+    fig.suptitle("IO Scheduling Results Comparison", fontsize=16)
+
+    for idx, metric in enumerate(metrics):
+        ax = axes[idx // 3, idx % 3]
+
+        for method, result_list in results.items():
+            values = [getattr(result, metric) for result in result_list]
+            ax.plot(x_values, values, marker="o", label=method.name)
+
+        ax.set_title(f'{metric.replace("_", " ").title()}')
+        ax.set_xlabel("IO Count Index")
+        ax.set_ylabel("Value")
+        ax.set_xticks(x_values)
+        ax.set_xticklabels(io_counts)
+        ax.legend()
+        ax.grid(True)
+
+    plt.tight_layout()
+    plt.show()
+
+
+# %%
+def judge():
     METHOD = IO_Schedule.METHOD
     methods = [
-        # METHOD.BASE,
+        METHOD.BASE,
         # METHOD.SCAN,
         # METHOD.Greedy1,
-        # METHOD.Greedy,
+        METHOD.Greedy,
         # METHOD.LKH,
         # METHOD.LKH1,
         METHOD.LNS,
     ]
     # 考虑一般情况，io在前100%，随机分布，长度随机
     io_counts = [10, 50, 100, 1000, 5000, 10000]
+    # io_counts = [10, 50, 100, 1000]
     # io_counts = [10, 50]
     results: dict[IO_Schedule.METHOD, dict[int, Result]] = {}
     for method in methods:
@@ -208,4 +252,40 @@ if __name__ == "__main__":
         print(f"{method.name} 算法总分为{total_score}")
         print("----------------------------------------------------\n\n")
 
+    visualize_results(results, io_counts)
+
+
 # %%
+def test_scorer():
+    scorer = ScoringSystem()
+    result = Result()
+
+    path, result_str, addr_dur, run_time, mem_use = ([], "", 1, 30 * 1000, 30 * 1000)
+    result.path = path
+    result.result_str = result_str
+    result.addr_dur = addr_dur
+    result.run_time = run_time
+    result.mem_use = mem_use
+
+    scorer.set_baseline_metrics(read_latency=100)
+    scorer.set_sorted_metrics(read_latency=1000)
+    scorer.set_request_size(10000)
+    scorer.set_actual_space_used(mem_use)
+    scorer.set_error_io_requests(0)  # 假设没有错误
+    scorer.set_io_sorting_time(run_time)
+
+    score, algorithm_score, time_bonus, time_penalty, space_penalty, error_penalty = (
+        scorer.calculate_total_score()
+    )
+    result.score = score
+    result.algorithm_score = algorithm_score
+    result.time_bonus = time_bonus
+    result.time_penalty = time_penalty
+    result.space_penalty = space_penalty
+    result.error_penalty = error_penalty
+    return result
+
+
+if __name__ == "__main__":
+    # test_scorer()
+    judge()
