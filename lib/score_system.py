@@ -381,8 +381,8 @@ def run_test():
     # 考虑一般情况，io在前100%，随机分布，长度随机
     io_counts: list[int] = np.concatenate(
         [
-            np.arange(10, 500, 40),
-            np.arange(500, 2000, 100),
+            np.arange(10, 1000, 40),
+            # np.arange(1000, 2000, 100),
             # np.arange(2000, 5000, 500),
             # np.arange(5000, 10001, 1000),
         ]
