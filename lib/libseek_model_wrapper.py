@@ -377,6 +377,7 @@ class IO_Schedule:
 
     class METHOD(Enum):
         Greedy = 0
+        LKH1 = 1
         LKH = 2
         BASE = 3
         SCAN = 4
@@ -480,7 +481,8 @@ class IO_Schedule:
         Returns:
             _type_: 寻址时间, 单位ms
         """
-        path = path or self.path
+        if path is None:
+            path = self.path
         self.output_param.from_list(path)
 
         access_time = AccessTime()
@@ -488,7 +490,8 @@ class IO_Schedule:
         return access_time.addressDuration
 
     def plot_path(self, path: Optional[Union[list[int], np.ndarray]] = None):
-        path = path or self.path
+        if path is None:
+            path = self.path
         io_coordinates = self.io_coordinates
         # 倒置wrap轴
         plt.gca().invert_yaxis()
@@ -539,6 +542,10 @@ if __name__ == '__main__':
     test1 = IO_Schedule(f"{file_dir}/../dataset/case_4.txt")
     test1.execute(method=IO_Schedule.METHOD.Greedy)
     test1.address_duration()
-# %%
+    test1.plot_path()
 
+test = IO_Schedule(f'{file_dir}/../dataset/case_8.txt')
+test.execute(method=IO_Schedule.METHOD.SCAN)
+test.address_duration(path=None)
+test.plot_path(path=None)
 # %%
