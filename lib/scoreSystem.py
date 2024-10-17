@@ -1,17 +1,35 @@
+import sys
 import time
 import psutil
+import os
 from libseek_model_wrapper import IO_Schedule
+from pathlib import Path
+# 添加上一级目录到 sys.path
+sys.path.append(str(Path(__file__).resolve().parent.parent))
+from dataset.dataset_gen import generate_tape_io_sequence
+
+file_dir = Path(__file__).parent.parent / "dataset"
 class ScoringSystem:
     def __init__(self, is_final_round=False):
+
         self.is_final_round = is_final_round
+        # 基线读时延
         self.baseline_read_latency = 0
+        # 调度算法读时延
         self.sorted_read_latency = 0
+        # 基线磨损
         self.baseline_tape_wear = 0
+        # 调度算法读磨损
         self.sorted_tape_wear = 0
+        # 调度算法执行时间
         self.io_sorting_time = 0
+        # 实际使用空间
         self.actual_space_used = 0
+        # 错误IO调度
         self.error_io_requests = 0
+        # 问题规模
         self.request_size = 0
+        # 时间/磨损权重
         self.time_weight = 1
         self.wear_weight = 0
 
@@ -48,11 +66,11 @@ class ScoringSystem:
             return (self.baseline_read_latency - self.sorted_read_latency) * 10
 
     def calculate_time_bonus(self):
-        return max(0, (20 - self.io_sorting_time) * 10)
+        return max(0, (20*1000 - self.io_sorting_time) * 10)
 
     def calculate_time_penalty(self):
-        if self.io_sorting_time > 20:
-            return (self.io_sorting_time - 20) * (self.request_size // 50 + (1 if self.request_size % 50 > 0 else 0))
+        if self.io_sorting_time > 20*1000:
+            return (self.io_sorting_time - 20*1000) * (self.request_size // 50 + (1 if self.request_size % 50 > 0 else 0))
         return 0
 
     def calculate_space_penalty(self):
@@ -74,26 +92,50 @@ class ScoringSystem:
         total_score = algorithm_score + time_bonus - time_penalty - space_penalty - error_penalty
         return total_score
 
-def run_scoring_system(is_final_round=False):
+
+# 获取当前进程的内存使用量（以 MB 为单位）
+def get_memory_usage_in_MB():
+    process = psutil.Process(os.getpid())  # 获取当前进程对象
+    memory_info = process.memory_info()    # 获取内存信息
+    return memory_info.rss / (1024 * 1024)  # 将内存使用量转为 MB
+
+def run_scoring_system(is_final_round=False,io:IO_Schedule=None,io_count=0)  :
     scorer = ScoringSystem(is_final_round)
+    
+    # 调用基线算法，求出基线时延
+    io.execute(method=IO_Schedule.METHOD.SCAN)
+    address_duration_before=io.address_duration()
 
-    # 设置基准指标
-    scorer.set_baseline_metrics(100, 50 if is_final_round else 0)
+    memory_before = get_memory_usage_in_MB()
+    # 调用使用的算法
+    _,_,_,run_time=io.execute(method=IO_Schedule.METHOD.Greedy)
+    memory_after = get_memory_usage_in_MB()
+    address_duration_after=io.address_duration()
 
-    # 模拟算法执行
-    start_time = time.time()
-    # 这里应该是实际的算法执行
-    time.sleep(2)  # 模拟2秒的执行时间
-    end_time = time.time()
-
-    # 设置排序后的指标
-    scorer.set_sorted_metrics(80, 40 if is_final_round else 0)
-    scorer.set_io_sorting_time(end_time - start_time)
-    scorer.set_actual_space_used(psutil.Process().memory_info().rss)
+    # 设置类scorer中的各变量
+    scorer.set_baseline_metrics(read_latency=address_duration_before)
+    scorer.set_sorted_metrics(read_latency=address_duration_after)
+    scorer.set_request_size=io_count
+    scorer.set_actual_space_used(memory_after-memory_before)
     scorer.set_error_io_requests(0)  # 假设没有错误
-    scorer.set_request_size(1000)
+    scorer.set_io_sorting_time=run_time
+    
+    
 
-    total_score = scorer.calculate_total_score()
-    print(f"总分: {total_score}")
+    score = scorer.calculate_total_score()
+    print(f"io_count={io_count}, 分数: {score}")
+    return score
 
 
+total_score=0
+# 考虑一般情况，io在前100%，随机分布，长度随机
+io_counts=[10,50,100,1000,5000,10000]
+for i in range(len(io_counts)):
+    generate_tape_io_sequence(io_area=1.0,io_count=io_counts[i],filename=file_dir / f"case_test_{i}.txt")
+    test=IO_Schedule(f'{file_dir}/../dataset/case_test_{i}.txt')
+    score=run_scoring_system(io=test,io_count=io_counts[i])
+    total_score+=score
+
+#考虑特殊情况，io为高斯分布，或io全是正向/反向分布
+
+print(f"本算法总分为{total_score}")

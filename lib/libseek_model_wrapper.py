@@ -423,18 +423,14 @@ class IO_Schedule:
         addr_dur = int(re.findall(addr_dur_regex, result_str)[0])
         print(f"{method.name} addressDuration: {addr_dur} ms")
         with open(self.dataset_file + ".result") as result_file:
-        with open(self.dataset_file + ".result") as result_file:
             self.path = np.asarray(eval(result_file.read()))
         os.chdir(file_dir)
 
         end = time.time()
+        run_time=round((end - start),2)
         print(f"run time: {end - start:.2f}s")
 
-
-        end = time.time()
-        print(f"run time: {end - start:.2f}s")
-
-        return self.path, addr_dur, result_str
+        return self.path, addr_dur, result_str, run_time
 
     def run_LKH(self, matrix: Union[np.ndarray, list[list[int]]], type="ATSP"):
         par_file_name = "par.tmp.o"
@@ -543,11 +539,6 @@ if __name__ == '__main__':
     test1 = IO_Schedule(f"{file_dir}/../dataset/case_4.txt")
     test1.execute(method=IO_Schedule.METHOD.Greedy)
     test1.address_duration()
-    test1.plot_path()
 # %%
 
-test = IO_Schedule(f'{file_dir}/../dataset/case_8.txt')
-test.execute(method=IO_Schedule.METHOD.SCAN)
-test.address_duration(path=None)
-test.plot_path(path=None)
 # %%
