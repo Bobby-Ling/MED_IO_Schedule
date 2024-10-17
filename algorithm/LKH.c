@@ -89,9 +89,9 @@ int32_t IOScheduleAlgorithmLKH(const InputParam *input, OutputParam *output)
     for (size_t r_i = 0, w_i = 0; r_i < MAT_SIZE; r_i++)
     {
         int index = path[r_i]-1;
-        if (index < MAT_SIZE-2) {
+        if (index < output->len) {
             output->sequence[w_i] = input->ioVec.ioArray[index].id;
-            printf("%ld %d %d\n",r_i, index, input->ioVec.ioArray[index].id);
+            // printf("%ld %d %d\n",r_i, index, input->ioVec.ioArray[index].id);
             w_i++;
         }
     }
@@ -103,6 +103,7 @@ int32_t IOScheduleAlgorithmLKH(const InputParam *input, OutputParam *output)
 
 
     // 释放动态分配的内存并关闭文件
+    free(matrix_2d);
     free(path);
     fclose(file);
 
