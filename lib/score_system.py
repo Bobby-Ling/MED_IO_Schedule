@@ -375,7 +375,7 @@ def run_test():
         # METHOD.Greedy1,
         METHOD.Greedy,
         # METHOD.LKH,
-        METHOD.LKH1,
+        # METHOD.LKH1,
         METHOD.LNS,
     ]
     # 考虑一般情况，io在前100%，随机分布，长度随机
@@ -383,8 +383,8 @@ def run_test():
         [
             # np.arange(10, 1000, 10),
             np.arange(1000, 2000, 100),
-            # np.arange(2000, 5000, 500),
-            # np.arange(5000, 10001, 1000),
+            np.arange(2000, 5000, 500),
+            np.arange(5000, 10001, 1000),
         ]
     ).tolist()
     # io_counts: list[int] = [10, 50, 100, 1000, 5000, 10000]
