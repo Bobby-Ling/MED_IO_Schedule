@@ -10,6 +10,24 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from dataset.dataset_gen import generate_tape_io_sequence
 
 file_dir = Path(__file__).parent.parent / "dataset"
+
+
+class Result:
+
+    def __init__(self):
+        self.path = []
+        self.result_str = ""
+        self.addr_dur = 0
+        self.run_time = 0.0
+        self.mem_use = 0.0
+        self.score = 0.0
+        self.algorithm_score = 0.0
+        self.time_bonus = 0.0
+        self.time_penalty = 0.0
+        self.space_penalty = 0.0
+        self.error_penalty = 0.0
+
+
 class ScoringSystem:
     def __init__(self, is_final_round=False):
 
@@ -33,6 +51,8 @@ class ScoringSystem:
         # 时间/磨损权重
         self.time_weight = 1
         self.wear_weight = 0
+
+        self.result = {}
 
     def set_baseline_metrics(self, read_latency, tape_wear=0):
         self.baseline_read_latency = read_latency
@@ -75,8 +95,8 @@ class ScoringSystem:
         return 0
 
     def calculate_space_penalty(self):
-        if self.actual_space_used > 10 * 1024 * 1024:  # 10M in bytes
-            excess = self.actual_space_used - 10 * 1024 * 1024
+        if self.actual_space_used > 10 * 1024:  # 10M in bytes
+            excess = self.actual_space_used - 10 * 1024
             return excess * (self.request_size // 100 + (1 if self.request_size % 100 > 0 else 0))
         return 0
 
@@ -91,14 +111,14 @@ class ScoringSystem:
         error_penalty = self.calculate_error_penalty()
 
         total_score = algorithm_score + time_bonus - time_penalty - space_penalty - error_penalty
-        return total_score
-
-
-# 获取当前进程的内存使用量（以 MB 为单位）
-def get_memory_usage_in_MB():
-    process = psutil.Process(os.getpid())  # 获取当前进程对象
-    memory_info = process.memory_info()    # 获取内存信息
-    return memory_info.rss / (1024 * 1024)  # 将内存使用量转为 MB
+        return (
+            total_score,
+            algorithm_score,
+            time_bonus,
+            time_penalty,
+            space_penalty,
+            error_penalty,
+        )
 
 
 def run_scoring_system(
@@ -108,6 +128,7 @@ def run_scoring_system(
     method: IO_Schedule.METHOD = IO_Schedule.METHOD.Greedy,
 ):
     scorer = ScoringSystem(is_final_round)
+    result = Result()
 
     # 调用基线算法，求出基线时延
     io.execute(method=IO_Schedule.METHOD.SCAN)
@@ -115,6 +136,12 @@ def run_scoring_system(
 
     # 调用使用的算法
     path, result_str, addr_dur, run_time, mem_use = io.execute(method)
+    result.path = path
+    result.result_str = result_str
+    result.addr_dur = addr_dur
+    result.run_time = run_time
+    result.mem_use = mem_use
+
     address_duration_after=io.address_duration()
 
     # 设置类scorer中的各变量
@@ -125,29 +152,42 @@ def run_scoring_system(
     scorer.set_error_io_requests(0)  # 假设没有错误
     scorer.set_io_sorting_time=run_time
 
-    score = scorer.calculate_total_score()
+    score, algorithm_score, time_bonus, time_penalty, space_penalty, error_penalty = (
+        scorer.calculate_total_score()
+    )
+    result.score = score
+    result.algorithm_score = algorithm_score
+    result.time_bonus = time_bonus
+    result.time_penalty = time_penalty
+    result.space_penalty = space_penalty
+    result.error_penalty = error_penalty
+
     print(f"io_count={io_count}, 分数: {score}")
-    return score
+    return score, result
 
 
 # %%
 if __name__ == "__main__":
     METHOD = IO_Schedule.METHOD
     methods = [
-        # METHOD.SCAN,
-        # METHOD.LKH,
         # METHOD.BASE,
-        # METHOD.Greedy,
+        # METHOD.SCAN,
         # METHOD.Greedy1,
+        # METHOD.Greedy,
+        # METHOD.LKH,
+        # METHOD.LKH1,
         METHOD.LNS,
     ]
+    # 考虑一般情况，io在前100%，随机分布，长度随机
+    io_counts = [10, 50, 100, 1000, 5000, 10000]
+    # io_counts = [10, 50]
+    results: dict[IO_Schedule.METHOD, dict[int, Result]] = {}
     for method in methods:
-        print(f"--------------------{method.name} 开始-------------------")
+        print(f"---------------------{method.name} 开始--------------------")
         total_score = 0
-        # 考虑一般情况，io在前100%，随机分布，长度随机
-        io_counts = [10, 50, 100, 1000, 5000, 10000]
+        result_list = []
         for i in range(len(io_counts)):
-            print(f"----------------io_counts 数目: [{io_counts[i]}]------------")
+            print(f"-----------------io_counts 数目: [{io_counts[i]}]--------------")
             data_set_file = file_dir / f"case_test_{i}.txt"
             if not os.path.exists(data_set_file):
                 generate_tape_io_sequence(
@@ -156,9 +196,12 @@ if __name__ == "__main__":
                     filename=data_set_file,
                 )
             test = IO_Schedule(f"{file_dir}/../dataset/case_test_{i}.txt")
-            score = run_scoring_system(io=test, io_count=io_counts[i], method=method)
+            score, result = run_scoring_system(
+                io=test, io_count=io_counts[i], method=method
+            )
+            result_list.append(result)
             total_score += score
-
+        results[method] = result_list
         # 考虑特殊情况，io为高斯分布，或io全是正向/反向分布
 
         print("\n\n----------------------------------------------------")

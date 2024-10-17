@@ -8,10 +8,10 @@
 #include "LNS.h"
 #include <math.h>
 #define MAX_IO_REQUESTS 10000
-#define INITIAL_SOLUTIONS 10
-#define LNS_ITERATIONS 1000
-#define SA_INITIAL_TEMP 1000.0
-#define SA_COOLING_RATE 0.995
+int INITIAL_SOLUTIONS = 10;
+int LNS_ITERATIONS = 1000;
+int SA_INITIAL_TEMP = 1000.0;
+int SA_COOLING_RATE = 0.995;
 // 使用现有的数据结构
 typedef struct {
     uint32_t id;
@@ -148,7 +148,7 @@ void largeNeighborhoodSearch() {
 
         // 模拟退火决定是否接受新解
         double temperature = SA_INITIAL_TEMP * pow(SA_COOLING_RATE, iter);
-        if (newCost < currentCost || 
+        if (newCost < currentCost ||
             (double)rand() / RAND_MAX < exp((currentCost - newCost) / temperature)) {
             for (uint32_t i = 0; i < globalInput->ioVec.len; i++) {
                 sequence[i] = tempSequence[i];
@@ -166,6 +166,11 @@ void largeNeighborhoodSearch() {
 }
 
 int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
+    INITIAL_SOLUTIONS = 10;
+    LNS_ITERATIONS = input->ioVec.len;
+    SA_INITIAL_TEMP = 1000.0;
+    SA_COOLING_RATE = 0.995;
+
     globalInput = input;
     srand(time(NULL));
 
