@@ -139,7 +139,7 @@ if __name__ == "__main__":
         # METHOD.BASE,
         # METHOD.Greedy,
         # METHOD.Greedy1,
-        METHOD.LKH1,
+        METHOD.LNS,
     ]
     for method in methods:
         print(f"--------------------{method.name} 开始-------------------")

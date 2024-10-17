@@ -382,6 +382,7 @@ class IO_Schedule:
         BASE = 3
         SCAN = 4
         Greedy1 = 5
+        LNS=6
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path
@@ -549,4 +550,5 @@ if __name__ == '__main__':
     test.execute(method=IO_Schedule.METHOD.SCAN)
     test.address_duration(path=None)
     test.plot_path(path=None)
+
 # %%
