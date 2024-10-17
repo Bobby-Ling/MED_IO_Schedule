@@ -319,6 +319,13 @@ def get_algorithm_running_duration() -> float:
     return lib_main.getAlgorithmRunningDuration()
 
 
+class LNS_Param:
+    INITIAL_SOLUTIONS = ctypes.c_int.in_dll(lib, "INITIAL_SOLUTIONS")
+    LNS_ITERATIONS = ctypes.c_int.in_dll(lib, "LNS_ITERATIONS")
+    SA_INITIAL_TEMP = ctypes.c_int.in_dll(lib, "SA_INITIAL_TEMP")
+    SA_COOLING_RATE = ctypes.c_float.in_dll(lib, "SA_COOLING_RATE")
+
+
 # %%
 import os
 

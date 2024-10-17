@@ -8,10 +8,10 @@
 #include "LNS.h"
 #include <math.h>
 #define MAX_IO_REQUESTS 10000
-static int INITIAL_SOLUTIONS = 10;
-static int LNS_ITERATIONS = 1000;
-static int SA_INITIAL_TEMP = 1000.0;
-static int SA_COOLING_RATE = 0.995;
+int INITIAL_SOLUTIONS = 10;
+int LNS_ITERATIONS = 1000;
+int SA_INITIAL_TEMP = 1000.0;
+int SA_COOLING_RATE = 0.995;
 
 #define min(a, b) ((a) < (b) ? (a) : (b))
 #define max(a, b) ((a) > (b) ? (a) : (b))
@@ -170,10 +170,10 @@ static void largeNeighborhoodSearch() {
 }
 
 int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
-    INITIAL_SOLUTIONS = 10;
-    LNS_ITERATIONS = max((int)(min(input->ioVec.len, 1000)) + 10, 500);
-    SA_INITIAL_TEMP = 1000.0;
-    SA_COOLING_RATE = 0.995;
+    // INITIAL_SOLUTIONS = 10;
+    // LNS_ITERATIONS = max((int)(min(input->ioVec.len, 1000)) + 10, 500);
+    // SA_INITIAL_TEMP = 1000.0;
+    // SA_COOLING_RATE = 0.995;
 
     // 由于可能在动态库多次调用, 因此每次都要手动重置!!!
     currentCost = 0;
