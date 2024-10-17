@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <string.h>
+#include <syslog.h>
 
 
 uint32_t getNodeDistNoHead(uint32_t idx_from, uint32_t idx_to, const Context *ctx) {
@@ -145,6 +146,8 @@ void rotate_list(int *tour_list, int size, int target) {
  * @return int32_t          返回成功或者失败，RETURN_OK 或 RETURN_ERROR
  */
 int32_t IOScheduleAlgorithmLKH1(const InputParam *input, OutputParam *output) {
+    openlog("IOScheduleAlgorithmLKH1", LOG_PID | LOG_CONS, LOG_USER);
+    syslog(LOG_NOTICE, "IOScheduleAlgorithmLKH1 started");
     // 获取距离矩阵
     const Context ctx = {.input = input};
     const int MAT_SIZE = input->ioVec.len + 1;
@@ -174,7 +177,9 @@ int32_t IOScheduleAlgorithmLKH1(const InputParam *input, OutputParam *output) {
 
     // 运行LKH
     // OUTPUT_TOUR_FILE = LKH.result
+    syslog(LOG_NOTICE, "./LKH io.par started");
     system("./LKH io.par");
+    syslog(LOG_NOTICE, "./LKH io.par finished");
 
     // 解析输出文件
     FILE *file = fopen("LKH.result", "r");
@@ -246,5 +251,8 @@ int32_t IOScheduleAlgorithmLKH1(const InputParam *input, OutputParam *output) {
     fclose(file);
 
     chdir("../../build/");
+
+    syslog(LOG_NOTICE, "IOScheduleAlgorithmLKH1 finished");
+    closelog();
     return RETURN_OK;
 }

@@ -147,7 +147,7 @@ if __name__ == "__main__":
         # 考虑一般情况，io在前100%，随机分布，长度随机
         io_counts = [10, 50, 100, 1000, 5000, 10000]
         for i in range(len(io_counts)):
-            print(f"----------------io_counts 数目: [{io_counts}]------------")
+            print(f"----------------io_counts 数目: [{io_counts[i]}]------------")
             data_set_file = file_dir / f"case_test_{i}.txt"
             if not os.path.exists(data_set_file):
                 generate_tape_io_sequence(
