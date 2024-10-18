@@ -216,7 +216,7 @@ int32_t AlgorithmRun(const InputParam *input, OutputParam *output)
     int32_t ret;
 
     // e.g. $ METHOD=2 ./project_hw -f ../dataset/case_5.txt
-    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "4");
+    int METHOD = atoi(getenv("METHOD") ? getenv("METHOD") : "9");
     ret = IOScheduleAlgorithm(input, output, METHOD);
 
     return RETURN_OK;

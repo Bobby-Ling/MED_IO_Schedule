@@ -1,3 +1,1862 @@
+head info : [175,641034,0]
+
+io count = 1000
+
+
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 20.607 ms
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 20.974 ms
+
+io_count=1000, 分数: 199790.26
+head info : [253,359496,1]
+
+io count = 1100
+
+
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 26.25 ms
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 25.924 ms
+
+io_count=1100, 分数: 199740.76
+head info : [33,466502,0]
+
+io count = 1200
+
+
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 30.444 ms
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 30.523 ms
+
+io_count=1200, 分数: 199694.77
+head info : [143,412276,1]
+
+io count = 1300
+
+
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 38.708 ms
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 39.608 ms
+
+io_count=1300, 分数: 199603.91999999998
+head info : [276,223029,1]
+
+io count = 1400
+
+
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 47.057 ms
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 46.248 ms
+
+io_count=1400, 分数: 199537.52000000002
+head info : [66,416769,1]
+
+io count = 1500
+
+
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 51.132 ms
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 50.961 ms
+
+io_count=1500, 分数: 199490.39
+head info : [190,673304,1]
+
+io count = 1600
+
+
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 53.052 ms
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 52.934 ms
+
+io_count=1600, 分数: 199470.65999999997
+head info : [137,115970,0]
+
+io count = 1700
+
+
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 65.659 ms
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 69.567 ms
+
+io_count=1700, 分数: 199304.33000000002
+head info : [27,636594,1]
+
+io count = 1800
+
+
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 74.113 ms
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 72.436 ms
+
+io_count=1800, 分数: 199275.63999999998
+head info : [147,219492,1]
+
+io count = 1900
+
+
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 86.303 ms
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 81.929 ms
+
+io_count=1900, 分数: 199180.71
+head info : [123,196434,0]
+
+io count = 2000
+
+
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 96.808 ms
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 96.234 ms
+
+io_count=2000, 分数: 199037.66
+head info : [209,196140,1]
+
+io count = 2500
+
+
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 141.989 ms
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 141.743 ms
+
+io_count=2500, 分数: 198582.57
+head info : [175,234219,0]
+
+io count = 3000
+
+
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 207.009 ms
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 215.129 ms
+
+io_count=3000, 分数: 197848.71
+head info : [85,49862,0]
+
+io count = 3500
+
+
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 260.671 ms
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 291.499 ms
+
+io_count=3500, 分数: 197085.01
+head info : [175,487521,1]
+
+io count = 4000
+
+
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 377.443 ms
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 371.497 ms
+
+io_count=4000, 分数: 196285.03
+head info : [198,591579,0]
+
+io count = 4500
+
+
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 441.647 ms
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 422.407 ms
+
+io_count=4500, 分数: 195775.93
+head info : [230,405118,0]
+
+io count = 5000
+
+
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 591.762 ms
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 601.327 ms
+
+io_count=5000, 分数: 193986.72999999998
+head info : [35,16451,1]
+
+io count = 6000
+
+
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 798.682 ms
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 797.651 ms
+
+io_count=6000, 分数: 192023.49
+head info : [171,277335,0]
+
+io count = 7000
+
+
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1174.544 ms
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1188.703 ms
+
+io_count=7000, 分数: 188112.96999999997
+head info : [89,238986,1]
+
+io count = 8000
+
+
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1546.209 ms
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1592.46 ms
+
+io_count=8000, 分数: 184075.40000000002
+head info : [205,638884,0]
+
+io count = 9000
+
+
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1747.601 ms
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1784.91 ms
+
+io_count=9000, 分数: 182150.9
+head info : [38,680874,1]
+
+io count = 10000
+
+
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2178.382 ms
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2155.722 ms
+
+io_count=10000, 分数: 178442.77999999997
+head info : [175,641034,0]
+
+io count = 1000
+
+
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 20.948 ms
+Greedy:
+addressDuration: 7441363 ms
+algorithmRunningDuration: 19.108 ms
+
+io_count=1000, 分数: 1107468.92
+head info : [253,359496,1]
+
+io count = 1100
+
+
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 27.538 ms
+Greedy:
+addressDuration: 7813729 ms
+algorithmRunningDuration: 24.297 ms
+
+io_count=1100, 分数: 76947.03000000003
+head info : [33,466502,0]
+
+io count = 1200
+
+
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 31.89 ms
+Greedy:
+addressDuration: 9375698 ms
+algorithmRunningDuration: 26.86 ms
+
+io_count=1200, 分数: -78208.6
+head info : [143,412276,1]
+
+io count = 1300
+
+
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 37.609 ms
+Greedy:
+addressDuration: 10625450 ms
+algorithmRunningDuration: 32.451 ms
+
+io_count=1300, 分数: 186645.49
+head info : [276,223029,1]
+
+io count = 1400
+
+
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 46.161 ms
+Greedy:
+addressDuration: 11335394 ms
+algorithmRunningDuration: 37.312 ms
+
+io_count=1400, 分数: -188283.12000000002
+head info : [66,416769,1]
+
+io count = 1500
+
+
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 52.261 ms
+Greedy:
+addressDuration: 12771603 ms
+algorithmRunningDuration: 44.346 ms
+
+io_count=1500, 分数: -399323.46
+head info : [190,673304,1]
+
+io count = 1600
+
+
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 51.593 ms
+Greedy:
+addressDuration: 13672295 ms
+algorithmRunningDuration: 46.611 ms
+
+io_count=1600, 分数: 1574363.89
+head info : [137,115970,0]
+
+io count = 1700
+
+
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 61.967 ms
+Greedy:
+addressDuration: 14782190 ms
+algorithmRunningDuration: 56.963 ms
+
+io_count=1700, 分数: 474390.37
+head info : [27,636594,1]
+
+io count = 1800
+
+
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 70.626 ms
+Greedy:
+addressDuration: 16509823 ms
+algorithmRunningDuration: 63.128 ms
+
+io_count=1800, 分数: 422408.72
+head info : [147,219492,1]
+
+io count = 1900
+
+
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 77.522 ms
+Greedy:
+addressDuration: 18063382 ms
+algorithmRunningDuration: 64.249 ms
+
+io_count=1900, 分数: -844892.49
+head info : [123,196434,0]
+
+io count = 2000
+
+
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 87.295 ms
+Greedy:
+addressDuration: 18833678 ms
+algorithmRunningDuration: 76.993 ms
+
+io_count=2000, 分数: -48479.92999999999
+head info : [209,196140,1]
+
+io count = 2500
+
+
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 141.679 ms
+Greedy:
+addressDuration: 26435509 ms
+algorithmRunningDuration: 116.005 ms
+
+io_count=2500, 分数: 610389.95
+head info : [175,234219,0]
+
+io count = 3000
+
+
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 213.027 ms
+Greedy:
+addressDuration: 33166016 ms
+algorithmRunningDuration: 172.766 ms
+
+io_count=3000, 分数: 501572.33999999997
+head info : [85,49862,0]
+
+io count = 3500
+
+
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 259.704 ms
+Greedy:
+addressDuration: 40532814 ms
+algorithmRunningDuration: 229.511 ms
+
+io_count=3500, 分数: 1521434.8900000001
+head info : [175,487521,1]
+
+io count = 4000
+
+
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 356.035 ms
+Greedy:
+addressDuration: 48794609 ms
+algorithmRunningDuration: 303.389 ms
+
+io_count=4000, 分数: 55786.110000000015
+head info : [198,591579,0]
+
+io count = 4500
+
+
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 444.984 ms
+Greedy:
+addressDuration: 56732051 ms
+algorithmRunningDuration: 393.222 ms
+
+io_count=4500, 分数: 1082557.78
+head info : [230,405118,0]
+
+io count = 5000
+
+
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 629.352 ms
+Greedy:
+addressDuration: 63552369 ms
+algorithmRunningDuration: 506.632 ms
+
+io_count=5000, 分数: 108273.68
+head info : [35,16451,1]
+
+io count = 6000
+
+
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 803.845 ms
+Greedy:
+addressDuration: 79224448 ms
+algorithmRunningDuration: 686.223 ms
+
+io_count=6000, 分数: 1882997.77
+head info : [171,277335,0]
+
+io count = 7000
+
+
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1164.75 ms
+Greedy:
+addressDuration: 95451022 ms
+algorithmRunningDuration: 969.888 ms
+
+io_count=7000, 分数: -276648.88
+head info : [89,238986,1]
+
+io count = 8000
+
+
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1475.482 ms
+Greedy:
+addressDuration: 111125035 ms
+algorithmRunningDuration: 1235.682 ms
+
+io_count=8000, 分数: -247536.82
+head info : [205,638884,0]
+
+io count = 9000
+
+
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1820.941 ms
+Greedy:
+addressDuration: 126728920 ms
+algorithmRunningDuration: 1636.716 ms
+
+io_count=9000, 分数: 1170552.84
+head info : [38,680874,1]
+
+io count = 10000
+
+
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2188.376 ms
+Greedy:
+addressDuration: 142681288 ms
+algorithmRunningDuration: 2031.873 ms
+
+io_count=10000, 分数: 787901.27
+head info : [175,641034,0]
+
+io count = 1000
+
+
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 22.5 ms
+LNS:
+addressDuration: 5760345 ms
+algorithmRunningDuration: 420.037 ms
+
+io_count=1000, 分数: 17913639.63
+head info : [253,359496,1]
+
+io count = 1100
+
+
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 27.725 ms
+LNS:
+addressDuration: 5965222 ms
+algorithmRunningDuration: 508.672 ms
+
+io_count=1100, 分数: 18557173.28
+head info : [33,466502,0]
+
+io count = 1200
+
+
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 33.906 ms
+LNS:
+addressDuration: 7144198 ms
+algorithmRunningDuration: 578.983 ms
+
+io_count=1200, 分数: 22231270.17
+head info : [143,412276,1]
+
+io count = 1300
+
+
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 39.731 ms
+LNS:
+addressDuration: 7411195 ms
+algorithmRunningDuration: 676.561 ms
+
+io_count=1300, 分数: 32322754.39
+head info : [276,223029,1]
+
+io count = 1400
+
+
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 46.56 ms
+LNS:
+addressDuration: 7972418 ms
+algorithmRunningDuration: 820.324 ms
+
+io_count=1400, 分数: 33433646.76
+head info : [66,416769,1]
+
+io count = 1500
+
+
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 54.348 ms
+LNS:
+addressDuration: 8751044 ms
+algorithmRunningDuration: 915.323 ms
+
+io_count=1500, 分数: 39797556.77
+head info : [190,673304,1]
+
+io count = 1600
+
+
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 54.945 ms
+LNS:
+addressDuration: 9194187 ms
+algorithmRunningDuration: 1083.913 ms
+
+io_count=1600, 分数: 46345070.87
+head info : [137,115970,0]
+
+io count = 1700
+
+
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 64.326 ms
+LNS:
+addressDuration: 9775270 ms
+algorithmRunningDuration: 1153.638 ms
+
+io_count=1700, 分数: 50532623.62
+head info : [27,636594,1]
+
+io count = 1800
+
+
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 72.192 ms
+LNS:
+addressDuration: 10836362 ms
+algorithmRunningDuration: 1238.696 ms
+
+io_count=1800, 分数: 57145263.04
+head info : [147,219492,1]
+
+io count = 1900
+
+
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 85.449 ms
+LNS:
+addressDuration: 10546764 ms
+algorithmRunningDuration: 1416.51 ms
+
+io_count=1900, 分数: 74307764.9
+head info : [123,196434,0]
+
+io count = 2000
+
+
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 93.494 ms
+LNS:
+addressDuration: 10886283 ms
+algorithmRunningDuration: 1491.443 ms
+
+io_count=2000, 分数: 79411325.57
+head info : [209,196140,1]
+
+io count = 2500
+
+
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 142.368 ms
+LNS:
+addressDuration: 14777306 ms
+algorithmRunningDuration: 2265.862 ms
+
+io_count=2500, 分数: 117170921.38
+head info : [175,234219,0]
+
+io count = 3000
+
+
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 205.463 ms
+LNS:
+addressDuration: 19296239 ms
+algorithmRunningDuration: 3246.817 ms
+
+io_count=3000, 分数: 139168601.83
+head info : [85,49862,0]
+
+io count = 3500
+
+
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 264.337 ms
+LNS:
+addressDuration: 24018848 ms
+algorithmRunningDuration: 4394.819 ms
+
+io_count=3500, 分数: 166619441.81
+head info : [175,487521,1]
+
+io count = 4000
+
+
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 386.742 ms
+LNS:
+addressDuration: 28777451 ms
+algorithmRunningDuration: 5774.505 ms
+
+io_count=4000, 分数: 200172654.95
+head info : [198,591579,0]
+
+io count = 4500
+
+
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 440.322 ms
+LNS:
+addressDuration: 34004544 ms
+algorithmRunningDuration: 6963.041 ms
+
+io_count=4500, 分数: 228291929.59
+head info : [230,405118,0]
+
+io count = 5000
+
+
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 554.656 ms
+LNS:
+addressDuration: 38075473 ms
+algorithmRunningDuration: 8503.958 ms
+
+io_count=5000, 分数: 254797260.42
+head info : [35,16451,1]
+
+io count = 6000
+
+
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 744.612 ms
+LNS:
+addressDuration: 50485164 ms
+algorithmRunningDuration: 12677.99 ms
+
+io_count=6000, 分数: 289155920.1
+head info : [171,277335,0]
+
+io count = 7000
+
+
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1172.854 ms
+LNS:
+addressDuration: 62771719 ms
+algorithmRunningDuration: 17212.578 ms
+
+io_count=7000, 分数: 326353954.22
+head info : [89,238986,1]
+
+io count = 8000
+
+
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1513.742 ms
+LNS:
+addressDuration: 76954214 ms
+algorithmRunningDuration: 22587.909 ms
+
+io_count=8000, 分数: 340858964.56
+head info : [205,638884,0]
+
+io count = 9000
+
+
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1781.705 ms
+LNS:
+addressDuration: 89455639 ms
+algorithmRunningDuration: 28151.366 ms
+
+io_count=9000, 分数: 372252484.12
+head info : [38,680874,1]
+
+io count = 10000
+
+
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2108.056 ms
+LNS:
+addressDuration: 104559771 ms
+algorithmRunningDuration: 34234.885 ms
+
+io_count=10000, 分数: 378976413.0
+head info : [175,641034,0]
+
+io count = 1000
+
+
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 23.176 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1599470.tour
+COMMENT : Length = 1599470
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:18 2024
+TYPE : TOUR
+DIMENSION : 1000
+TOUR_SECTION
+-1
+EOF
+NAME : (null).1599470.tour
+COMMENT : Length = 1599470
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:18 2024
+TYPE : TOUR
+DIMENSION : 1000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 1/0
+Cost.min = 1599470, Cost.avg = 1599470.00, Cost.max = 1599470
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 0, Trials.avg = 0.0, Trials.max = 0
+Time.min = 2.24 sec., Time.avg = 2.24 sec., Time.max = 2.24 sec.
+Time.total = 2.24 sec.
+Best (null) solution:
+  Cost = 0_1599470
+
+addressDuration: 7096806 ms
+algorithmRunningDuration: 2243.146 ms
+
+io_count=1000, 分数: 4530798.54
+head info : [253,359496,1]
+
+io count = 1100
+
+
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 27.609 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1644129.tour
+COMMENT : Length = 1644129
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:25 2024
+TYPE : TOUR
+DIMENSION : 1100
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1644129, Cost.avg = 1644129.00, Cost.max = 1644129
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 2.62 sec., Time.avg = 2.62 sec., Time.max = 2.62 sec.
+Time.total = 6.45 sec.
+Best (null) solution:
+  Cost = 0_1644129
+
+addressDuration: 7540234 ms
+algorithmRunningDuration: 6508.129 ms
+
+io_count=1100, 分数: 2747058.71
+head info : [33,466502,0]
+
+io count = 1200
+
+
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 34.623 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1647675.tour
+COMMENT : Length = 1647675
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:32 2024
+TYPE : TOUR
+DIMENSION : 1200
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1647675, Cost.avg = 1647675.00, Cost.max = 1647675
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 2.19 sec., Time.avg = 2.19 sec., Time.max = 2.19 sec.
+Time.total = 6.68 sec.
+Best (null) solution:
+  Cost = 0_1647675
+
+addressDuration: 9117783 ms
+algorithmRunningDuration: 6734.067 ms
+
+io_count=1200, 分数: 2433869.33
+head info : [143,412276,1]
+
+io count = 1300
+
+
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 37.553 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1645973.tour
+COMMENT : Length = 1645973
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:37 2024
+TYPE : TOUR
+DIMENSION : 1300
+TOUR_SECTION
+-1
+EOF
+NAME : (null).1645973.tour
+COMMENT : Length = 1645973
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:37 2024
+TYPE : TOUR
+DIMENSION : 1300
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 1/0
+Cost.min = 1645973, Cost.avg = 1645973.00, Cost.max = 1645973
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 5.33 sec., Time.avg = 5.33 sec., Time.max = 5.33 sec.
+Time.total = 5.33 sec.
+Best (null) solution:
+  Cost = 0_1645973
+
+addressDuration: 10381626 ms
+algorithmRunningDuration: 5332.514 ms
+
+io_count=1300, 分数: 2571884.86
+head info : [276,223029,1]
+
+io count = 1400
+
+
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 44.404 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1640814.tour
+COMMENT : Length = 1640814
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:39 2024
+TYPE : TOUR
+DIMENSION : 1400
+TOUR_SECTION
+-1
+EOF
+NAME : (null).1640814.tour
+COMMENT : Length = 1640814
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:39 2024
+TYPE : TOUR
+DIMENSION : 1400
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 1/0
+Cost.min = 1640814, Cost.avg = 1640814.00, Cost.max = 1640814
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 1.36 sec., Time.avg = 1.36 sec., Time.max = 1.36 sec.
+Time.total = 1.36 sec.
+Best (null) solution:
+  Cost = 0_1640814
+
+addressDuration: 11116002 ms
+algorithmRunningDuration: 1357.451 ms
+
+io_count=1400, 分数: 1992435.49
+head info : [66,416769,1]
+
+io count = 1500
+
+
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 47.286 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1659204.tour
+COMMENT : Length = 1659204
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:50 2024
+TYPE : TOUR
+DIMENSION : 1500
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1659204, Cost.avg = 1659204.00, Cost.max = 1659204
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 3.22 sec., Time.avg = 3.22 sec., Time.max = 3.22 sec.
+Time.total = 10.40 sec.
+Best (null) solution:
+  Cost = 0_1659204
+
+addressDuration: 12454772 ms
+algorithmRunningDuration: 10469.491 ms
+
+io_count=1500, 分数: 2664735.09
+head info : [190,673304,1]
+
+io count = 1600
+
+
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 53.041 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1641612.tour
+COMMENT : Length = 1641612
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:53 2024
+TYPE : TOUR
+DIMENSION : 1600
+TOUR_SECTION
+-1
+EOF
+NAME : (null).1641612.tour
+COMMENT : Length = 1641612
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:31:53 2024
+TYPE : TOUR
+DIMENSION : 1600
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 1/0
+Cost.min = 1641612, Cost.avg = 1641612.00, Cost.max = 1641612
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 2.05 sec., Time.avg = 2.05 sec., Time.max = 2.05 sec.
+Time.total = 2.05 sec.
+Best (null) solution:
+  Cost = 0_1641612
+
+addressDuration: 13495462 ms
+algorithmRunningDuration: 2047.326 ms
+
+io_count=1600, 分数: 3322686.74
+head info : [137,115970,0]
+
+io count = 1700
+
+
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 67.181 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1673963.tour
+COMMENT : Length = 1673963
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:32:07 2024
+TYPE : TOUR
+DIMENSION : 1700
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1673963, Cost.avg = 1673963.00, Cost.max = 1673963
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 3.74 sec., Time.avg = 3.74 sec., Time.max = 3.74 sec.
+Time.total = 14.08 sec.
+Best (null) solution:
+  Cost = 0_1673963
+
+addressDuration: 14735467 ms
+algorithmRunningDuration: 14123.238 ms
+
+io_count=1700, 分数: 800957.62
+head info : [27,636594,1]
+
+io count = 1800
+
+
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 68.68 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1671613.tour
+COMMENT : Length = 1671613
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:32:23 2024
+TYPE : TOUR
+DIMENSION : 1800
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1671613, Cost.avg = 1671613.00, Cost.max = 1671613
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 3.78 sec., Time.avg = 3.78 sec., Time.max = 3.78 sec.
+Time.total = 14.83 sec.
+Best (null) solution:
+  Cost = 0_1671613
+
+addressDuration: 16394068 ms
+algorithmRunningDuration: 14915.978 ms
+
+io_count=1800, 分数: 1431430.22
+head info : [147,219492,1]
+
+io count = 1900
+
+
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 85.933 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1656960.tour
+COMMENT : Length = 1656960
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:32:41 2024
+TYPE : TOUR
+DIMENSION : 1900
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1656960, Cost.avg = 1656960.00, Cost.max = 1656960
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 4.23 sec., Time.avg = 4.23 sec., Time.max = 4.23 sec.
+Time.total = 17.08 sec.
+Best (null) solution:
+  Cost = 0_1656960
+
+addressDuration: 17849413 ms
+algorithmRunningDuration: 17112.565 ms
+
+io_count=1900, 分数: 1124314.35
+head info : [123,196434,0]
+
+io count = 2000
+
+
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 97.073 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1658665.tour
+COMMENT : Length = 1658665
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:33:02 2024
+TYPE : TOUR
+DIMENSION : 2000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1658665, Cost.avg = 1658665.00, Cost.max = 1658665
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 5.21 sec., Time.avg = 5.21 sec., Time.max = 5.21 sec.
+Time.total = 20.39 sec.
+Best (null) solution:
+  Cost = 0_1658665
+
+addressDuration: 18571265 ms
+algorithmRunningDuration: 20456.407 ms
+
+io_count=2000, 分数: 2358163.72
+head info : [209,196140,1]
+
+io count = 2500
+
+
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 153.354 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1666566.tour
+COMMENT : Length = 1666566
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:33:35 2024
+TYPE : TOUR
+DIMENSION : 2500
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1666566, Cost.avg = 1666566.00, Cost.max = 1666566
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 6.76 sec., Time.avg = 6.76 sec., Time.max = 6.76 sec.
+Time.total = 31.44 sec.
+Best (null) solution:
+  Cost = 0_1666566
+
+addressDuration: 26178902 ms
+algorithmRunningDuration: 31588.804 ms
+
+io_count=2500, 分数: 2398179.8
+head info : [175,234219,0]
+
+io count = 3000
+
+
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 217.549 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1689846.tour
+COMMENT : Length = 1689846
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:34:22 2024
+TYPE : TOUR
+DIMENSION : 3000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1689846, Cost.avg = 1689846.00, Cost.max = 1689846
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 8.55 sec., Time.avg = 8.55 sec., Time.max = 8.55 sec.
+Time.total = 44.98 sec.
+Best (null) solution:
+  Cost = 0_1689846
+
+addressDuration: 32930587 ms
+algorithmRunningDuration: 45058.964 ms
+
+io_count=3000, 分数: 1154052.16
+head info : [85,49862,0]
+
+io count = 3500
+
+
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 267.296 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1714716.tour
+COMMENT : Length = 1714716
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:35:26 2024
+TYPE : TOUR
+DIMENSION : 3500
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1714716, Cost.avg = 1714716.00, Cost.max = 1714716
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 11.47 sec., Time.avg = 11.47 sec., Time.max = 11.47 sec.
+Time.total = 61.34 sec.
+Best (null) solution:
+  Cost = 0_1714716
+
+addressDuration: 40534118 ms
+algorithmRunningDuration: 61462.682 ms
+
+io_count=3500, 分数: -1591697.7400000002
+head info : [175,487521,1]
+
+io count = 4000
+
+
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 359.336 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1702240.tour
+COMMENT : Length = 1702240
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:36:46 2024
+TYPE : TOUR
+DIMENSION : 4000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1702240, Cost.avg = 1702240.00, Cost.max = 1702240
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 12.46 sec., Time.avg = 12.46 sec., Time.max = 12.46 sec.
+Time.total = 77.50 sec.
+Best (null) solution:
+  Cost = 0_1702240
+
+addressDuration: 48519644 ms
+algorithmRunningDuration: 77645.61 ms
+
+io_count=4000, 分数: -2003178.7999999998
+head info : [198,591579,0]
+
+io count = 4500
+
+
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 438.039 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1871294.tour
+COMMENT : Length = 1871294
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:38:35 2024
+TYPE : TOUR
+DIMENSION : 4500
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1871294, Cost.avg = 1871294.00, Cost.max = 1871294
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 14.84 sec., Time.avg = 14.84 sec., Time.max = 14.84 sec.
+Time.total = 105.27 sec.
+Best (null) solution:
+  Cost = 0_1871294
+
+addressDuration: 56386192 ms
+algorithmRunningDuration: 105478.003 ms
+
+io_count=4500, 分数: -3347940.2699999996
+head info : [230,405118,0]
+
+io count = 5000
+
+
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 571.481 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1981766.tour
+COMMENT : Length = 1981766
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:40:52 2024
+TYPE : TOUR
+DIMENSION : 5000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1981766, Cost.avg = 1981766.00, Cost.max = 1981766
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 10000, Trials.avg = 10000.0, Trials.max = 10000
+Time.min = 17.48 sec., Time.avg = 17.48 sec., Time.max = 17.48 sec.
+Time.total = 130.71 sec.
+Best (null) solution:
+  Cost = 0_1981766
+
+addressDuration: 63542320 ms
+algorithmRunningDuration: 130928.495 ms
+
+io_count=5000, 分数: -11079019.5
+head info : [35,16451,1]
+
+io count = 6000
+
+
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 776.471 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).1687551.tour
+COMMENT : Length = 1687551
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:44:08 2024
+TYPE : TOUR
+DIMENSION : 6000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 1687551, Cost.avg = 1687551.00, Cost.max = 1687551
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 9390, Trials.avg = 9390.0, Trials.max = 9390
+Time.min = 20.00 sec., Time.avg = 20.00 sec., Time.max = 20.00 sec.
+Time.total = 188.28 sec.
+Best (null) solution:
+  Cost = 0_1687551
+
+addressDuration: 79081764 ms
+algorithmRunningDuration: 188468.34 ms
+
+io_count=6000, 分数: -17099500.8
+head info : [171,277335,0]
+
+io count = 7000
+
+
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1127.23 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).2967179.tour
+COMMENT : Length = 2967179
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:48:37 2024
+TYPE : TOUR
+DIMENSION : 7000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 2967179, Cost.avg = 2967179.00, Cost.max = 2967179
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 5645, Trials.avg = 5645.0, Trials.max = 5645
+Time.min = 20.00 sec., Time.avg = 20.00 sec., Time.max = 20.00 sec.
+Time.total = 256.66 sec.
+Best (null) solution:
+  Cost = 0_2967179
+
+addressDuration: 94406806 ms
+algorithmRunningDuration: 257053.524 ms
+
+io_count=7000, 分数: -23212283.36
+head info : [89,238986,1]
+
+io count = 8000
+
+
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1414.543 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).4731332.tour
+COMMENT : Length = 4731332
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 10:54:35 2024
+TYPE : TOUR
+DIMENSION : 8000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 4731332, Cost.avg = 4731332.00, Cost.max = 4731332
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 4000, Trials.avg = 4000.0, Trials.max = 4000
+Time.min = 20.01 sec., Time.avg = 20.01 sec., Time.max = 20.01 sec.
+Time.total = 343.08 sec.
+Best (null) solution:
+  Cost = 0_4731332
+
+addressDuration: 108988401 ms
+algorithmRunningDuration: 343216.746 ms
+
+io_count=8000, 分数: -30783519.36
+head info : [205,638884,0]
+
+io count = 9000
+
+
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1802.227 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).3359547.tour
+COMMENT : Length = 3359547
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 11:03:08 2024
+TYPE : TOUR
+DIMENSION : 9000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 3359547, Cost.avg = 3359547.00, Cost.max = 3359547
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 4043, Trials.avg = 4043.0, Trials.max = 4043
+Time.min = 20.00 sec., Time.avg = 20.00 sec., Time.max = 20.00 sec.
+Time.total = 495.01 sec.
+Best (null) solution:
+  Cost = 0_3359547
+
+addressDuration: 125150375 ms
+algorithmRunningDuration: 495275.916 ms
+
+io_count=9000, 分数: -68777294.88000001
+head info : [38,680874,1]
+
+io count = 10000
+
+
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2177.151 ms
+LKH_embeded:
+PROBLEM_FILE =
+NAME : (null).4398086.tour
+COMMENT : Length = 4398086
+COMMENT : Found by LKH-3 [Keld Helsgaun] Fri Oct 18 11:13:15 2024
+TYPE : TOUR
+DIMENSION : 10000
+TOUR_SECTION
+-1
+EOF
+Successes/Runs = 0/1
+Cost.min = 4398086, Cost.avg = 4398086.00, Cost.max = 4398086
+Gap.min = 0.0000%, Gap.avg = 0.0000%, Gap.max = 0.0000%
+Trials.min = 3009, Trials.avg = 3009.0, Trials.max = 3009
+Time.min = 20.01 sec., Time.avg = 20.01 sec., Time.max = 20.01 sec.
+Time.total = 585.00 sec.
+Best (null) solution:
+  Cost = 0_4398086
+
+addressDuration: 139743390 ms
+algorithmRunningDuration: 585285.071 ms
+
+io_count=10000, 分数: -83069814.2
+head info : [175,641034,0]
+
+io count = 1000
+
+
+SCAN:
+addressDuration: 7532129 ms
+algorithmRunningDuration: 20.838 ms
+Combined:
+addressDuration: 6063561 ms
+algorithmRunningDuration: 409.793 ms
+
+io_count=1000, 分数: 14881582.07
+head info : [253,359496,1]
+
+io count = 1100
+
+
+SCAN:
+addressDuration: 7801448 ms
+algorithmRunningDuration: 27.848 ms
+Combined:
+addressDuration: 6330866 ms
+algorithmRunningDuration: 490.556 ms
+
+io_count=1100, 分数: 14900914.44
+head info : [33,466502,0]
+
+io count = 1200
+
+
+SCAN:
+addressDuration: 9347904 ms
+algorithmRunningDuration: 34.008 ms
+Combined:
+addressDuration: 7286638 ms
+algorithmRunningDuration: 576.368 ms
+
+io_count=1200, 分数: 20806896.32
+head info : [143,412276,1]
+
+io count = 1300
+
+
+SCAN:
+addressDuration: 10624147 ms
+algorithmRunningDuration: 37.782 ms
+Combined:
+addressDuration: 7225287 ms
+algorithmRunningDuration: 674.966 ms
+
+io_count=1300, 分数: 34181850.34
+head info : [276,223029,1]
+
+io count = 1400
+
+
+SCAN:
+addressDuration: 11296603 ms
+algorithmRunningDuration: 44.079 ms
+Combined:
+addressDuration: 7743913 ms
+algorithmRunningDuration: 768.716 ms
+
+io_count=1400, 分数: 35719212.84
+head info : [66,416769,1]
+
+io count = 1500
+
+
+SCAN:
+addressDuration: 12711715 ms
+algorithmRunningDuration: 55.047 ms
+Combined:
+addressDuration: 8704421 ms
+algorithmRunningDuration: 874.242 ms
+
+io_count=1500, 分数: 40264197.58
+head info : [190,673304,1]
+
+io count = 1600
+
+
+SCAN:
+addressDuration: 13809778 ms
+algorithmRunningDuration: 54.037 ms
+Combined:
+addressDuration: 9356873 ms
+algorithmRunningDuration: 978.805 ms
+
+io_count=1600, 分数: 44719261.95
+head info : [137,115970,0]
+
+io count = 1700
+
+
+SCAN:
+addressDuration: 14809686 ms
+algorithmRunningDuration: 68.539 ms
+Combined:
+addressDuration: 9720251 ms
+algorithmRunningDuration: 1186.347 ms
+
+io_count=1700, 分数: 51082486.53
+head info : [27,636594,1]
+
+io count = 1800
+
+
+SCAN:
+addressDuration: 16532127 ms
+algorithmRunningDuration: 70.215 ms
+Combined:
+addressDuration: 10223938 ms
+algorithmRunningDuration: 1255.037 ms
+
+io_count=1800, 分数: 63269339.63
+head info : [147,219492,1]
+
+io count = 1900
+
+
+SCAN:
+addressDuration: 17958957 ms
+algorithmRunningDuration: 84.625 ms
+Combined:
+addressDuration: 10859933 ms
+algorithmRunningDuration: 1364.091 ms
+
+io_count=1900, 分数: 71176599.09
+head info : [123,196434,0]
+
+io count = 2000
+
+
+SCAN:
+addressDuration: 18808907 ms
+algorithmRunningDuration: 93.061 ms
+Combined:
+addressDuration: 10900354 ms
+algorithmRunningDuration: 1503.551 ms
+
+io_count=2000, 分数: 79270494.49
+head info : [209,196140,1]
+
+io count = 2500
+
+
+SCAN:
+addressDuration: 26476664 ms
+algorithmRunningDuration: 144.186 ms
+Combined:
+addressDuration: 15056063 ms
+algorithmRunningDuration: 2426.785 ms
+
+io_count=2500, 分数: 114381742.15
+head info : [175,234219,0]
+
+io count = 3000
+
+
+SCAN:
+addressDuration: 33196346 ms
+algorithmRunningDuration: 207.42 ms
+Combined:
+addressDuration: 19425973 ms
+algorithmRunningDuration: 3305.121 ms
+
+io_count=3000, 分数: 137870678.79
+head info : [85,49862,0]
+
+io count = 3500
+
+
+SCAN:
+addressDuration: 40665187 ms
+algorithmRunningDuration: 278.397 ms
+Combined:
+addressDuration: 24503046 ms
+algorithmRunningDuration: 4427.431 ms
+
+io_count=3500, 分数: 161777135.69
+head info : [175,487521,1]
+
+io count = 4000
+
+
+SCAN:
+addressDuration: 48780491 ms
+algorithmRunningDuration: 383.061 ms
+Combined:
+addressDuration: 28343657 ms
+algorithmRunningDuration: 5832.296 ms
+
+io_count=4000, 分数: 204510017.04
+head info : [198,591579,0]
+
+io count = 4500
+
+
+SCAN:
+addressDuration: 56820700 ms
+algorithmRunningDuration: 466.356 ms
+Combined:
+addressDuration: 34709487 ms
+algorithmRunningDuration: 7203.609 ms
+
+io_count=4500, 分数: 221240093.91
+head info : [230,405118,0]
+
+io count = 5000
+
+
+SCAN:
+addressDuration: 63543703 ms
+algorithmRunningDuration: 593.368 ms
+Combined:
+addressDuration: 38707166 ms
+algorithmRunningDuration: 9149.702 ms
+
+io_count=5000, 分数: 248473872.98
+head info : [35,16451,1]
+
+io count = 6000
+
+
+SCAN:
+addressDuration: 79393434 ms
+algorithmRunningDuration: 770.301 ms
+Combined:
+addressDuration: 50378245 ms
+algorithmRunningDuration: 12909.201 ms
+
+io_count=6000, 分数: 290222797.99
+head info : [171,277335,0]
+
+io count = 7000
+
+
+SCAN:
+addressDuration: 95404327 ms
+algorithmRunningDuration: 1194.362 ms
+Combined:
+addressDuration: 64291934 ms
+algorithmRunningDuration: 17879.206 ms
+
+io_count=7000, 分数: 311145137.94
+head info : [89,238986,1]
+
+io count = 8000
+
+
+SCAN:
+addressDuration: 111081517 ms
+algorithmRunningDuration: 1538.926 ms
+Combined:
+addressDuration: 76007864 ms
+algorithmRunningDuration: 23016.082 ms
+
+io_count=8000, 分数: 350253956.88
+head info : [205,638884,0]
+
+io count = 9000
+
+
+SCAN:
+addressDuration: 126827612 ms
+algorithmRunningDuration: 1869.656 ms
+Combined:
+addressDuration: 91014674 ms
+algorithmRunningDuration: 29332.603 ms
+
+io_count=9000, 分数: 356449511.46
+head info : [38,680874,1]
+
+io count = 10000
+
+
+SCAN:
+addressDuration: 142742110 ms
+algorithmRunningDuration: 2287.287 ms
+Combined:
+addressDuration: 106629563 ms
+algorithmRunningDuration: 37086.099 ms
+
+io_count=10000, 分数: 357708250.2
+
 ----------------------------------------------------
 SCAN 算法总分为4298496.14
 ----------------------------------------------------

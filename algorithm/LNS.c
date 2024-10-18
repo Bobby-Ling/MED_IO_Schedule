@@ -170,10 +170,10 @@ static void largeNeighborhoodSearch() {
 }
 
 int32_t IOScheduleAlgorithmLNS(const InputParam *input, OutputParam *output) {
-    // INITIAL_SOLUTIONS = 10;
-    // LNS_ITERATIONS = max((int)(min(input->ioVec.len, 1000)) + 10, 500);
-    // SA_INITIAL_TEMP = 1000.0;
-    // SA_COOLING_RATE = 0.995;
+    INITIAL_SOLUTIONS = 10;
+    LNS_ITERATIONS = max((int)(min(input->ioVec.len, 1000)) + 10, 500);
+    SA_INITIAL_TEMP = 1000.0;
+    SA_COOLING_RATE = 0.995;
 
     // 由于可能在动态库多次调用, 因此每次都要手动重置!!!
     currentCost = 0;
