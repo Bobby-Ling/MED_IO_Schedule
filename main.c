@@ -323,26 +323,26 @@ int main(int argc, char *argv[])
     SaveKeyMetricsToFile("./metrics.txt", &metrics);
 
     // 保存结果列表list[int]至文件, 同时cp一份至result.txt(都在当前目录)
-    char resultFileName[256] = {0};
-    char cmd[512] = {0};
-    sprintf(resultFileName, "%s.result", file);
-    FILE *resultFile = fopen(resultFileName, "w");
-    fprintf(resultFile, "[");
-    for (size_t i = 0; i < output->len; i++)
-    {
-        fprintf(resultFile, "%d", output->sequence[i]);
-        if (i != output->len-1) {
-            fprintf(resultFile, ", ");
-        }
-    }
-    fprintf(resultFile, "]");
-    fflush(resultFile);
-    sprintf(cmd, "cp %s.result result.txt; cp ../visualizer/tracing.html .", file);
-    system(cmd);
+    // char resultFileName[256] = {0};
+    // char cmd[512] = {0};
+    // sprintf(resultFileName, "%s.result", file);
+    // FILE *resultFile = fopen(resultFileName, "w");
+    // fprintf(resultFile, "[");
+    // for (size_t i = 0; i < output->len; i++)
+    // {
+    //     fprintf(resultFile, "%d", output->sequence[i]);
+    //     if (i != output->len-1) {
+    //         fprintf(resultFile, ", ");
+    //     }
+    // }
+    // fprintf(resultFile, "]");
+    // fflush(resultFile);
+    // sprintf(cmd, "cp %s.result result.txt; cp ../visualizer/tracing.html .", file);
+    // system(cmd);
 
-    // 生成可视化json
-    sprintf(cmd, "python3 ../visualizer/visualizer.py %s result.txt ../visualizer/profiling.json", file);
-    system(cmd);
+    // // 生成可视化json
+    // sprintf(cmd, "python3 ../visualizer/visualizer.py %s result.txt ../visualizer/profiling.json", file);
+    // system(cmd);
 
     free(inputParam->ioVec.ioArray);
     free(inputParam);

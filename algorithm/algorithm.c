@@ -6,8 +6,9 @@
 #include "dp.h"
 #include "greedy.h"
 #include "greedy1.h"
-#include "LKH.h"
+#include "LKH0.h"
 #include "LKH1.h"
+#include "LKH_embeded.h"
 #include "base.h"
 #include "base_SCAN.h"
 #include "LNS.h"
@@ -179,6 +180,10 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
     case 7:
         printf("IOScheduleAlgorithmLNS1:\n");
         IOScheduleAlgorithmLNS1(input, output);
+        break;
+    case 8:
+        printf("IOScheduleAlgorithmLKH_embeded:\n");
+        IOScheduleAlgorithmLKH_embeded(input, output);
         break;
     default:
     }

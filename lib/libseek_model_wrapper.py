@@ -320,10 +320,10 @@ def get_algorithm_running_duration() -> float:
 
 
 class LNS_Param:
-    INITIAL_SOLUTIONS: ctypes.c_int = ctypes.c_int.in_dll(lib, "INITIAL_SOLUTIONS")
-    LNS_ITERATIONS: ctypes.c_int = ctypes.c_int.in_dll(lib, "LNS_ITERATIONS")
-    SA_INITIAL_TEMP: ctypes.c_int = ctypes.c_int.in_dll(lib, "SA_INITIAL_TEMP")
-    SA_COOLING_RATE: ctypes.c_float = ctypes.c_float.in_dll(lib, "SA_COOLING_RATE")
+    INITIAL_SOLUTIONS: ctypes.c_int = ctypes.c_int.in_dll(lib_main, "INITIAL_SOLUTIONS")
+    LNS_ITERATIONS: ctypes.c_int = ctypes.c_int.in_dll(lib_main, "LNS_ITERATIONS")
+    SA_INITIAL_TEMP: ctypes.c_int = ctypes.c_int.in_dll(lib_main, "SA_INITIAL_TEMP")
+    SA_COOLING_RATE: ctypes.c_float = ctypes.c_float.in_dll(lib_main, "SA_COOLING_RATE")
 
 
 # %%
@@ -402,6 +402,7 @@ class IO_Schedule:
         Greedy1 = 5
         LNS = 6
         LNS1 = 7
+        LKH_embeded = 8
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path

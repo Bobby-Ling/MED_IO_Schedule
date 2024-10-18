@@ -20,6 +20,10 @@
         "algorithm.h": "c",
         "greedy.h": "c",
         "greedy1.h": "c",
-        "resource.h": "c"
+        "resource.h": "c",
+        "lkh.h": "c",
+        "lkh_embeded.h": "c",
+        "public.h": "c",
+        "lkh0.h": "c"
     }
 }
