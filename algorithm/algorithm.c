@@ -150,40 +150,49 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
     switch (METHOD)
     {
     case 0:
-        printf("IOScheduleAlgorithmGreedy:\n");
+        // printf("IOScheduleAlgorithmGreedy:\n");
         IOScheduleAlgorithmGreedy(input, output);
         break;
     case 1:
-        printf("IOScheduleAlgorithmLKH1:\n");
+        // printf("IOScheduleAlgorithmLKH1:\n");
         IOScheduleAlgorithmLKH1(input, output);
         break;
     case 2:
-        printf("IOScheduleAlgorithmLKH:\n");
+        // printf("IOScheduleAlgorithmLKH:\n");
         IOScheduleAlgorithmLKH(input, output);
         break;
     case 3:
-        printf("IOScheduleAlgorithmBase:\n");
+        // printf("IOScheduleAlgorithmBase:\n");
         IOScheduleAlgorithmBase(input, output);
         break;
     case 4:
-        printf("IOScheduleAlgorithmElevator:\n");
+        // printf("IOScheduleAlgorithmElevator:\n");
         IOScheduleAlgorithmElevator(input, output);
         break;
     case 5:
-        printf("IOScheduleAlgorithmGreedy1:\n");
+        // printf("IOScheduleAlgorithmGreedy1:\n");
         IOScheduleAlgorithmGreedy1(input, output);
         break;
     case 6:
-        printf("IOScheduleAlgorithmLNS:\n");
+        // printf("IOScheduleAlgorithmLNS:\n");
         IOScheduleAlgorithmLNS(input, output);
         break;
     case 7:
-        printf("IOScheduleAlgorithmLNS1:\n");
+        // printf("IOScheduleAlgorithmLNS1:\n");
         IOScheduleAlgorithmLNS1(input, output);
         break;
     case 8:
-        printf("IOScheduleAlgorithmLKH_embeded:\n");
+        // printf("IOScheduleAlgorithmLKH_embeded:\n");
         IOScheduleAlgorithmLKH_embeded(input, output);
+        break;
+    case 9:
+        // printf("IOScheduleAlgorithmLKH_embeded & IOScheduleAlgorithmLNS:\n");
+        if (input->ioVec.len < 800) {
+            IOScheduleAlgorithmLKH_embeded(input, output);
+        }
+        else {
+            IOScheduleAlgorithmLNS(input, output);
+        }
         break;
     default:
     }

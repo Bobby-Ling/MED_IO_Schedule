@@ -403,6 +403,7 @@ class IO_Schedule:
         LNS = 6
         LNS1 = 7
         LKH_embeded = 8
+        Combined = 9
 
     def run(self, method: METHOD):
         """运行指定算法, 并更新self.path

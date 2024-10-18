@@ -1,14 +1,14 @@
 #include "LKH_embeded.h"
-#include "../lib/LKH/SRC/INCLUDE/LKH.h"cmake
+#include "../lib/LKH/SRC/INCLUDE/LKH.h"
+#include "../lib/LKH/SRC/INCLUDE/Heap.h"
 // ERXT
 #include "../lib/LKH/SRC/INCLUDE/Genetic.h"
-// #include "LKH.h"
-// #include "algorithm.h"
+#include "LKH0.h"
 
 static const Context *ctx = NULL;
 static int *path = NULL;
 
-void ReadParameters_embeded() {
+static void ReadParameters_embeded() {
     ProblemFileName = PiFileName = InputTourFileName =
         OutputTourFileName = TourFileName = 0;
     CandidateFiles = MergeTourFiles = 0;
@@ -99,6 +99,8 @@ void ReadParameters_embeded() {
     MaxPopulationSize = 10;
     // MTSP_OBJECTIVE = MINSUM
     MTSPObjective = MINSUM;
+    // TRACE_LEVEL = 0
+    TraceLevel = 0;
     // MAX_CANDIDATES = 6
     MaxCandidates = 6;
     // MAX_TRIALS = 10000
