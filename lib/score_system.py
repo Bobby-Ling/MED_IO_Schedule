@@ -6,7 +6,7 @@ import sys
 import time
 import psutil
 import os
-from libseek_model_wrapper import IO_Schedule
+from libseek_model_wrapper import IO_Schedule, LNS_Param
 from pathlib import Path
 # 添加上一级目录到 sys.path
 sys.path.append(str(Path(__file__).resolve().parent.parent))
@@ -383,10 +383,10 @@ def run_test():
     # 考虑一般情况，io在前100%，随机分布，长度随机
     io_counts: list[int] = np.concatenate(
         [
-            np.arange(10, 1000, 5),
-            # np.arange(1000, 2000, 100),
-            # np.arange(2000, 5000, 500),
-            # np.arange(5000, 10001, 1000),
+            # np.arange(10, 1000, 5),
+            np.arange(1000, 2000, 100),
+            np.arange(2000, 5000, 500),
+            np.arange(5000, 10001, 1000),
         ]
     ).tolist()
     # io_counts: list[int] = [10, 50, 100, 1000, 5000, 10000]
@@ -399,6 +399,140 @@ def run_test():
         print("----------------------------------------------------\n")
 
     visualize_results(results, io_counts)
+
+
+# %%
+import itertools
+
+
+class LNSParamOptimizer:
+    def __init__(self):
+        self.param_ranges: dict[str, list[int]] = {
+            LNS_Param.get_sym_name(LNS_Param.INITIAL_SOLUTIONS): list(range(5, 21, 5)),
+            LNS_Param.get_sym_name(LNS_Param.LNS_ITERATIONS): list(
+                range(100, 1001, 100)
+            ),
+            LNS_Param.get_sym_name(LNS_Param.SA_INITIAL_TEMP): list(
+                range(500, 1501, 100)
+            ),
+            LNS_Param.get_sym_name(LNS_Param.SA_COOLING_RATE): [0.99, 0.995, 0.999],
+        }
+        self.optimization_history = []
+
+    def generate_combinations(self):
+        keys, values = zip(*self.param_ranges.items())
+        for combination in itertools.product(*values):
+            yield dict(zip(keys, combination))
+
+    def optimize(self, evaluation_function):
+        best_params = None
+        best_score = float("-inf")
+
+        for params in self.generate_combinations():
+            score = evaluation_function(params)
+            self.optimization_history.append((params, score))
+            if score > best_score:
+                best_score = score
+                best_params = params
+
+        return best_params, best_score
+
+    def visualize_optimization(self):
+        # 将优化历史按得分排序
+        sorted_history = sorted(self.optimization_history, key=lambda x: x[1])
+
+        # 提取参数和得分
+        params = [str(h[0]) for h in sorted_history]
+        scores = [h[1] for h in sorted_history]
+
+        # 创建图表
+        plt.figure(figsize=(12, 6))
+        plt.plot(range(len(scores)), scores, marker="o")
+        plt.title("LNS Parameter Optimization Progress")
+        plt.xlabel("Iteration")
+        plt.ylabel("Score")
+        plt.xticks(rotation=45, ha="right")
+        plt.tight_layout()
+
+        # 显示最佳参数
+        best_params, best_score = max(self.optimization_history, key=lambda x: x[1])
+        plt.annotate(
+            f"Best score: {best_score:.2f}\nParams: {best_params}",
+            xy=(len(scores) - 1, best_score),
+            xytext=(len(scores) - 1, best_score + 1),
+            arrowprops=dict(facecolor="black", shrink=0.05),
+        )
+
+        plt.show()
+
+    def visualize_param_impact(self):
+        param_scores = {param: [] for param in self.param_ranges.keys()}
+
+        for params, score in self.optimization_history:
+            for param, value in params.items():
+                param_scores[param].append((value, score))
+
+        fig, axs = plt.subplots(2, 2, figsize=(15, 15))
+        fig.suptitle("Parameter Impact on Optimization Score")
+
+        for (param, scores), ax in zip(param_scores.items(), axs.ravel()):
+            x = [s[0] for s in scores]
+            y = [s[1] for s in scores]
+            ax.scatter(x, y)
+            ax.set_title(f"{param.name} Impact")
+            ax.set_xlabel(param.name)
+            ax.set_ylabel("Score")
+
+        plt.tight_layout()
+        plt.show()
+
+
+# 示例使用
+def evaluate_lns(params: dict[str, list[int]]):
+    METHOD = IO_Schedule.METHOD
+    methods = [
+        METHOD.LNS,
+        # METHOD.Combined,
+    ]
+    # 考虑一般情况，io在前100%，随机分布，长度随机
+    io_counts: list[int] = np.concatenate(
+        [
+            np.arange(10, 1000, 20),
+            # np.arange(1000, 2000, 100),
+            # np.arange(2000, 5000, 500),
+            # np.arange(5000, 10001, 1000),
+        ]
+    ).tolist()
+    LNS_Param.INITIAL_SOLUTIONS.value = params[
+        LNS_Param.get_sym_name(LNS_Param.INITIAL_SOLUTIONS)
+    ]
+    LNS_Param.LNS_ITERATIONS.value = params[
+        LNS_Param.get_sym_name(LNS_Param.LNS_ITERATIONS)
+    ]
+    LNS_Param.SA_INITIAL_TEMP = params[
+        LNS_Param.get_sym_name(LNS_Param.SA_INITIAL_TEMP)
+    ]
+    LNS_Param.SA_COOLING_RATE.value = params[
+        LNS_Param.get_sym_name(LNS_Param.SA_COOLING_RATE)
+    ]
+    results = run_method_in_batch(methods, io_counts)
+    method_result = results[METHOD.LNS]
+    method_total_score = sum(io_result.score for io_result in method_result.values())
+    return -method_total_score
+
+
+def opt_LNS():
+    # 使用示例
+    optimizer = LNSParamOptimizer()
+    best_params, best_score = optimizer.optimize(evaluate_lns)
+    print(f"Best parameters: {best_params}")
+    print(f"Best score: {best_score}")
+
+    # 可视化优化过程
+    optimizer.visualize_optimization()
+
+    # 可视化参数影响
+    optimizer.visualize_param_impact()
 
 
 # %%
@@ -435,6 +569,8 @@ def test_scorer():
 if __name__ == "__main__":
     # test_scorer()
     # judge()
-    run_test()
+    # run_test()
+    opt_LNS()
+    pass
 
 # %%

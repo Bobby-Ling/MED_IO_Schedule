@@ -325,6 +325,13 @@ class LNS_Param:
     SA_INITIAL_TEMP: ctypes.c_int = ctypes.c_int.in_dll(lib_main, "SA_INITIAL_TEMP")
     SA_COOLING_RATE: ctypes.c_float = ctypes.c_float.in_dll(lib_main, "SA_COOLING_RATE")
 
+    @classmethod
+    def get_sym_name(cls, variable):
+        for name in cls.__annotations__:
+            if variable is getattr(cls, name):
+                return name
+        return None
+
 
 # %%
 import os
