@@ -612,22 +612,22 @@ static void WriteTour_embeded(char *FileName, int *Tour, GainType Cost) {
         //         FullFileName);
     // TourFile = fopen(FullFileName, "w");
     // TourFile = fopen(FullFileName, "w");
-    if (CurrentPenalty == 0) {
-        fprintf(TourFile, "NAME : %s." GainFormat ".tour\n", Name, Cost);
-        fprintf(TourFile, "COMMENT : Length = " GainFormat "\n", Cost);
-    }
-    else {
-        fprintf(TourFile, "NAME : %s." GainFormat "_" GainFormat ".tour\n",
-                Name, CurrentPenalty, Cost);
-        fprintf(TourFile,
-                "COMMENT : Cost = " GainFormat "_" GainFormat "\n",
-                CurrentPenalty, Cost);
-    }
-    fprintf(TourFile, "COMMENT : Found by LKH-3 [Keld Helsgaun] %s",
-            ctime(&Now));
-    fprintf(TourFile, "TYPE : TOUR\n");
-    fprintf(TourFile, "DIMENSION : %d\n", DimensionSaved);
-    fprintf(TourFile, "TOUR_SECTION\n");
+    // if (CurrentPenalty == 0) {
+    //     fprintf(TourFile, "NAME : %s." GainFormat ".tour\n", Name, Cost);
+    //     fprintf(TourFile, "COMMENT : Length = " GainFormat "\n", Cost);
+    // }
+    // else {
+    //     fprintf(TourFile, "NAME : %s." GainFormat "_" GainFormat ".tour\n",
+    //             Name, CurrentPenalty, Cost);
+    //     fprintf(TourFile,
+    //             "COMMENT : Cost = " GainFormat "_" GainFormat "\n",
+    //             CurrentPenalty, Cost);
+    // }
+    // fprintf(TourFile, "COMMENT : Found by LKH-3 [Keld Helsgaun] %s",
+    //         ctime(&Now));
+    // fprintf(TourFile, "TYPE : TOUR\n");
+    // fprintf(TourFile, "DIMENSION : %d\n", DimensionSaved);
+    // fprintf(TourFile, "TOUR_SECTION\n");
 
     n = DimensionSaved;
     for (i = 1; i < n && Tour[i] != MTSPDepot; i++);
@@ -653,7 +653,7 @@ static void WriteTour_embeded(char *FileName, int *Tour, GainType Cost) {
         //         fprintf(TourFile, "%d\n", NodeSet[a].Path[b][k]);
         // }
     }
-    fprintf(TourFile, "-1\nEOF\n");
+    // fprintf(TourFile, "-1\nEOF\n");
     // fclose(TourFile);
     // free(FullFileName);
     // if (TraceLevel >= 1)

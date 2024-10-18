@@ -1,14 +1,14 @@
 #include "LKH.h"
 
 /*
- * The WriteTour function writes a tour to file. The tour 
- * is written in TSPLIB format to file FileName. 
- * 
+ * The WriteTour function writes a tour to file. The tour
+ * is written in TSPLIB format to file FileName.
+ *
  * The tour is written in "normal form": starting at node 1,
  * and continuing in direction of its lowest numbered
  * neighbor.
- * 
- * Nothing happens if FileName is 0. 
+ *
+ * Nothing happens if FileName is 0.
  */
 
 static int Best_CTSP_D_Direction(int *Tour);
@@ -60,7 +60,7 @@ void WriteTour(char *FileName, int *Tour, GainType Cost)
         Forward = Best_CTSP_D_Direction(Tour);
     for (j = 1; j <= n; j++) {
         if ((a = Tour[i]) <= n)
-            fprintf(TourFile, "%d\n", 
+            fprintf(TourFile, "%d\n",
                     ProblemType != STTSP ? a : NodeSet[a].OriginalId);
         if (Forward) {
             if (++i > n)
@@ -81,8 +81,8 @@ void WriteTour(char *FileName, int *Tour, GainType Cost)
 }
 
 /*
- * The FullName function returns a copy of the string Name where all 
- * occurrences of the character '$' have been replaced by Cost.        
+ * The FullName function returns a copy of the string Name where all
+ * occurrences of the character '$' have been replaced by Cost.
  */
 
 char *FullName(char *Name, GainType Cost)
