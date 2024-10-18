@@ -570,8 +570,8 @@ static void ReadProblem_embeded() {
         PrintParameters();
     }
     else
-        printff("PROBLEM_FILE = %s\n",
-                ProblemFileName ? ProblemFileName : "");
+        // printff("PROBLEM_FILE = %s\n",
+                // ProblemFileName ? ProblemFileName : "");
     // fclose(ProblemFile);
     if (InitialTourFileName)
         ReadTour(InitialTourFileName, &InitialTourFile);
