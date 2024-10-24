@@ -186,6 +186,7 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
         IOScheduleAlgorithmLKH_embeded(input, output);
         break;
     case 9:
+    default:
         // printf("IOScheduleAlgorithmLKH_embeded & IOScheduleAlgorithmLNS:\n");
         if (input->ioVec.len < 800) {
             IOScheduleAlgorithmLKH_embeded(input, output);
@@ -194,7 +195,6 @@ int32_t IOScheduleAlgorithm(const InputParam *input, OutputParam *output, int ME
             IOScheduleAlgorithmLNS(input, output);
         }
         break;
-    default:
     }
     gettimeofday(&end, NULL);  // 记录结束时间
     long seconds, useconds;    // 秒数和微秒数
